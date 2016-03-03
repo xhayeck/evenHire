@@ -6,11 +6,11 @@ Desc
 Desc
 
 ## Getting Started
-Npm is used to install dependencies, which are stored in node_modules. The Node/Express server connects to a remote database. Before running locally, be sure to run:
+Npm is used to install dependencies, which are stored in node_modules. The Node/Express server connects to a remote database, and the default gulp task starts up the server and watches for file changes. Before running locally, be sure to run:
 ```
 npm install
 npm install gulp -g
-nodemon server.js
+gulp
 ```
 
 ## Technologies Utilized
@@ -20,10 +20,10 @@ This application uses AngularJS for rendering the different views and Node.js, E
 - Bullet
 
 ## Git Workflow
-Please refer to the [CONTRIBUTING.md](documentation/CONTRIBUTING.md) file to see our git workflow.
+Please refer to the [CONTRIBUTING.md](docs/CONTRIBUTING.md) file to see our git workflow.
 
 ## Style Guide
-Please refer to the [STYLE-GUIDE.md](documentation/STYLE-GUIDE.md) file to see our style guide.
+Please refer to the [STYLE-GUIDE.md](docs/STYLE-GUIDE.md) file to see our style guide.
 
 ## Testing
 ```
@@ -34,17 +34,13 @@ karma start
 
 ## Resources
 - [Angular](https://docs.angularjs.org/guide)
-- [Zip Code API](https://www.zipcodeapi.com/)
-- [Google Maps API](https://developers.google.com/maps/documentation/javascript/)
-- [Firebase](https://www.firebase.com/docs/)
-- [ng-flow](https://github.com/flowjs/ng-flow)
 
 ## Authors
 
-Thomas | [Github](https://github.com/collinadams)
+Thomas Sorensen | [Github](https://github.com/tps-80)
 
-Xavier | [Github](https://github.com/jeehaepark)
+Xavier Barroso | [Github](https://github.com/xhayeck)
 
-Darko | [Github](https://github.com/michaelserna)
+Darko Gjorgoski | [Github](https://github.com/darko7)
 
 Alice Kao | [Github](https://github.com/alicekao)
