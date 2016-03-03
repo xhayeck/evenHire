@@ -1,13 +1,28 @@
 var gulp = require('gulp');
-
 //Include our plugins
-var clean = require('gulp-clean');
+var browserSync = require('browser-sync');
+var reload = browserSync.create();
 var concat = require('gulp-concat');
 var cssmin = require('gulp-cssmin');
+var del = require('del');
 var jshint = require('gulp-jshint');
+var nodemon = require('gulp-nodemon');
 var rename = require('gulp-rename');
 var sass = require('gulp-sass');
 var uglify = require('gulp-uglify');
+
+gulp.task('browserSync', function() {
+  browserSync({
+    server: {
+          baseDir: './dist/'
+        },
+    port: 8000,
+    files: [
+      'dist/**/*.*'
+    ]
+  });
+  gulp.watch("./dist", reload);
+});
 
 //Lint task (need to enter .js source)
 gulp.task('lint', function() {
@@ -17,34 +32,45 @@ gulp.task('lint', function() {
 });
 
 //Compile our Sass into CSS (need to enter .scss source)
-gulp.task('styles', ['clean'], function() {
-  return gulp.src('assets/styles/*.scss')
+gulp.task('styles', function() {
+  return gulp.src('./assets/styles/*.scss')
     .pipe(sass())
     .pipe(cssmin())
     .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest('dist/styles/'));
+    .pipe(gulp.dest('./dist/styles/'));
 });
 
 //Concatenante and minify JS
-gulp.task('scripts', ['clean'], function() {
-  return gulp.src('')
-    .pipe(concat('all.js'))
-    .pipe(gulp.dest('dist/'))
-    .pipe(rename('all.min.js'))
+gulp.task('scripts', function() {
+  return gulp.src('./app/**/*.js')
+    .pipe(concat('./all.js'))
+    .pipe(gulp.dest('./dist/'))
+    .pipe(rename('./all.min.js'))
     .pipe(uglify())
-    .pipe(gulp.dest('dist/'));
+    .pipe(gulp.dest('./dist/'));
+});
+
+//Copys index.html file to dist folder
+gulp.task('copy-html', function() {
+  return gulp.src('./index.html')
+    .pipe(gulp.dest('./dist/'));
 });
 
 //Clean the dist folder
 gulp.task('clean', function() {
-  return gulp.src('dist/')
-    .pipe(clean());
+  return del(['./dist/']);
+});
+
+// start our node server using nodemon
+gulp.task('serve', function() {
+  nodemon({script: 'server.js', ignore: 'node_modules/**/*.js'});
 });
 
 //Runs these tasks everytime there is a change
 gulp.task('watch', function() {
-  gulp.watch('', ['lint', 'scripts']);
-  gulp.watch('./assets/styles/*.scss', ['styles']);
+  gulp.watch('./app/**/*.js', ['lint', 'scripts']);
+  gulp.watch('assets/styles/*.scss', ['styles']);
+  gulp.watch('index.html', ['copy-html']);
 });
 
-gulp.task('default', ['lint', 'styles', 'scripts', 'watch']);
+gulp.task('default', ['lint', 'styles', 'scripts', 'copy-html', 'watch', 'serve']);

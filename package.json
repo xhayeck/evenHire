@@ -1,5 +1,5 @@
 {
-  "name": "tdax",
+  "name": "evenHire",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,23 +8,28 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tdax/tdax.git"
+    "url": "git+https://github.com/tdax/evenHire.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/tdax/tdax/issues"
+    "url": "https://github.com/tdax/evenHire/issues"
   },
-  "homepage": "https://github.com/tdax/tdax#readme",
+  "homepage": "https://github.com/tdax/evenHire#readme",
   "devDependencies": {
+    "browser-sync": "^2.11.1",
+    "del": "^2.2.0",
     "gulp": "^3.9.1",
-    "gulp-clean": "^0.3.1",
     "gulp-concat": "^2.6.0",
     "gulp-cssmin": "^0.1.7",
     "gulp-jshint": "^2.0.0",
+    "gulp-nodemon": "^2.0.6",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.2.0",
     "gulp-uglify": "^1.5.3",
     "jshint": "^2.9.1"
+  },
+  "dependencies": {
+    "express": "^4.13.4"
   }
 }
