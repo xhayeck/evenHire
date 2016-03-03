@@ -16,7 +16,7 @@
     "url": "https://github.com/tdax/evenHire/issues"
   },
   "engines": {
-    "node": "4.1.1",
+    "node": "5.4.1",
     "npm": "2.1.x"
   },
   "homepage": "https://github.com/tdax/evenHire#readme",
