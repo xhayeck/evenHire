@@ -11,6 +11,7 @@ var rename = require('gulp-rename');
 var sass = require('gulp-sass');
 var uglify = require('gulp-uglify');
 
+//Used to refresh the browser on a change, not used right now
 gulp.task('browserSync', function() {
   browserSync({
     server: {
@@ -56,7 +57,7 @@ gulp.task('copy-html', function() {
     .pipe(gulp.dest('./dist/'));
 });
 
-//Clean the dist folder
+//Clean the dist folder, not used right now
 gulp.task('clean', function() {
   return del(['./dist/']);
 });
