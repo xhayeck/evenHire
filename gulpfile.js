@@ -64,7 +64,7 @@ gulp.task('clean', function() {
 
 // start our node server using nodemon
 gulp.task('serve', function() {
-  nodemon({script: 'server.js', ignore: 'node_modules/**/*.js'});
+  nodemon({script: 'index.js', ignore: 'node_modules/**/*.js'});
 });
 
 //Runs these tasks everytime there is a change
