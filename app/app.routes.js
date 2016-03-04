@@ -11,28 +11,28 @@ angular.module('evenhire',[
     $urlRouterProvider.otherwise('/');
     $stateProvider
       .state('home', {
-        url: '/',
-        templateUrl: 'home/homeView.html',
+        url: '/home',
+        templateUrl: 'homeView.html',
         controller: 'homeController'
       })
       .state('allJobs', {
         url: '/allJobs',
-        templateUrl: 'allJobs/allJobs.html',
+        templateUrl: 'allJobsView.html',
         controller: 'allJobsController'
       })
       .state('login', {
         url: '/login',
-        templateUrl: 'login/loginView.html',
+        templateUrl: 'loginView.html',
         controller: 'loginController'
       })
       .state('recruiters', {
         url: '/recruiters',
-        templateUrl: 'recruiters/recruitersView.html',
+        templateUrl: 'recruitersView.html',
         controller: 'recruitersController'
       })
       .state('createAccount', {
         url: '/createAccount',
-        templateUrl: 'createAccount/createAccountView.html',
+        templateUrl: 'createAccountView.html',
         controller: 'createAccountController'
       })
 
