@@ -1,6 +1,7 @@
-<div ng-controller="recruiterView">
+<div>
   <h1>Welcome Uber!</h1>
-  <section ng-repeat="findJobs"></section>
-  <section ng-repeat="findApplicants"></section>
+  <section ng-repeat="findJobs()">
+    <section ng-repeat="findApplicants()"></section>
+    </section>
   </section>
 </div>

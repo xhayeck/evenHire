@@ -1,13 +1,13 @@
-angular.module('evenHire.recruiterView', [])
+angular.module('evenhire.recruiters', [])
 
-.controller('recruiterView', function($scope) {
+.controller('recruitersController', [$scope, function ($scope) {
 
-  $scope.findJobs = function() {
-
-  };
-
-  $scope.findApplicants = function() {
+  $scope.findJobs = function () {
 
   };
 
-});
+  $scope.findApplicants = function () {
+
+  };
+
+}]);
