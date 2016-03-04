@@ -39,7 +39,7 @@ karma start
 
 Thomas Sorensen | [Github](https://github.com/tps-80)
 
-Xavier Barroso | [Github](https://github.com/xhayeck)
+Xavier Hayeck | [Github](https://github.com/xhayeck)
 
 Darko Gjorgoski | [Github](https://github.com/darko7)
 
