@@ -1,23 +1,12 @@
 //handles setup of app, loads in angular dependencies
 // angular.module('evenhire',[])
 //routes and route configuration
-<<<<<<< 0c366ec5b2ab4607402a0c880dca1e2fc0b705e4
-angular.module('evenhire',[])
-
-  .config(function($stateProvider, $urlRouterProvider) {
-    $stateProvider
-      .state('', {
-
-      })
-      .state('', {
-
-      })
-      .state('', {
-
-=======
 angular.module('evenhire',[
   'evenhire.login',
-  'evenhire.'
+  'evenhire.createAccount',
+  'evenhire.home',
+  'evenhire.recruiters',
+  'evenhire.allJobs',
   'ui.router'])
 
   .config(function($stateProvider, $urlRouterProvider) {
@@ -47,12 +36,17 @@ angular.module('evenhire',[
         url: '/createAccount',
         templateUrl: 'createAccount/createAccountView.html',
         controller: 'createAccountController'
->>>>>>> [feat] Completed routes
       })
 
 
   })
 
+angular.module('evenhire.createAccount', [])
+  .controller('createAccountController', [$scope, function($scope) {
+    $scope.testFunc = function() {
+      console.log('inside createAccount controller');
+    }
+  }])
 //Controller for home
 
 angular.module('evenhire.login', [])
@@ -75,13 +69,4 @@ angular.module('evenhire.recruiters', [])
 
   };
 
-<<<<<<< 0c366ec5b2ab4607402a0c880dca1e2fc0b705e4
 }]);
-=======
-angular.module('evenhire.createAccount', [])
-  .controller('createAccountController', [$scope, function($scope) {
-    $scope.testFunc = function() {
-      console.log('inside createAccount controller');
-    }
-  }])
->>>>>>> [feat] Completed routes
