@@ -5,10 +5,9 @@ angular.module('evenhire.applicantAccCre', [])
   $scope.applicant = {
     firstName: 'example1',
     lastName: 'example2',
-    companyName: 'example3',
-    username: 'example4',
-    email: 'example5',
-    password: 'example6'
+    username: 'example3',
+    email: 'example4',
+    password: 'example5'
   };
 
   $scope.sendApplicantInfo = function () {
