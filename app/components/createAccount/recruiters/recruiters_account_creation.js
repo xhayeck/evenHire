@@ -1,6 +1,6 @@
 angular.module('evenhire.recruitersAccCre', [])
 
-.controller('', ['$scope', '$state', function ($scope, $state) {
+.controller('recruiterCreation', ['$scope', '$state', function ($scope, $state) {
 
   $scope.company = {
     firstName: 'example1',
