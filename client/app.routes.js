@@ -12,29 +12,29 @@ angular.module('evenhire',[
     $stateProvider
       .state('home', {
         url: '/home',
-        templateUrl: 'homeView.html',
+        templateUrl: 'components/home/homeView.html',
         controller: 'homeController'
       })
       .state('allJobs', {
         url: '/allJobs',
-        templateUrl: 'allJobsView.html',
+        templateUrl: 'components/allJobs/allJobsView.html',
         controller: 'allJobsController'
       })
       .state('login', {
         url: '/login',
-        templateUrl: 'loginView.html',
+        templateUrl: 'components/login/loginView.html',
         controller: 'loginController'
       })
       .state('recruiters', {
         url: '/recruiters',
-        templateUrl: 'recruitersView.html',
+        templateUrl: 'components/recruitersView.html',
         controller: 'recruitersController'
       })
       .state('createAccount', {
         url: '/createAccount',
-        templateUrl: 'createAccountView.html',
+        templateUrl: './../components/createAccountView.html',
         controller: 'createAccountController'
-      })
+      });
 
 
-  })
+  });
