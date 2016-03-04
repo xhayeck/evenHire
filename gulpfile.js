@@ -43,7 +43,7 @@ gulp.task('styles', function() {
 
 //Concatenante and minify JS
 gulp.task('scripts', function() {
-  return gulp.src(['./client/**/*.js', '!./client/assets/libs/**/*.js'])
+  return gulp.src(['./client/**/*.js', '!./client/dist/**/*.js', '!./client/assets/libs/**/*.js'])
     .pipe(concat('./all.js'))
     .pipe(gulp.dest('./client/dist/'));
     // .pipe(rename('./all.min.js'))
@@ -74,4 +74,5 @@ gulp.task('watch', function() {
   gulp.watch('index.html', ['copy-html']);
 });
 
+gulp.task('build', ['styles', 'scripts']);
 gulp.task('default', ['lint', 'styles', 'scripts', 'watch', 'serve']);
