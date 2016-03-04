@@ -34,32 +34,32 @@ gulp.task('lint', function() {
 
 //Compile our Sass into CSS (need to enter .scss source)
 gulp.task('styles', function() {
-  return gulp.src('./assets/styles/*.scss')
+  return gulp.src('./client/assets/styles/*.scss')
     .pipe(sass())
     .pipe(cssmin())
     .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest('./dist/styles/'));
+    .pipe(gulp.dest('./client/dist/styles/'));
 });
 
 //Concatenante and minify JS
 gulp.task('scripts', function() {
-  return gulp.src('./app/**/*.js')
+  return gulp.src(['./client/**/*.js', '!./client/assets/libs/**/*.js'])
     .pipe(concat('./all.js'))
-    .pipe(gulp.dest('./dist/'))
-    .pipe(rename('./all.min.js'))
-    .pipe(uglify())
-    .pipe(gulp.dest('./dist/'));
+    .pipe(gulp.dest('./client/dist/'));
+    // .pipe(rename('./all.min.js'))
+    // .pipe(uglify())
+    // .pipe(gulp.dest('./client/dist/'));
 });
 
 //Copys index.html file to dist folder
-gulp.task('copy-html', function() {
-  return gulp.src('./index.html')
-    .pipe(gulp.dest('./dist/'));
-});
+// gulp.task('copy-html', function() {
+//   return gulp.src('./index.html')
+//     .pipe(gulp.dest('./dist/'));
+// });
 
 //Clean the dist folder, not used right now
 gulp.task('clean', function() {
-  return del(['./dist/']);
+  return del(['client/dist/']);
 });
 
 // start our node server using nodemon
@@ -69,9 +69,9 @@ gulp.task('serve', function() {
 
 //Runs these tasks everytime there is a change
 gulp.task('watch', function() {
-  gulp.watch('./app/**/*.js', ['lint', 'scripts']);
-  gulp.watch('assets/styles/*.scss', ['styles']);
+  gulp.watch('./client/**/*.js', ['lint', 'scripts']);
+  gulp.watch('./client/**/*.scss', ['styles']);
   gulp.watch('index.html', ['copy-html']);
 });
 
-gulp.task('default', ['lint', 'styles', 'scripts', 'copy-html', 'watch', 'serve']);
+gulp.task('default', ['lint', 'styles', 'scripts', 'watch', 'serve']);

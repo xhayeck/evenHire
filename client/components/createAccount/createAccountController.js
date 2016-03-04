@@ -4,5 +4,5 @@ angular.module('evenhire.createAccount', [])
 
     $scope.testFunc = function() {
       console.log('inside createAccount controller');
-    }
-  }])
+    };
+  }]);
