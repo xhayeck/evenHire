@@ -11,7 +11,7 @@ angular.module('evenhire.recruitersAccCre', [])
     password: 'example6'
   };
 
-  $scope.sendInfo = function () {
+  $scope.sendRecruitInfo = function () {
     //send $scope.company to router
   };
 
