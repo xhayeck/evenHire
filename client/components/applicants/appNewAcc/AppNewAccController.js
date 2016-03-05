@@ -1,30 +1,13 @@
 angular.module('evenhire.appNewAcc', [])
 
-  .controller('AppNewAccController', ['$scope', '$state','$http', function ($scope, $state, $http) {
+  .controller('AppNewAccController', ['$scope', '$state','$http','Applicant', function ($scope, $state, $http, Applicant) {
 
     $scope.applicant = {};
 
-    $scope.sendApplicantInfo = function() {
-      //send $scope.company to router
-      return $http({
-      method: 'POST',
-      url: 'api/applicants/signup',
-      data: $scope.applicant
-      })
-      .then(function(data) {
-        console.log(data);
-      }, function errorCallback(response) {
-        console.log(response)
-      });
-
+    $scope.createAccount = function() {
+      //send form data to the server at api/applicants/login
+      Applicant.signup($scope.applicant);
     };
-
-    $scope.isEnter = function(envent, func, arg){
-    console.log("listening to keys");
-    if(envent.keyCode===13){
-      func.apply(null, arg);
-      }
-    }
 
   }]);
 

@@ -1,7 +1,7 @@
 
 angular.module('evenhire.allJobs', [])
 
-  .controller('AllJobsController', ['$scope', '$state','$uibModal', '$log', function ($scope, $state, $uibModal, $log) {
+  .controller('AllJobsController', ['$scope', '$state', function ($scope, $state) {
     $scope.jobs = {
       uber : 'driver',
       google : 'front-end'
