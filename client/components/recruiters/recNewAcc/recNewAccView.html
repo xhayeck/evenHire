@@ -4,7 +4,7 @@
     <label>Username: <input type="text" name="username" ng-model="recruiter.username" required></label><br>
     <label>Password: <input type="text" name="password" ng-model="recruiter.password"  required></label><br>
     <label>Company Name: <input type="text" name="companyName" ng-model="recruiter.companyName" required></label><br>
-    <label>Email: <input type="text" name="email" ng-model="recruiter.email" required></label><br>
+    <label>Email: <input type="text" name="email" ng-model="recruiter.email" required ng-keypress="isEnter($event,createRecAcc,[])"></label><br>
     <input type="submit" ng-click="createRecAcc()"></button>
   </form>
 </div>
