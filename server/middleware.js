@@ -5,6 +5,6 @@ module.exports = function(app, express) {
   app.use('/api/applicants', applicantRouter);
   app.use('/api/recruiters', recruitersRouter);
 
-  require('applicants/applicantsRoutes.js')(applicantRouter);
-  require('recruiters/recruitersRoutes.js')(recruiters);
+  require('./applicants/applicantsRoutes.js')(applicantRouter);
+  require('./recruiters/recruitersRoutes.js')(recruitersRouter);
 }

@@ -7,18 +7,19 @@ angular.module('evenhire.recLogin', [])
     if(envent.keyCode===13){
       func.apply(null, arg);
      }
-    }
+    };
 
     $scope.user = {};
     $scope.signIn = function() {
-      console.log($scope.user)
       return $http({
         method: 'POST',
-        url: 'api/recruiters/',
+        url: 'api/recruiters/login',
         data: $scope.user
       })
       .then(function(data) {
         console.log(data);
+      }, function(err) {
+        console.log('Error in logging in');
       });
     };
 }]);
