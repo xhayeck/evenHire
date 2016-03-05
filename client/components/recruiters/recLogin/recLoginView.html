@@ -1,8 +1,8 @@
 <h2>Recruiters Login here</h2>
 <div>
   <form>
-    <input type="text" placeholder="username" ng-model="user.username" />
-    <input type="text" placeholder="password" ng-model="user.password" ng-keypress="isEnter($event,signIn,[])"/>
+    <input type="text" placeholder="Username" ng-model="user.username" />
+    <input type="password" placeholder="Password" ng-model="user.password" ng-keypress="isEnter($event,signIn,[])"/>
     <input type="submit" ng-click="signIn()" />
   </form>
   Don't have an account? <a ui-sref="recNewAcc">Sign up here!</a>
