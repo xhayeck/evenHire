@@ -8,7 +8,7 @@ angular.module('evenhire.recNewAcc', [])
       console.log($scope.recruiter);
       return $http({
         method: 'POST',
-        url: 'api/recruiters',
+        url: 'api/recruiters/signup',
         data: $scope.recruiter
       })
       .then(function(data) {
