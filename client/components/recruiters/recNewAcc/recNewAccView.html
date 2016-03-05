@@ -1,1 +1,10 @@
-<a ui-sref="home" ng-click="testFunc">GO HOME!!</a>
+<div>
+    <h1>Recruiters Create an Account</h1>
+  <form>
+    <label>Username: <input type="text" placeholder="Username" name="username" ng-model="recruiter.username" required></label><br>
+    <label>Password: <input type="password" placeholder="Password"name="password" ng-model="recruiter.password"  required></label><br>
+    <label>Company Name: <input type="text" placeholder="Company name" name="companyName" ng-model="recruiter.companyName" required></label><br>
+    <label>Email: <input type="email" name="email"placeholder="Email" ng-model="recruiter.email" required></label><br>
+    <input type="submit" ng-click="createRecAcc()"></button>
+  </form>
+</div>

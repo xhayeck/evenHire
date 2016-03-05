@@ -1,8 +1,19 @@
 angular.module('evenhire.recNewAcc', [])
 
-  .controller('RecNewAccController', ['$scope', '$state', function ($scope, $state) {
+  .controller('RecNewAccController', ['$scope', '$state', '$http', function ($scope, $state, $http) {
 
-    $scope.testFunc = function() {
-      console.log('inside createAccount controller');
+    $scope.recruiter = {};
+
+    $scope.createRecAcc = function() {
+      console.log($scope.recruiter);
+      return $http({
+        method: 'POST',
+        url: 'api/recruiters/signup',
+        data: $scope.recruiter
+      })
+      .then(function(data) {
+        console.log(data);
+      });
     };
+
   }]);

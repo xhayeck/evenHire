@@ -3,12 +3,33 @@
 <head>
   <metacontent="text/html; charset=UTF-8" />
   <title>EvenHire</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
   <link href="./dist/styles/main.min.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
   <script src="https://cdn.jsdelivr.net/angular.ui-router/1.0.0-alpha0/angular-ui-router.min.js"></script>
   <script src="./dist/all.js"></script>
 </head>
 <body>
+  <!-- facebook button -->
+  <script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '233402063667039',
+      xfbml      : true,
+      version    : 'v2.5'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+
   <a ui-sref="home">Home</a><br>
   <a ui-sref="appLogin">Applicants Login</a><br>
   <a ui-sref="appNewAcc">Applicants New Account</a><br>
@@ -18,9 +39,10 @@
   <a ui-sref="allJobs">View Jobs</a><br>
   <div ui-view>
   </div>
+  <a href="https://linkedin.com"><img id="linkedin" src="./assets/imgs/linkedin.png"></a><br>
+  <div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="false">Sign in with Facebook</div>
   <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.js"></script> -->
   <!-- <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.1.2.js"></script> -->
-  <!-- // <script src="/scripts/angular-ui-router/release/angular-ui-router.js"></script> -->
-  <!-- <script src="./all.min.js"></script> -->
+
 </body>
 </html>

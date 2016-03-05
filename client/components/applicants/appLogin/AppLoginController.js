@@ -1,9 +1,11 @@
 angular.module('evenhire.appLogin', [])
 
-  .controller('AppLoginController', ['$scope','$state', function ($scope, $state) {
+  .controller('AppLoginController', ['$scope','$state','$http','Applicant', function ($scope, $state, $http, Applicant) {
 
     $scope.user = {};
     $scope.signIn = function() {
-      console.log('trying to sign in!');
+      //send form data to the server at api/applicants/signup
+      Applicant.login($scope.user);
     };
+
 }]);

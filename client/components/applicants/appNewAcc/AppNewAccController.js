@@ -1,8 +1,13 @@
 angular.module('evenhire.appNewAcc', [])
 
-  .controller('AppNewAccController', ['$scope', '$state', function ($scope, $state) {
+  .controller('AppNewAccController', ['$scope', '$state','$http','Applicant', function ($scope, $state, $http, Applicant) {
 
-    $scope.testFunc = function() {
-      console.log('inside createAccount controller');
+    $scope.applicant = {};
+
+    $scope.createAccount = function() {
+      //send form data to the server at api/applicants/login
+      Applicant.signup($scope.applicant);
     };
+
   }]);
+
