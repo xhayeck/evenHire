@@ -7,7 +7,8 @@ angular.module('evenhire',[
   'evenhire.recruiters',
   'evenhire.recLogin',
   'evenhire.recNewAcc',
-  'ui.router'])
+  'ui.router',
+  'ui.bootstrap'])
 
   .config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
