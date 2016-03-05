@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 //Include our plugins
-var browserSync = require('browser-sync');
-var reload = browserSync.create();
+// var browserSync = require('browser-sync');
+// var reload = browserSync.create();
 var concat = require('gulp-concat');
 var cssmin = require('gulp-cssmin');
 var del = require('del');
@@ -11,19 +11,19 @@ var rename = require('gulp-rename');
 var sass = require('gulp-sass');
 var uglify = require('gulp-uglify');
 
-//Used to refresh the browser on a change, not used right now
-gulp.task('browserSync', function() {
-  browserSync({
-    server: {
-          baseDir: './dist/'
-        },
-    port: 8000,
-    files: [
-      'dist/**/*.*'
-    ]
-  });
-  gulp.watch("./dist", reload);
-});
+// //Used to refresh the browser on a change, not used right now
+// gulp.task('browserSync', function() {
+//   browserSync({
+//     server: {
+//           baseDir: './dist/'
+//         },
+//     port: 8000,
+//     files: [
+//       'dist/**/*.*'
+//     ]
+//   });
+//   gulp.watch("./dist", reload);
+// });
 
 //Lint task (need to enter .js source)
 gulp.task('lint', function() {
@@ -75,4 +75,5 @@ gulp.task('watch', function() {
 });
 
 gulp.task('build', ['styles', 'scripts']);
+
 gulp.task('default', ['lint', 'styles', 'scripts', 'watch', 'serve']);
