@@ -2,10 +2,15 @@
   <h1>Applicants, create an account</h1>
   <form>
     <label>First Name: <input type="text" name="firstName" ng-model="applicant.firstName" required></label><br>
+    <div ng-show="form.$submitted || form.uName.$touched">
+      <div ng-show="form.uName.$error.required">Tell us your name.</div>
+    </div>
+
     <label>Last Name: <input type="text" name="lastName" ng-model="applicant.lastName" required></label><br>
-    <label>Username: <input type="text" name="username" ng-model="applicant.username" required></label><br>
     <label>Email: <input type="text" name="email" ng-model="applicant.email" required></label><br>
+    <label>Username: <input type="text" name="username" ng-model="applicant.username" required></label><br>
     <label>Password: <input type="text" name="password" ng-model="applicant.password"  required></label><br>
-    <button ng-click="sendApplicantInfo">Submit</button>
+    <label>Resume: <input type="text" name="resume" ng-model="applicant.resume" required ng-keypress="isEnter($event,sendApplicantInfo,[])"></label>
+    <button ng-click="sendApplicantInfo()">Submit</button>
   </form>
 </div>
