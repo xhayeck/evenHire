@@ -4,24 +4,23 @@ angular.module('evenhire.appLogin', [])
 
     $scope.user = {};
     $scope.signIn = function() {
-      console.log('trying to sign in!');
-      console.log($scope.user);
-
-    return $http({
-          method: 'POST',
-          url: '/api/applicants',
-          data: $scope.user
-            })
-      .then(function (data) {
+      return $http({
+        method: 'POST',
+        url: '/api/applicants/login',
+        data: $scope.user
+      })
+      .then(function(data) {
         console.log(data)
+      }, function(err) {
+        console.log('error in loging in');
       });
     };
 
-    $scope.isEnter = function(envent, func, arg){
-    console.log("listening to keys");
-    if(envent.keyCode===13){
-      func.apply(null, arg);
-      }
-    }
+    // $scope.isEnter = function(envent, func, arg){
+    // console.log("listening to keys");
+    // if(envent.keyCode===13){
+    //   func.apply(null, arg);
+    //   }
+    // }
 
 }]);

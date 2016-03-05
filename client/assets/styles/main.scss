@@ -1,8 +1,14 @@
 body {
   height: 100%;
+  width: 100%;
   font-family: 'Arial', 'sans-serif';
-  color: blue;
 }
+
+#resumeBody {
+  height: 400px;
+  width: 100%;
+}
+
 #linkedin {
   width: 305px;
   height: 40px;

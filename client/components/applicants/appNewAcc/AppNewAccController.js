@@ -6,15 +6,13 @@ angular.module('evenhire.appNewAcc', [])
 
     $scope.sendApplicantInfo = function() {
       //send $scope.company to router
-      console.log('inside createAccount controller');
-      console.log($scope.applicant);
-
       return $http({
       method: 'POST',
-      url: 'api/applicants',
+      url: 'api/applicants/signup',
       data: $scope.applicant
-      }).then(function successCallback(response) {
-        console.log(response);
+      })
+      .then(function(data) {
+        console.log(data);
       }, function errorCallback(response) {
         console.log(response)
       });
