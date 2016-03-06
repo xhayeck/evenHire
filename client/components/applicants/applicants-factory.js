@@ -11,7 +11,7 @@ angular.module('evenhire.applicants.factory', [])
       })
       .then(function(data) {
         console.log(data);
-      }, function errorCallback(response) {
+      }, function(response) {
         console.log(response)
       });
     };
@@ -28,6 +28,31 @@ angular.module('evenhire.applicants.factory', [])
         console.log('error in loging in');
       });
     };
+
+    applicant.allJobs = function () {
+      return $http({
+        method: 'GET',
+        url: 'api/applicants/allJobs'
+      })
+      .then(function(data) {
+        console.log(data)
+      }, function(err) {
+        console.log('error in getting jobs');
+      });
+    };
+
+    applicant.apply = function(applicationObject) {
+      return $http({
+        method: 'POST',
+        url: 'api/applicants/apply',
+        data: applicationObject
+      })
+      .then(function(data) {
+        console.log(data);
+      }, function(err) {
+        console.log('error in applying for job');
+      });
+    }
 
     return applicant;
   }])
