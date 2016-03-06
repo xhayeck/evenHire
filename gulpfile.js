@@ -9,6 +9,11 @@ var sass = require('gulp-sass');
 var Server = require('karma').Server;
 var uglify = require('gulp-uglify');
 
+var libraries = [
+  './client/assets/libs/**/*.js',
+  './node_modules/angular-ui-router/release/angular-ui-router.min.js',
+  './node_modules/angular-animate/angular-animate.min.js'
+];
 //Clean out the dist folder
 gulp.task('clean', function() {
   return del(['client/dist/']);
@@ -23,7 +28,7 @@ gulp.task('clean', function() {
 
 //Concatenante js libraries
 gulp.task('libs', function() {
-  return gulp.src(['./client/assets/libs/*.js'])
+  return gulp.src(libraries)
     .pipe(concat('./libs.js'))
     .pipe(gulp.dest('./client/dist/'));
   })

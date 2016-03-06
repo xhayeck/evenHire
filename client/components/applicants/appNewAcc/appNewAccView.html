@@ -2,35 +2,34 @@
   <h1>Applicants, create an account</h1>
   <form id="appNewAccountForm" name="login"ng-submit="submitForm(login.$valid)" novalidate>
 
-    <div ng-class="{'has-error': login.username.$invalid}">
-    <label>First Name: <input type="text" placeholder="First name"name="firstName" ng-model="applicant.firstName" required></label><br>
-    <!-- <input type="text" placeholder="Username"name="username" ng-model="user.username" required/> -->
-    <p ng-show="login.firstName.$invalid && login.firstName.$touched">First Name required</p>
+    <div n g-class="{'has-error': login.username.$invalid}">
+        <label>First Name: <input type="text" placeholder="First name"name="firstName" ng-model="applicant.firstName" required></label>
+        <p ng-show="login.firstName.$invalid && login.firstName.$touched" >First Name required</p>
     </div>
 
-    <div ng-class="{'has-error': login.lastName.$invalid}">
-    <label>Last Name: <input type="text" placeholder="Last name" name="lastName" ng-model="applicant.lastName" required></label><br>
-    <p ng-show="login.lastName.$invalid && login.lastName.$touched">Last Name required</p>
+    <div  ng-class="{'has-error': login.lastName.$invalid}">
+        <label>Last Name: <input type="text" placeholder="Last name" name="lastName" ng-model="applicant.lastName" required></label>
+        <p ng-show="login.lastName.$invalid && login.lastName.$touched" >Last Name required</p>
     </div>
 
-    <div ng-class="{'has-error': login.email.$invalid}">
-    <label>Email: <input type="email" name="email" placeholder="Email"ng-model="applicant.email" required></label><br>
-    <p ng-show="login.email.$invalid && login.email.$touched">Email required</p>
+    <div  ng-class="{'has-error': login.email.$invalid}">
+        <label>Email: <input type="email" name="email" placeholder="Email"ng-model="applicant.email" required></label>
+        <p ng-show="login.email.$invalid && login.email.$touched" >Email required</p>
     </div>
 
-    <div ng-class="{'has-error': login.username.$invalid}">
-    <label>Username: <input type="text" name="username" placeholder="Username" ng-model="applicant.username" required></label><br>
-    <p ng-show="login.username.$invalid && login.username.$touched">Username required</p>
+    <div  ng-class="{'has-error': login.username.$invalid}">
+        <label>Username: <input type="text" name="username" placeholder="Username" ng-model="applicant.username" required></label>
+        <p ng-show="login.username.$invalid && login.username.$touched" >Username required</p>
     </div>
 
-    <div ng-class="{'has-error': login.password.$invalid}">
-    <label>Password: <input type="password" name="password"placeholder="Password" ng-model="applicant.password"  required></label><br>
-    <p ng-show="login.password.$invalid && login.password.$touched">Password required</p>
+    <div  ng-class="{'has-error': login.password.$invalid}">
+        <label>Password: <input type="password" name="password"placeholder="Password" ng-model="applicant.password"  required></label>
+        <p ng-show="login.password.$invalid && login.password.$touched" >Password required</p>
     </div>
 
-    <div ng-class="{'has-error': login.resume.$invalid}">
-    <label>Resume: <input id="resumeBody" type="text" name="resume" placeholder="Resume" ng-model="applicant.resume" required></label><br>
-    <p ng-show="login.resume.$invalid && login.resume.$touched">Password required</p>
+    <div  ng-class="{'has-error': login.resume.$invalid}">
+        <label>Resume: <input id="resumeBody" type="text" name="resume" placeholder="Resume" ng-model="applicant.resume" required></label>
+        <p ng-show="login.resume.$invalid && login.resume.$touched" >Password required</p>
     </div>
 
     <input type="submit" ng-click="createAccount()" ng-disabled="login.$invalid"/>
