@@ -8,7 +8,8 @@ angular.module('evenhire',[
   'evenhire.recLogin',
   'evenhire.recNewAcc',
   'ui.router',
-  'evenhire.applicants.factory'
+  'evenhire.applicants.factory',
+  'evenhire.recruiters.factory'
   ])
 
   .config(function($stateProvider, $urlRouterProvider) {

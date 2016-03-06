@@ -7,7 +7,6 @@ var app = express();
 //every request to our server will pass through app.use
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-console.log(__dirname)
 app.use(express.static(path.join(__dirname, '/client')));
 
 //middleware deals with applicant and recruiter login routes
