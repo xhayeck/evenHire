@@ -21,6 +21,18 @@ gulp.task('clean', function() {
 //     .pipe(jshint.reporter('default'));
 // });
 
+//Concatenante js libraries
+gulp.task('libs', function() {
+  return gulp.src(['./client/assets/libs/*.js'])
+    .pipe(concat('./libs.js'))
+    .pipe(gulp.dest('./client/dist/'));
+  })
+
+//Start node server with nodemon
+gulp.task('serve', function() {
+  nodemon({script: 'index.js', ignore: 'node_modules/**/*.js'});
+});
+
 //Concatenante and minify JS
 gulp.task('scripts', function() {
   return gulp.src(['./client/**/*.js', '!./client/dist/**/*.js', '!./client/assets/libs/**/*.js'])
@@ -29,11 +41,6 @@ gulp.task('scripts', function() {
     // .pipe(rename('./all.min.js'))
     // .pipe(uglify())
     // .pipe(gulp.dest('./client/dist/'));
-});
-
-//Start node server with nodemon
-gulp.task('serve', function() {
-  nodemon({script: 'index.js', ignore: 'node_modules/**/*.js'});
 });
 
 //Compile Sass into CSS
@@ -59,6 +66,7 @@ gulp.task('watch', function() {
   gulp.watch('./client/**/*.scss', ['styles']);
 });
 
-gulp.task('build', ['styles', 'scripts']);
+gulp.task('build', ['styles', 'scripts', 'libs']);
 gulp.task('test', ['tests']);
-gulp.task('default', ['styles', 'scripts', 'serve', 'watch']);
+gulp.task('start', ['build', 'serve', 'watch']);
+gulp.task('default', ['build', 'serve', 'watch']);

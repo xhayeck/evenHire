@@ -1,16 +1,15 @@
 angular.module('evenhire.recruiters', [])
 
 
-.controller('RecHomeController', ['$scope', '$state', function ($scope, $state) {
-  $scope.test = function() {
-    console.log('connected to recruiters controller');
-  }
-  // $scope.findJobs = function () {
+.controller('RecHomeController', ['$scope', '$state', 'Recruiter', function ($scope, $state, Recruiter) {
+  var newJob = {};
 
-  // };
+  $scope.getJobs = function() {
+    Recruiter.getPostedJobs();
+  };
 
-  // $scope.findApplicants = function () {
-
-  // };
+  $scope.postJob = function(newJob) {
+    Recruiter.postNewJob(newJob);
+  };
 
 }]);
