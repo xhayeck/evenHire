@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "karma start karma.config.js",
     "postinstall": "gulp build"
   },
   "repository": {
@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/tdax/evenHire#readme",
   "devDependencies": {
+    "angular-mocks": "^1.5.0",
     "del": "^2.2.0",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
@@ -34,6 +35,7 @@
     "jasmine": "^2.4.1",
     "jshint": "^2.9.1",
     "karma": "^0.13.21",
+    "karma-chrome-launcher": "^0.2.2",
     "karma-jasmine": "^0.2.2"
   },
   "dependencies": {
