@@ -56,7 +56,7 @@ gulp.task('styles', function() {
 gulp.task('tests', function(done) {
   new Server({
     configFile: __dirname + '/karma.config.js',
-    singleRun: true,
+    singleRun: false,
     }, done).start();
 });
 
