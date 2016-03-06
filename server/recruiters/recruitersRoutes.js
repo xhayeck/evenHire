@@ -5,5 +5,11 @@ module.exports = function(router) {
   router.post('/signup', function(req, res) {
     console.log('Signing up ', req.body.companyName);
     res.send('my new signup')
-  })
+  });
+  router.get('/allPostedJobs', function(req, res) {
+    res.send('Im trying to see all Posted Jobs');
+  });
+  router.post('/newJob', function(req, res) {
+    res.send('Im trying to create a new Job posting');
+  });
 };
