@@ -1,10 +1,26 @@
 <div>
     <h1>Recruiters Create an Account</h1>
-  <form>
+  <form name="login"ng-submit="submitForm(login.$valid)" novalidate>
+    <div ng-class="{'has-error': login.username.$invalid}">
     <label>Username: <input type="text" placeholder="Username" name="username" ng-model="recruiter.username" required></label><br>
+    <p ng-show="login.username.$invalid && login.username.$touched">UserName required</p>
+    </div>
+
+    <div ng-class="{'has-error': login.password.$invalid}">
     <label>Password: <input type="password" placeholder="Password"name="password" ng-model="recruiter.password"  required></label><br>
+    <p ng-show="login.password.$invalid && login.password.$touched">Password required</p>
+    </div>
+
+    <div ng-class="{'has-error': login.companyName.$invalid}">
     <label>Company Name: <input type="text" placeholder="Company name" name="companyName" ng-model="recruiter.companyName" required></label><br>
+    <p ng-show="login.companyName.$invalid && login.companyName.$touched">Company Name required</p>
+    </div>
+
+    <div ng-class="{'has-error': login.email.$invalid}">
     <label>Email: <input type="email" name="email"placeholder="Email" ng-model="recruiter.email" required></label><br>
-    <input type="submit" ng-click="createRecAcc()"></button>
+    <p ng-show="login.email.$invalid && login.email.$touched">Email required</p>
+    </div>
+
+    <input type="submit" ng-click="createRecAcc()" ng-disabled="login.$invalid">
   </form>
 </div>
