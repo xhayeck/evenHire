@@ -1,6 +1,14 @@
 <div>
-  <h1>Welcome Uber!</h1>
+  <h1>Welcome LinkedIn!</h1>
   <h2>Job Postings</h2>
   <a>Post a job</a>
-  <h2>Here are your job listings:</h2>
+  <a ng-click="getJobs()">Click here to view job postings in db:</a><br>
+  Retrieved jobs from db:<br>
+  <div ng-repeat="job in postedJobs">
+  <h4>{{job.title}}</h4><br>
+  Location: {{job.location}}<br>
+  Industry: {{job.industry}}<br>
+  Description: {{job.description}}<br>
+  Career Level: {{job.career_level}}<br>
+  Job Type: {{job.job_type}}<br>
 </div>

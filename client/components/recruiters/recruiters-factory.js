@@ -34,7 +34,9 @@ angular.module('evenhire.recruiters.factory', [])
         url: 'api/recruiters/allPostedJobs',
       })
       .then(function(data) {
-        console.log(data)
+        //data.data is an array of objects
+        console.log(data.data);
+        return data.data;
       }, function(err) {
         console.log('error in getting all posted jobs');
       });
