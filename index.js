@@ -1,3 +1,4 @@
+require('dotenv').config();
 //Node configuration goes here
 var express = require('express');
 var path = require('path');

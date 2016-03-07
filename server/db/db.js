@@ -1,5 +1,8 @@
+//Uses dotenv to get process.env variables
+require('dotenv').config();
+var connectStr = process.env.DATABASE_URL;
+
 var pg = require('pg');
-var connectStr = process.env.DATABASE_URL || 'postgres://rlwkbkrcdmqqee:y6KjHbwAdp-nTnDtPy1JJYaJ_5@ec2-54-227-250-148.compute-1.amazonaws.com:5432/d52ojdh8d3rv76';
 
 pg.defaults.ssl = true;
 pg.connect(connectStr, function(err, client) {
@@ -7,7 +10,7 @@ pg.connect(connectStr, function(err, client) {
   console.log('Connected to postgres! Getting schemas...');
 
   client
-    .query('SELECT table_schema,table_name FROM information_schema.tables;')
+    .query('SELECT * FROM jobs;')
     .on('row', function(row) {
       console.log(JSON.stringify(row));
     });
