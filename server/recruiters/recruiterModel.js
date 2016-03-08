@@ -54,17 +54,29 @@ module.exports = {
         return res.send('Nope!!');
       }
 
-      var query = "INSERT INTO recruiters (name, username, password, email) values ($1, $2, $3, $4) RETURNING id";
+      var who = data.username;
 
-      client.query(query, [data.companyName, data.username, data.password, data.email], function(err, result) {
-        if(err) {
-          console.log("Nope! You signed up incorrectly Mr(s). Recruiter! Error: ", err.detail);
-          return res.json(err);
+      client.query("SELECT username FROM recruiters WHERE username = '" + who + "';", function(err, result) {
+        console.log('YIKES');
+        if (result.rowCount === 0) {
+          var query = "INSERT INTO recruiters (name, username, password, email) values ($1, $2, $3, $4) RETURNING id";
+
+          client.query(query, [data.companyName, data.username, data.password, data.email], function(err, result) {
+            if(err) {
+              console.log("Nope! You signed up incorrectly Mr(s). Recruiter! Error: ", err.detail);
+              return res.json(err);
+            } else {
+              client.end();
+              return res.json(result.rows[0]);
+            }
+          });
         } else {
-          client.end();
-          return res.json(result.rows[0]);
+          console.log('FOUND BITCHES!', result);
+          return; 
         }
       });
+
+      
 
     });
 
