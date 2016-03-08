@@ -43,11 +43,11 @@ gulp.task('serve', function() {
 
 //Concatenante and minify JS
 gulp.task('scripts', function() {
-  return gulp.src(['./client/**/*.js', '!./client/dist/**/*.js', '!./client/assets/libs/**/*.js'])
+  return gulp.src(['./client/**/*.js', '!./client/dist/**/*.js', '!./client/assets/libs/**/*.js', '!./client/components/**/test.js'])
     .pipe(concat('./all.js'))
+    .pipe(uglify({mangle: false}))
+    .pipe(rename('./all.min.js'))
     .pipe(gulp.dest('./client/dist/'));
-    // .pipe(rename('./all.min.js'))
-    // .pipe(uglify())
     // .pipe(gulp.dest('./client/dist/'));
 });
 
