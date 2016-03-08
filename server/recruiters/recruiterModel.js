@@ -65,8 +65,38 @@ module.exports = {
           });
         }
       });
-
     });
+  },
 
+  getAllRecs: function(req, res) {
+    pg.defaults.ssl = true;
+    pg.connect(connectStr, function(err, client, done) {
+      if (err) {
+        done();
+        return res.send(err);
+      }
+      var query = client.query("SELECT * FROM recruiters", function(err, result) {
+        if (err) {
+          return res.send(err);
+        }
+        return res.send(result.rows);
+      });
+    });
+  },
+
+  getJobAppRelations: function(req, res) {
+    pg.defaults.ssl = true;
+    pg.connect(connectStr, function(err, client, done) {
+      if (err) {
+        done();
+        return res.send(err);
+      }
+      var query = client.query("SELECT * FROM jobs_applicants", function(err, result) {
+        if (err) {
+          return res.send(err);
+        }
+        return res.send(result.rows);
+      });
+    });
   }
 };

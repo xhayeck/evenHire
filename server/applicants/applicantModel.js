@@ -34,7 +34,7 @@ module.exports = {
     pg.defaults.ssl = true;
     pg.connect(connectStr, function(err, client, done) {
 
-      var query = client.query("SELECT title FROM jobs");
+      var query = client.query("SELECT * FROM jobs");
 
       query.on('row', function(row) {
         results.push(row);
@@ -53,7 +53,7 @@ module.exports = {
       if (err) {
         done();
         console.log(err);
-        return res.send('failed');
+        return res.send(err);
       }
 
       //need to create anon_id and change values
@@ -61,10 +61,27 @@ module.exports = {
       client.query(query, [req.body.jobs_id, req.body.applicants_id], function(err, result) {
         if(err) {
           console.log("error on submitApplication" , err.detail);
-          return res.json(err);
+          return res.send(err);
         }
-          return res.json(result.rowCount);
+        return res.send(result.rowCount);
+      });
+    });
+  },
+
+  getAllApplicants: function(req, res) {
+    pg.defaults.ssl = true;
+    pg.connect(connectStr, function(err, client, done) {
+      if (err) {
+        done();
+        return res.send(err);
+      }
+      client.query("SELECT * from applicants", function(err, result) {
+        if (err) {
+          return res.send(err);
+        }
+        return res.send(result.rows);
       });
     });
   }
+
 };
