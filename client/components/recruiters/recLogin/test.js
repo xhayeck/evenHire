@@ -1,4 +1,4 @@
-describe('RecHomeController', function() {
+describe('RecLoginController', function() {
   var scope;
   var createController;
   var httpBackend;
@@ -10,7 +10,7 @@ describe('RecHomeController', function() {
     httpBackend = $httpBackend;
 
     createController = function() {
-      return $controller('RecHomeController', {
+      return $controller('RecLoginController', {
         '$scope': scope,
         '$http': $httpBackend
       });
@@ -18,8 +18,8 @@ describe('RecHomeController', function() {
     createController();
   }));
 
-  it('should have a getJobs function', function() {
-    expect(scope.getJobs).toBeDefined();
+  it('should have a logIn function', function() {
+    expect(scope.logIn).toBeDefined();
   });
 
 })
