@@ -3,13 +3,9 @@
 <head>
   <metacontent="text/html; charset=UTF-8" />
   <title>EvenHire</title>
-  <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"> -->
   <link href="./dist/styles/main.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://code.getmdl.io/1.1.2/material.indigo-pink.min.css">
-  <script defer src="https://code.getmdl.io/1.1.2/material.min.js"></script>
+  <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.css">
   <script src="./dist/libs.js"></script>
-  <script src="https://cdn.jsdelivr.net/angular.ui-router/1.0.0-alpha0/angular-ui-router.min.js"></script>
   <script src="./dist/all.js"></script>
 </head>
 <body>
@@ -32,16 +28,32 @@
    }(document, 'script', 'facebook-jssdk'));
   </script>
 
-
-  <a ui-sref="home">Home</a><br>
-  <a ui-sref="appLogin">Applicants Login</a><br>
-  <a ui-sref="appNewAcc">Applicants New Account</a><br>
-  <a ui-sref="recruiters">View Applicants as a recruiter</a><br>
-  <a ui-sref="recLogin">Recruiters Login</a><br>
-  <a ui-sref="recNewAcc">Create an account as a recruiter</a><br>
-  <a ui-sref="allJobs">View Jobs</a><br>
-  <div ui-view>
-  </div>
+  <md-toolbar>
+    <div layout="row" layout-sm="column" layout-align="space-around center" layout-padding>
+      <div flex="12">
+        <md-button ui-sref="home">Home</md-button>
+      </div>
+      <div flex="12">
+        <md-button ui-sref="appLogin">AppLogin</md-button>
+      </div>
+      <div flex="12">
+        <md-button ui-sref="appNewAcc">AppNewAcc</md-button>
+      </div>
+      <div flex="12">
+        <md-button ui-sref="recruiters">View Apps</md-button>
+      </div>
+      <div flex="12">
+        <md-button ui-sref="recLogin">RecLogin</md-button>
+      </div>
+      <div flex="12">
+        <md-button ui-sref="recNewAcc">RecNewAcc</md-button>
+      </div>
+      <div flex="12">
+        <md-button ui-sref="allJobs">View Jobs</md-button>
+      </div>
+    </div>
+  </md-toolbar>
+  <div ui-view></div>
   <a href="https://linkedin.com"><img id="linkedin" src="./assets/imgs/linkedin.png"></a><br>
   <div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="false">Sign in with Facebook</div>
   <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.js"></script> -->

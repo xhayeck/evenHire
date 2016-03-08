@@ -1,5 +1,10 @@
-<h1>Job Postings</h1>
-<a ui-sref="recLogin">Click here to post a job</a>
-<ul>
-  <li ng-repeat="job in jobs"><a href="">{{job}}</a></li>
-</ul>
+<div>
+  <h2 class="md-headline">Job Postings</h2>
+  <md-button class="md-raised" ng-click="getAllJobs()">Get all jobs</md-button><br>
+  <md-button ui-sref="recLogin" class="md-raised">Click here to post a job</md-button>
+  <ul>
+    <li ng-repeat="job in jobs"><a href="">{{job}}</a>
+    <md-button ng-click="submitApplication()">Apply to This Job</md-button>
+    </li>
+  </ul>
+</div>

@@ -6,13 +6,23 @@ angular.module('evenhire.allJobs', [])
       uber : 'driver',
       google : 'front-end'
     }
-    $scope.applyForJob = function() {
-      //write function to add user information to $scope.jobs object
-      Applicant.apply($scope.jobs);
-    }
 
-    // $scope.testFunc = function() {
-    //   console.log('inside allJobs controller');
-    // }
+    $scope.getAllJobs = function() {
+      Applicant.allJobs()
+        .then(function(data) {
+          console.log('data in alljobsController is', data);
+        });
+    };
+
+    $scope.submitApplication = function() {
+      var submissionObject = {
+        jobs_id: 2,
+        applicants_id: 2
+      };
+      Applicant.apply(submissionObject)
+       .then(function(data) {
+        console.log("inside AllJobsController data", data)
+      });
+    };
 }]);
 

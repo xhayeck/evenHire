@@ -5,7 +5,8 @@ node_js:
   - "4.0"
   - "0.10"
 before_script:
+  - npm install
   - npm install -g gulp
 script: gulp test
-notifications:
-  slack: mks31:v3TzTDrOf5TAzxkyflH1uzr9
+# notifications:
+#   slack: mks31:v3TzTDrOf5TAzxkyflH1uzr9

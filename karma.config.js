@@ -2,7 +2,7 @@
 // Generated on Sat Mar 05 2016 14:07:29 GMT-0800 (PST)
 
 module.exports = function(config) {
-  config.set({
+  var configuration = {
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: './',
@@ -70,7 +70,14 @@ module.exports = function(config) {
 
     reportsSlowerThan: 500,
 
-    // start these browsers
+    // start these browsers, set up chrome for travis
+    customLaunchers: {
+        Chrome_travis_ci: {
+            base: 'Chrome',
+            flags: ['--no-sandbox']
+        }
+    },
+
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['Chrome'],
 
@@ -89,5 +96,12 @@ module.exports = function(config) {
         'karma-jasmine-html-reporter',
         'karma-chrome-launcher'
     ]
-  });
+  };
+    if (process.env.TRAVIS) {
+        configuration.browsers = ['Chrome_travis_ci'];
+        configuration.singleRun = true;
+    }
+
+    config.set(configuration);
 };
+
