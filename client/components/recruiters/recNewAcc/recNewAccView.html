@@ -1,3 +1,29 @@
+<div layout="row" layout-align="center center">
+  <div flex="50">
+    <h2 class="md-headline">Recruiters Create an Account</h2>
+    <md-content>
+      <md-input-container>
+        <label>Username</label>
+        <input type="text" name="username" ng-model="recruiter.username" required>
+      </md-input-container>
+      <md-input-container>
+        <label>Password</label>
+        <input type="password" name="password" ng-model="recruiter.password"  required>
+      </md-input-container>
+      <md-input-container>
+        <label>Company Name</label>
+        <input type="text" name="companyName" ng-model="recruiter.companyName" required>
+      </md-input-container>
+      <md-input-container>
+        <label>Email</label>
+        <input type="email" name="email" ng-model="recruiter.email" required>
+      </md-input-container>
+      <md-button class="md-raised md-primary" type="submit" ng-click="createRecAcc()">Submit</md-button>
+    </md-content>
+  </div>
+</div>
+
+<!-- old plain angular
 <div>
     <h1>Recruiters Create an Account</h1>
   <form name="login"ng-submit="submitForm(login.$valid)" novalidate>
@@ -24,3 +50,4 @@
     <input type="submit" ng-click="createRecAcc()" ng-disabled="login.$invalid">
   </form>
 </div>
+ -->

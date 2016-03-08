@@ -9,7 +9,8 @@ angular.module('evenhire',[
   'evenhire.recNewAcc',
   'ui.router',
   'evenhire.applicants.factory',
-  'evenhire.recruiters.factory'
+  'evenhire.recruiters.factory',
+  'ngMaterial'
   ])
 
   .config(function($stateProvider, $urlRouterProvider) {

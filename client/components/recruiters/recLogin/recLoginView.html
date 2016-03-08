@@ -1,11 +1,25 @@
+<div layout="row" layout-align="center center">
+  <div flex="50">
+    <h2 class="md-headline">Recruiters Login here</h2>
+    <md-content>
+      <form name="recLogin">
+        <md-input-container>
+          <label>Username</label>
+          <input type="text" ng-model="user.username" required/>
+        </md-input-container>
+        <md-input-container>
+          <label>Password</label>
+          <input type="password" ng-model="user.password" required/>
+        </md-input-container>
+        <md-button class="md-raised md-primary" type="submit" ng-click="logIn()" />Submit</md-button>
+      </md-content>
+    </form>
+      Don't have an account? <a ui-sref="recNewAcc">Sign up here!</a>
+  </div>
+</div>
+<!-- old plain angular
 <h2>Recruiters Login here</h2>
 <div>
-<!--
-  <form>
-    <input type="text" placeholder="Username" ng-model="user.username" />
-    <input type="password" placeholder="Password" ng-model="user.password" />
-    <input type="submit" ng-click="logIn()" />
-  </form> -->
 
   <form name="login"ng-submit="submitForm(login.$valid)" novalidate>
     <div  ng-class="{'has-error': login.username.$invalid}">
@@ -23,3 +37,4 @@
 
   Don't have an account? <a ui-sref="recNewAcc">Sign up here!</a>
 </div>
+-->
