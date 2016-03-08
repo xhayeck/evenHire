@@ -9,10 +9,9 @@ angular.module('evenhire.recruiters.factory', [])
         data: newUser
       })
       .then(function(data){
-        console.log(data);
-        return data.data;
+        return data.data.id;
       }, function(err) {
-        console.log("nopstradamous!", err);
+        console.log("Error: ", err);
       });
     };
 
@@ -35,7 +34,7 @@ angular.module('evenhire.recruiters.factory', [])
         url: 'api/recruiters/allPostedJobs',
       })
       .then(function(data) {
-        //data.data is an array of objects
+        //data.data is an array of job objects
         console.log(data.data);
         return data.data;
       }, function(err) {

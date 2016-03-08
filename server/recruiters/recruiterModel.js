@@ -32,14 +32,8 @@ module.exports = {
   },
 
   signup: function (req, res) {
-
-    // check if user exists
-      //return error
-    // save info into database
-
     pg.defaults.ssl = true;
-
-    var data = {
+    var newRecruiter = {
       username: req.body.username,
       password: req.body.password,
       companyName: req.body.companyName,
@@ -47,48 +41,32 @@ module.exports = {
     };
 
     pg.connect(connectStr, function(err, client, done) {
-
       if(err) {
         done();
-        console.log('Whoopsie! Error: ', err);
-        return res.send('Nope!!');
+        console.log('Error on connecting to db: ', err);
+        return res.send(err);
       }
-
-      var who = data.username;
-
-      client.query("SELECT username FROM recruiters WHERE username = '" + who + "';", function(err, result) {
-        console.log('YIKES');
-        if (result.rowCount === 0) {
+      //If username already exists in recruiters table
+      client.query("SELECT username FROM recruiters WHERE username = '" + newRecruiter.username + "';", function(err, result) {
+        if (result.rowCount > 0) {
+          client.end();
+          return res.json('Username already exists in database: ', result);
+        } else if (result.rowCount === 0) {
           var query = "INSERT INTO recruiters (name, username, password, email) values ($1, $2, $3, $4) RETURNING id";
 
-          client.query(query, [data.companyName, data.username, data.password, data.email], function(err, result) {
+          client.query(query, [newRecruiter.companyName, newRecruiter.username, newRecruiter.password, newRecruiter.email], function(err, result) {
             if(err) {
-              console.log("Nope! You signed up incorrectly Mr(s). Recruiter! Error: ", err.detail);
+              console.log("Error in addint to database: ", err.detail);
               return res.json(err);
             } else {
               client.end();
               return res.json(result.rows[0]);
             }
           });
-        } else {
-          console.log('FOUND BITCHES!', result);
-          return; 
         }
       });
 
-      
-
     });
-
-    // var found = false;
-
-    // var query = client.query("SELECT username FROM recruiters WHERE username = " + recruiter.username + ";");
-
-    // if(query) {
-      
-    // }
-
-
 
   }
 };
