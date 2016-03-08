@@ -8,9 +8,9 @@ module.exports = function(router) {
     Applicant.signup(req, res);
   });
   router.get('/allJobs', function(req, res) {
-    res.send('Im trying to get all Jobs');
+    Applicant.getAllJobs(req,res);
   });
   router.post('/apply', function(req, res) {
-    res.send('Im trying to APPLY to a job');
+    Applicant.submitApplication(req, res); 
   });
 };

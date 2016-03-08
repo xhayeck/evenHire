@@ -36,6 +36,7 @@ angular.module('evenhire.applicants.factory', [])
       })
       .then(function(data) {
         console.log(data)
+        return data;
       }, function(err) {
         console.log('error in getting jobs');
       });
@@ -48,7 +49,7 @@ angular.module('evenhire.applicants.factory', [])
         data: applicationObject
       })
       .then(function(data) {
-        console.log(data);
+        return data.data;
       }, function(err) {
         console.log('error in applying for job');
       });

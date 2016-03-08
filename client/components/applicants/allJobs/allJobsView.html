@@ -1,5 +1,7 @@
 <h1>Job Postings</h1>
 <a ui-sref="recLogin">Click here to post a job</a>
 <ul>
-  <li ng-repeat="job in jobs"><a href="">{{job}}</a></li>
+  <li ng-repeat="job in jobs"><a href="">{{job}}</a>
+    <button ng-click="submitApplication()">Apply to This Job</button>
+  </li>
 </ul>
