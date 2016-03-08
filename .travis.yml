@@ -9,5 +9,6 @@ before_script:
   - npm install
   - npm install -g gulp
 script: gulp test
-# notifications:
+notifications:
+  email: false
 #   slack: mks31:v3TzTDrOf5TAzxkyflH1uzr9
