@@ -16,7 +16,7 @@ angular.module('evenhire.applicants.factory', [])
       });
     };
 
-    applicant.login = function (user) {
+    applicant.login = function(user) {
       return $http({
         method: 'POST',
         url: '/api/applicants/login',
@@ -29,14 +29,13 @@ angular.module('evenhire.applicants.factory', [])
       });
     };
 
-    applicant.allJobs = function () {
+    applicant.allJobs = function() {
       return $http({
         method: 'GET',
         url: 'api/applicants/allJobs'
       })
       .then(function(data) {
-        console.log(data)
-        return data;
+        return data.data;
       }, function(err) {
         console.log('error in getting jobs');
       });

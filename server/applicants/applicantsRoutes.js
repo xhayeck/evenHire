@@ -11,6 +11,6 @@ module.exports = function(router) {
     Applicant.getAllJobs(req,res);
   });
   router.post('/apply', function(req, res) {
-    Applicant.submitApplication(req, res); 
+    Applicant.submitApplication(req, res);
   });
 };
