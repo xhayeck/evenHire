@@ -10,7 +10,7 @@ angular.module('evenhire.applicants.factory', [])
         data: newUser
       })
       .then(function(data) {
-        console.log(data);
+        return data.data;
       }, function(response) {
         console.log(response)
       });
