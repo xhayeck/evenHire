@@ -6,7 +6,10 @@ angular.module('evenhire.appNewAcc', [])
 
     $scope.createAccount = function() {
       //send form data to the server at api/applicants/login
-      Applicant.signup($scope.applicant);
+      Applicant.signup($scope.applicant).then(function(data) {
+        console.log('NEW USER is :', data);
+        $state.go('allJobs');
+      })
     };
 
   }]);
