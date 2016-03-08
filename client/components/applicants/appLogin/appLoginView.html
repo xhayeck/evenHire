@@ -1,3 +1,22 @@
+<div layout="row" layout-align="center center">
+  <div flex="50">
+    <h2 class="md-headline">Applicants login here</h2>
+      <md-content>
+        <md-input-container>
+          <label>Username</label>
+          <input type="text" ng-model="user.username" required/>
+        </md-input-container>
+        <md-input-container>
+          <label>Password</label>
+          <input type="password" ng-model="user.password" required/>
+        </md-input-container>
+        <md-button class="md-raised md-primary" type="submit" ng-click="signIn()">Submit</md-button>
+      </md-content>
+      Don't have an account? <a ui-sref="appNewAcc">Sign up here!</a>
+  </div>
+</div>
+
+<!-- old plain angular version
 <h2>Applicants login here</h2>
 <div>
   <form name="login" ng-submit="submitForm(login.$valid)" novalidate>
@@ -15,3 +34,4 @@
   </form>
   Don't have an account? <a ui-sref="appNewAcc">Sign up here!</a>
 </div>
+ -->

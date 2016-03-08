@@ -7,7 +7,8 @@ angular.module('evenhire.recruiters', [])
   $scope.error;
 
   $scope.getJobs = function() {
-    Recruiter.getPostedJobs().then(function(data) {
+    Recruiter.getPostedJobs()
+      .then(function(data) {
       $scope.postedJobs = data;
     }, function() {
       $scope.error = 'unable to get jobs';
