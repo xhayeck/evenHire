@@ -7,7 +7,7 @@ module.exports = function(router) {
   router.post('/signup', function(req, res) {
     Recruiter.signup(req, res);
   });
-  
+
   router.get('/allPostedJobs', function(req, res) {
     Recruiter.getAllJobs(req, res);
   });
