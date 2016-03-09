@@ -40,6 +40,25 @@ module.exports = {
     // });
   },
 
+  postJob: function(req, res) {
+    Models.Job.create({
+      title: 'test',
+      location: 'test',
+      description: 'test',
+      industry: 'test',
+      career_level: 'test',
+      job_type: 'test',
+      experience: 'test',
+      recruiterId: 1,
+    })
+    .then(function(newJob) {
+      return res.send(newJob);
+    })
+    .catch(function(err) {
+      return res.send(err);
+    });
+  },
+
   signup: function (req, res) {
     Models.Recruiter.create({
       name: req.body.name,

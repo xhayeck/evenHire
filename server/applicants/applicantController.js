@@ -8,7 +8,18 @@ var Models = require('../db/models')(db);
 
 module.exports = {
   signup: function(req, res) {
-    Models.Applicant.create({first_name: req.body.firstName, last_name: req.body.lastName, username: req.body.username, password: req.body.password, anon_id: req.body.anon_id, email: req.body.email, work_exp: req.body.workExp, education: req.body.education, city: req.body.city, resume: req.body.resume})
+    Models.Applicant.create({
+      first_name: req.body.firstName,
+      last_name: req.body.lastName,
+      username: req.body.username,
+      password: req.body.password,
+      anon_id: req.body.anon_id,
+      email: req.body.email,
+      work_exp: req.body.workExp,
+      education: req.body.education,
+      city: req.body.city,
+      resume: req.body.resume
+    })
       .then(function(newApplicant) {
         return res.send(newApplicant);
       })
@@ -66,7 +77,16 @@ module.exports = {
   //   });
   // },
   submitApplication: function(req, res) {
-    // Models.JobApplicant.
+    Models.Job.findById(1)
+      .then(function(job) {
+        Models.Applicant.findById(1)
+        .then(function(applicant) {
+          job.addApplicant(applicant);
+        });
+      })
+      .catch(function(err) {
+        return res.send(err);
+      });
   },
   // submitApplication: function(req, res) {
   //   pg.defaults.ssl = true;

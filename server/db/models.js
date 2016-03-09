@@ -46,10 +46,10 @@ module.exports = function(db) {
   Recruiter.hasMany(Job);
   Job.belongsTo(Recruiter);
   //set up many to many relationship
-  Job.belongsToMany(Applicant, {through: 'JobApplicant'});
-  Applicant.belongsToMany(Job, {through: 'JobApplicant'});
+  Job.belongsToMany(Applicant, {through: 'jobs_applicants'});
+  Applicant.belongsToMany(Job, {through: 'jobs_applicants'});
 
-  //to sync and possibly clear db uncomment this line:
+  //WARNING! to sync and possibly clear db uncomment this line:
   // sequelize.sync({force: true});
 
   return {

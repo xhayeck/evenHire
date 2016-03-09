@@ -9,7 +9,7 @@ angular.module('evenhire.recruiters.factory', [])
         data: newUser
       })
       .then(function(data){
-        return data.data.id;
+        return data.data;
       }, function(err) {
         console.log("Error: ", err);
       });
