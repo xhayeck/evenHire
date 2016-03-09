@@ -18,6 +18,6 @@ sequelize.authenticate()
     console.log('connected to db')
   }
 });
-
-module.exports.sequelize = sequelize;
+//Export our configured instance of our Heroku db
+module.exports.db = sequelize;
 

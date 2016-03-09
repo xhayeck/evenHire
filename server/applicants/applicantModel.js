@@ -1,16 +1,16 @@
 //Uses dotenv to get process.env variables
-require('dotenv').config();
-var connectStr = process.env.DATABASE_URL;
-
-var sequelize = require('../db/db.js').sequelize;
-var Models = require('../db/models')(sequelize);
+// require('dotenv').config();
+// var connectStr = process.env.DATABASE_URL;
 var pg = require('pg');
+
+var db = require('../db/db').db;
+var Models = require('../db/models')(db);
 
 module.exports = {
   signup: function(req, res) {
-    var newApp = Models.Applicant.build({first_name: req.body.firstName, last_name: req.body.lastName, username: req.body.username, password: req.body.password, anon_id: req.body.anon_id, email: req.body.email, work_exp: req.body.workExp, education: req.body.education, city: req.body.city, resume: req.body.resume})
-      .save().then(function() {
-        return res.send(newApp);
+    Models.Applicant.create({first_name: req.body.firstName, last_name: req.body.lastName, username: req.body.username, password: req.body.password, anon_id: req.body.anon_id, email: req.body.email, work_exp: req.body.workExp, education: req.body.education, city: req.body.city, resume: req.body.resume})
+      .then(function(newApplicant) {
+        return res.send(newApplicant);
       })
       .catch(function(err) {
         console.log('error in saving applicant');
@@ -92,27 +92,12 @@ module.exports = {
   getAllApplicants: function(req, res) {
     Models.Applicant.findAll()
       .then(function(results) {
-        console.log(results);
         return res.send(results);
       })
       .catch(function(err) {
         return res.send(err);
       });
   }
-  // getAllApplicants: function(req, res) {
-  //   pg.defaults.ssl = true;
-  //   pg.connect(connectStr, function(err, client, done) {
-  //     if (err) {
-  //       done();
-  //       return res.send(err);
-  //     }
-  //     client.query("SELECT * from applicants", function(err, result) {
-  //       if (err) {
-  //         return res.send(err);
-  //       }
-  //       return res.send(result.rows);
-  //     });
-  //   });
-  // }
+
 
 };

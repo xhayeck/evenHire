@@ -8,6 +8,7 @@ angular.module('evenhire.recNewAcc', [])
       Recruiter.signup($scope.recruiter).
         then(function(data) {
           console.log('New recruiter id: ', data);
+          $state.go('recruiters')
         });
     };
 
