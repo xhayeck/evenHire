@@ -6,7 +6,8 @@ module.exports = function(router) {
   });
 
   router.post('/signup', Recruiter.signup);
-  router.get('/allPostedJobs', Recruiter.getAllJobs);
+  //Get all posted jobs for a given recruiterId
+  router.get('/allPostedJobs/:id', Recruiter.getAllJobs);
   router.post('/newJob', Recruiter.postJob);
   //To view recruiters db, visit /api/recruiters/showRecruitersDB
   router.get('/showRecruitersDB', Recruiter.getAllRecs);

@@ -2,12 +2,13 @@ angular.module('evenhire.recruiters', [])
 
 
 .controller('RecHomeController', ['$scope', '$state', 'Recruiter', function ($scope, $state, Recruiter) {
-  var newJob = {};
+  $scope.newJob = {};
   $scope.postedJobs = '';
   $scope.error;
+  $scope.id = 1;
 
   $scope.getJobs = function() {
-    Recruiter.getPostedJobs()
+    Recruiter.getPostedJobs($scope.id)
       .then(function(data) {
       $scope.postedJobs = data;
     }, function() {
@@ -15,8 +16,8 @@ angular.module('evenhire.recruiters', [])
     });
   };
 
-  $scope.postJob = function(newJob) {
-    Recruiter.postNewJob(newJob);
+  $scope.postJob = function() {
+    Recruiter.postNewJob($scope.newJob);
   };
 
 }]);
