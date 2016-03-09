@@ -1,20 +1,21 @@
 //Uses dotenv to get process.env variables, won't need with sequelize
-require('dotenv').config();
-var connectStr = process.env.DATABASE_URL;
-var pg = require('pg');
+// require('dotenv').config();
+// var connectStr = process.env.DATABASE_URL;
+// var pg = require('pg');
 
+//Require our database instance with its models
 var db = require('../db/db').db;
 var Models = require('../db/models')(db);
 
 module.exports = {
   getAllJobs: function(req, res) {
-    Models.Jobs.findAll()
+    Models.Job.findAll({where: {recruiterId: req.params.id}})
       .then(function(results) {
         return res.send(results);
       })
       .catch(function(err) {
         return res.send(err);
-      })
+      });
     // var results = [];
     // //Postgress clien from connection pool
     // pg.defaults.ssl = true;
@@ -40,17 +41,39 @@ module.exports = {
     // });
   },
 
+  getAllRecs: function(req, res) {
+    Models.Recruiter.findAll()
+      .then(function(results) {
+        return res.send(results);
+      })
+      .catch(function(err) {
+        return res.send(err);
+      });
+  },
+
+  getJobAppRelations: function(req, res) {
+    Models.JobApplicant.findAll()
+      .then(function(results) {
+        return res.send(results);
+      })
+      .catch(function(err) {
+        return res.send(err);
+      });
+  },
+
   postJob: function(req, res) {
-    Models.Job.create({
-      title: 'test',
-      location: 'test',
-      description: 'test',
-      industry: 'test',
-      career_level: 'test',
-      job_type: 'test',
-      experience: 'test',
-      recruiterId: 1,
-    })
+    Models.Recruiter.findById(2)
+      .then(function(recruiter) {
+        recruiter.createJob({
+          title: req.body.title,
+          location: req.body.location,
+          description: req.body.description,
+          industry: req.body.industry,
+          career_level: req.body.career_level,
+          job_type: req.body.job_type,
+          experience: req.body.experience,
+        });
+      })
     .then(function(newJob) {
       return res.send(newJob);
     })
@@ -70,6 +93,7 @@ module.exports = {
       return res.send(newRecruiter);
     })
     .catch(function(err) {
+      console.log('error in saving recruiter');
       return res.send(err);
     });
     // pg.defaults.ssl = true;
@@ -106,25 +130,5 @@ module.exports = {
     //     }
     //   });
     // });
-  },
-
-  getAllRecs: function(req, res) {
-    Models.Recruiter.findAll()
-      .then(function(results) {
-        return res.send(results);
-      })
-      .catch(function(err) {
-        return res.send(err);
-      });
-  },
-
-  getJobAppRelations: function(req, res) {
-    Models.JobApplicant.findAll()
-      .then(function(results) {
-        return res.send(results);
-      })
-      .catch(function(err) {
-        return res.send(err);
-      });
   }
 };

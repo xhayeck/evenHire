@@ -1,12 +1,32 @@
 //Uses dotenv to get process.env variables
 // require('dotenv').config();
 // var connectStr = process.env.DATABASE_URL;
-var pg = require('pg');
+// var pg = require('pg');
 
 var db = require('../db/db').db;
 var Models = require('../db/models')(db);
 
 module.exports = {
+  getAllApplicants: function(req, res) {
+    Models.Applicant.findAll()
+      .then(function(results) {
+        return res.send(results);
+      })
+      .catch(function(err) {
+        return res.send(err);
+      });
+  },
+
+  getAllJobs: function(req, res) {
+    Models.Job.findAll()
+      .then(function(data) {
+        return res.send(data);
+      })
+      .catch(function(err) {
+        return res.send(err);
+      });
+  },
+
   signup: function(req, res) {
     Models.Applicant.create({
       first_name: req.body.firstName,
@@ -50,15 +70,6 @@ module.exports = {
   //   });
   },
 
-  getAllJobs: function(req, res) {
-    Models.Job.findAll()
-      .then(function(data) {
-        return res.send(data);
-      })
-      .catch(function(err) {
-        return res.send(err);
-      });
-  },
   // getAllJobs: function(req, res) {
   //   var results = [];
   //   pg.defaults.ssl = true;
@@ -87,7 +98,7 @@ module.exports = {
       .catch(function(err) {
         return res.send(err);
       });
-  },
+  }
   // submitApplication: function(req, res) {
   //   pg.defaults.ssl = true;
   //   pg.connect(connectStr, function(err, client, done) {
@@ -109,15 +120,6 @@ module.exports = {
   //   });
   // },
 
-  getAllApplicants: function(req, res) {
-    Models.Applicant.findAll()
-      .then(function(results) {
-        return res.send(results);
-      })
-      .catch(function(err) {
-        return res.send(err);
-      });
-  }
 
 
 };

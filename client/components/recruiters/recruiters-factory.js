@@ -28,10 +28,10 @@ angular.module('evenhire.recruiters.factory', [])
       });
     };
 
-    recruiter.getPostedJobs = function() {
+    recruiter.getPostedJobs = function(id) {
       return $http({
         method: 'GET',
-        url: 'api/recruiters/allPostedJobs',
+        url: 'api/recruiters/allPostedJobs/' + id,
       })
       .then(function(data) {
         //data.data is an array of job objects
@@ -42,11 +42,11 @@ angular.module('evenhire.recruiters.factory', [])
       });
     }
 
-    recruiter.postNewJob = function(newJobObject) {
+    recruiter.postNewJob = function(newJobObj) {
       return $http({
         method: 'POST',
         url: 'api/recruiters/newJob',
-        data: newJobObject
+        data: newJobObj
       })
       .then(function(data) {
         console.log(data)
