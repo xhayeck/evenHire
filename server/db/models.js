@@ -1,7 +1,8 @@
+//Use datatypes of Sequelize to define property types
 var Sequelize = require('Sequelize');
 
-module.exports = function(sequelize) {
-  var Recruiter = sequelize.define('recruiters', {
+module.exports = function(db) {
+  var Recruiter = db.define('recruiters', {
     name: Sequelize.STRING,
     username: {
       type: Sequelize.STRING,
@@ -11,7 +12,7 @@ module.exports = function(sequelize) {
     email: Sequelize.STRING
   });
 
-  var Applicant = sequelize.define('applicants', {
+  var Applicant = db.define('applicants', {
     first_name: Sequelize.STRING,
     last_name: Sequelize.STRING,
     username: {
@@ -27,7 +28,7 @@ module.exports = function(sequelize) {
     resume: Sequelize.TEXT
   });
 
-  var Job = sequelize.define('jobs', {
+  var Job = db.define('jobs', {
     title: Sequelize.STRING,
     location: Sequelize.STRING,
     description: Sequelize.TEXT,
@@ -38,12 +39,18 @@ module.exports = function(sequelize) {
     //sequelize automatically creates a createdAt property
   });
 
-  var JobApplicant = sequelize.define('jobs_applicants', {
+  var JobApplicant = db.define('jobs_applicants', {
   });
 
-  Recruiter.hasMany(Job, {as: 'Jobs'});
-  Applicant.belongsToMany(Job, {through: JobApplicant});
-  Job.belongsToMany(Applicant, {through: JobApplicant});
+  //set up one to many relationship
+  Recruiter.hasMany(Job);
+  Job.belongsTo(Recruiter);
+  //set up many to many relationship
+  Job.belongsToMany(Applicant, {through: 'jobs_applicants'});
+  Applicant.belongsToMany(Job, {through: 'jobs_applicants'});
+
+  //WARNING! to sync and possibly clear db uncomment this line:
+  // sequelize.sync({force: true});
 
   return {
     Job: Job,

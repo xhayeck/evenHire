@@ -5,8 +5,8 @@ module.exports = function(app, express) {
   app.use('/api/applicants', applicantsRouter);
   app.use('/api/recruiters', recruitersRouter);
 
-  require('./applicants/applicantsRoutes.js')(applicantsRouter);
-  require('./recruiters/recruitersRoutes.js')(recruitersRouter);
+  require('./applicants/applicantRoutes.js')(applicantsRouter);
+  require('./recruiters/recruiterRoutes.js')(recruitersRouter);
 
 }
 
