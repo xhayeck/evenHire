@@ -7,8 +7,13 @@ angular.module('evenhire.appLogin', [])
       //send form data to the server at api/applicants/signup
       Applicant.login($scope.user)
         .then(function(data) {
-          $window.localStorage.setItem('evenhire', data.token);
-          $state.go('allJobs')
+          //if user is not authenticated
+          if (!(data.type)) {
+            console.log('error! ', data.data);
+          } else {
+            $window.localStorage.setItem('evenhire', data.token);
+            $state.go('allJobs');
+          }
         });
     };
 
