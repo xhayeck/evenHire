@@ -5,6 +5,7 @@
 
 var db = require('../db/db').db;
 var Models = require('../db/models')(db);
+var authUtils = require('../auth/utils');
 
 module.exports = {
   getAllApplicants: function(req, res) {
@@ -38,8 +39,9 @@ module.exports = {
             console.log('Wrong password');
             return res.send('wrong password');
           } else {
+            var token = authUtils.issueToken(applicant);
             console.log('Sign in successful');
-            return res.send('Signed in');
+            return res.send({token: token, user: applicant});
           }
         });
       })
