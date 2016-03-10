@@ -1,5 +1,6 @@
 //Use datatypes of Sequelize to define property types
 var Sequelize = require('Sequelize');
+var bcrypt = require('bcrypt');
 
 module.exports = function(db) {
   var Recruiter = db.define('recruiters', {
@@ -26,6 +27,30 @@ module.exports = function(db) {
     work_exp: Sequelize.TEXT,
     education: Sequelize.TEXT,
     resume: Sequelize.TEXT
+  }, {
+    //for deleting
+    paranoid: true,
+    instanceMethods: {
+      setPassword: function(password, done) {
+        //generate a salt
+        var that = this;
+        return bcrypt.genSalt(10, function(err, salt) {
+
+          return bcrypt.hash(password, salt, function(error, encrypted) {
+            //save encrypted password along with the salt
+            that.password = encrypted;
+            that.salt = salt;
+            done(that);
+          });
+        });
+      },
+      verifyPassword: function(password, done) {
+        return bcrypt.compare(password, this.password, function(err, result) {
+          //result is a boolean
+          return done(err, result);
+        });
+      }
+    }
   });
 
   var Job = db.define('jobs', {
@@ -50,7 +75,7 @@ module.exports = function(db) {
   Applicant.belongsToMany(Job, {through: 'jobs_applicants'});
 
   //WARNING! to sync and possibly clear db uncomment this line:
-  // sequelize.sync({force: true});
+  // db.sync({force: true});
 
   return {
     Job: Job,

@@ -26,9 +26,31 @@ module.exports = {
         return res.send(err);
       });
   },
+  login: function(req, res) {
+    Models.Applicant.findOne({ where: {username: req.body.username }})
+      .then(function(applicant) {
+        applicant.verifyPassword(req.body.password, function(err, isVerified) {
+          if (err) {
+            console.log('error');
+            return res.send(err);
+          }
+          if (!(isVerified)) {
+            console.log('Wrong password');
+            return res.send('wrong password');
+          } else {
+            console.log('Sign in successful');
+            return res.send('Signed in');
+          }
+        });
+      })
+      .catch(function(error) {
+        console.log('This user not exist')
+        return res.send(error);
+      });
+  },
 
   signup: function(req, res) {
-    Models.Applicant.create({
+    var newUser = Models.Applicant.build({
       first_name: req.body.firstName,
       last_name: req.body.lastName,
       username: req.body.username,
@@ -40,13 +62,25 @@ module.exports = {
       city: req.body.city,
       resume: req.body.resume
     })
-      .then(function(newApplicant) {
-        return res.send(newApplicant);
-      })
-      .catch(function(err) {
-        console.log('error in saving applicant');
-        return res.send(err);
-      })
+      .setPassword(req.body.password, function(updated) {
+        updated.save();
+      });
+
+
+    // console.log(newUser);
+      // .setPassword(req.body.password, function(updated) {
+      //   newUser.set('password', updated)
+
+      // // console.log('new user is:',newUser)
+      // // .then(function(newApplicant) {
+      // //   // console.log('newApplicant is :',newApplicant)
+      // //   return res.send(newApplicant);
+      // // })
+      // // .catch(function(err) {
+      // //   console.log('error in saving applicant');
+      // //   return res.send(err);
+      // // })
+      // });
   //   //Postgress clien from connection pool
   //   pg.defaults.ssl = true;
   //   pg.connect(connectStr, function(err, client, done) {

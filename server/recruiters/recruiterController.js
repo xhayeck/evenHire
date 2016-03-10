@@ -62,7 +62,7 @@ module.exports = {
   },
 
   postJob: function(req, res) {
-    Models.Recruiter.findById(2)
+    Models.Recruiter.findById(1)
       .then(function(recruiter) {
         recruiter.createJob({
           title: req.body.title,
@@ -72,11 +72,11 @@ module.exports = {
           career_level: req.body.career_level,
           job_type: req.body.job_type,
           experience: req.body.experience,
+        })
+        .then(function(newJob) {
+          return res.send(newJob);
         });
       })
-    .then(function(newJob) {
-      return res.send(newJob);
-    })
     .catch(function(err) {
       return res.send(err);
     });

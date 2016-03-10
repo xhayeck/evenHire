@@ -1,9 +1,7 @@
 var Applicant = require('./applicantController');
 
 module.exports = function(router) {
-  router.post('/login', function(req, res) {
-    res.send('Im signing in as an applicant');
-  });
+  router.post('/login', Applicant.login);
   router.post('/signup', Applicant.signup);
   router.get('/allJobs', Applicant.getAllJobs);
   router.post('/apply', Applicant.submitApplication);

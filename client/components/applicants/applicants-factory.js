@@ -23,9 +23,9 @@ angular.module('evenhire.applicants.factory', [])
         data: user
       })
       .then(function(data) {
-        console.log(data)
+        return data;
       }, function(err) {
-        console.log('error in loging in');
+        return err;
       });
     };
 

@@ -49,9 +49,9 @@ angular.module('evenhire.recruiters.factory', [])
         data: newJobObj
       })
       .then(function(data) {
-        console.log(data)
+        return data.data;
       }, function(err) {
-        console.log('error in posting new job');
+        return err;
       });
     }
 
