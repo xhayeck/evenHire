@@ -52,15 +52,6 @@ angular.module('evenhire.applicants.factory', [])
       }, function(err) {
         console.log('error in applying for job');
       });
-    },
-
-    applicant.isAuth = function() {
-      return !!$window.localStorage.getItem('evenhire');
-    },
-
-    applicant.signOut = function() {
-      $window.localStorage.removeItem('evenhire');
-      $state.go('appLogin');
     }
 
     return applicant;

@@ -10,7 +10,7 @@ angular.module('evenhire.appNewAcc', [])
         .then(function(data) {
           console.log('NEW USER is :', data);
           $state.go('allJobs');
-      })
+      });
     };
 
   }]);

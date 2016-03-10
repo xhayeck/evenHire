@@ -10,7 +10,9 @@ angular.module('evenhire',[
   'ui.router',
   'evenhire.applicants.factory',
   'evenhire.recruiters.factory',
-  'ngMaterial'
+  'ngMaterial',
+  'evenhire.auth.factory',
+  'evenhire.auth'
   ])
 
   .config(function($stateProvider, $urlRouterProvider) {
@@ -53,16 +55,12 @@ angular.module('evenhire',[
         controller: 'RecNewAccController'
       });
   })
-  .run(function($rootScope, $state, Applicant, $location) {
+  .run(function($rootScope, $state, Auth, $location) {
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, options) {
-      if (toState.authenticate && (!Applicant.isAuth())) {
+      if (toState.authenticate && !(Auth.isAuth())) {
         console.log('need to be authenticated');
-        $state.go('appLogin');
+        event.preventDefault();
+        $state.go('recLogin');
       }
-      // && next.$$route.authenticate && !Applicant.isAuth()
-      // if(next.$$route) {
-      //   console.log('not authenticated');
-      //   $state.go('appLogin');
-      // }
     });
   });
