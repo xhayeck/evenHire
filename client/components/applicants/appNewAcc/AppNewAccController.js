@@ -9,7 +9,7 @@ angular.module('evenhire.appNewAcc', [])
       Applicant.signup($scope.applicant)
         .then(function(data) {
           console.log('NEW USER is :', data);
-          $state.go('allJobs');
+          // $state.go('allJobs');
       })
     };
 

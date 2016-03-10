@@ -17,7 +17,10 @@ angular.module('evenhire.recruiters', [])
   };
 
   $scope.postJob = function() {
-    Recruiter.postNewJob($scope.newJob);
+    Recruiter.postNewJob($scope.newJob)
+      .then(function(newJob) {
+        console.log(newJob)
+      });
   };
 
 }]);
