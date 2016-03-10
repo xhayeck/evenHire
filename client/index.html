@@ -51,6 +51,9 @@
       <div flex="12">
         <md-button ui-sref="allJobs">View Jobs</md-button>
       </div>
+      <div flex="12" ng-controller="AuthController">
+        <md-button ng-click="logOut()">Logout</md-button>
+      </div>
     </div>
   </md-toolbar>
   <div ui-view></div>

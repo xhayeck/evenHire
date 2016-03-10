@@ -9,4 +9,3 @@ module.exports = function(app, express) {
   require('./recruiters/recruiterRoutes.js')(recruitersRouter);
 
 }
-
