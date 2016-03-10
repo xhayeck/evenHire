@@ -23,9 +23,9 @@ angular.module('evenhire.applicants.factory', [])
         data: user
       })
       .then(function(data) {
-        console.log(data)
+        return data;
       }, function(err) {
-        console.log('error in loging in');
+        return err;
       });
     };
 
@@ -35,7 +35,7 @@ angular.module('evenhire.applicants.factory', [])
         url: 'api/applicants/allJobs'
       })
       .then(function(data) {
-        return data.data;
+        return data;
       }, function(err) {
         console.log('error in getting jobs');
       });

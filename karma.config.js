@@ -18,10 +18,12 @@ module.exports = function(config) {
         'node_modules/angular/angular.js',
         'node_modules/angular-ui-router/release/angular-ui-router.js',
         'node_modules/angular-mocks/angular-mocks.js',
+        'node_modules/angular-animate/angular-animate.min.js',
+        'node_modules/angular-material/angular-material.js',
+        'node_modules/angular-aria/angular-aria.js',
         'client/app.js',
         'client/components/**/*.js',
-        // 'server/**/*.js',
-        'tests/**/*.js'
+        'tests/**/*.js',
     ],
 
 
@@ -83,7 +85,7 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false,
+    singleRun: true,
 
     // Concurrency level
     // how many browser should be started simultaneous
@@ -99,7 +101,6 @@ module.exports = function(config) {
   };
     if (process.env.TRAVIS) {
         configuration.browsers = ['Chrome_travis_ci'];
-        configuration.singleRun = true;
     }
 
     config.set(configuration);

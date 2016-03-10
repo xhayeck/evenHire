@@ -1,17 +1,23 @@
 //Uses dotenv to get process.env variables
 require('dotenv').config();
 var connectStr = process.env.DATABASE_URL;
+var Sequelize = require('Sequelize');
 
-var pg = require('pg');
-
-pg.defaults.ssl = true;
-pg.connect(connectStr, function(err, client) {
-  if (err) throw err;
-  console.log('Connected to postgres! Getting schemas...');
-
-  client
-    .query('SELECT * FROM jobs;')
-    .on('row', function(row) {
-      console.log(JSON.stringify(row));
-    });
+var sequelize = new Sequelize(process.env.DATABASE_URL, {
+  dialect: 'postgres',
+  dialectOptions: {
+    ssl: true
+  }
 });
+
+sequelize.authenticate()
+  .then(function(err) {
+  if(err) {
+    console.log('cant connect to db', err);
+  } else {
+    console.log('connected to db')
+  }
+});
+//Export our configured instance of our Heroku db
+module.exports.db = sequelize;
+

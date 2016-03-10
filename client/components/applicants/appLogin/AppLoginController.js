@@ -5,7 +5,11 @@ angular.module('evenhire.appLogin', [])
     $scope.user = {};
     $scope.signIn = function() {
       //send form data to the server at api/applicants/signup
-      Applicant.login($scope.user);
+      Applicant.login($scope.user)
+        .then(function(data) {
+          console.log(data);
+          $state.go('allJobs')
+        });
     };
 
 }]);
