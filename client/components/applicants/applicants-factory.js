@@ -23,7 +23,7 @@ angular.module('evenhire.applicants.factory', [])
         data: user
       })
       .then(function(data) {
-        return data;
+        return data.data;
       }, function(err) {
         return err;
       });
