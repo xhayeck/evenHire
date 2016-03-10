@@ -35,7 +35,7 @@ angular.module('evenhire.applicants.factory', [])
         url: 'api/applicants/allJobs'
       })
       .then(function(data) {
-        return data;
+        return data.data;
       }, function(err) {
         console.log('error in getting jobs');
       });

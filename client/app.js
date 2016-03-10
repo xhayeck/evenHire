@@ -55,7 +55,7 @@ angular.module('evenhire',[
         controller: 'RecNewAccController'
       });
   })
-  .run(function($rootScope, $state, Auth, $location) {
+  .run(function($rootScope, $state, Auth) {
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, options) {
       if (toState.authenticate && !(Auth.isAuth())) {
         console.log('need to be authenticated');

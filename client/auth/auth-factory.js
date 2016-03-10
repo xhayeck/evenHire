@@ -1,10 +1,9 @@
 angular.module('evenhire.auth.factory', [])
 
-  .factory('Auth',['$window', '$state', function ($window, $state) {
+  .factory('Auth',['$window', function ($window) {
     var auth = {}
       auth.signOut = function() {
         $window.localStorage.removeItem('evenhire');
-        $state.go('home');
       };
 
       auth.isAuth = function() {

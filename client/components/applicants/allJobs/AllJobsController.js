@@ -2,14 +2,12 @@
 angular.module('evenhire.allJobs', [])
 
   .controller('AllJobsController', ['$scope', '$state', 'Applicant', function ($scope, $state, Applicant) {
-    $scope.jobs = {
-      uber : 'driver',
-      google : 'front-end'
-    }
+    $scope.fetchedJobs = [];
 
     $scope.getAllJobs = function() {
       Applicant.allJobs()
         .then(function(data) {
+          $scope.fetchedJobs = data;
           console.log('data in alljobsController is', data);
         });
     };

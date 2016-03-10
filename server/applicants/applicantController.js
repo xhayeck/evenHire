@@ -56,7 +56,7 @@ module.exports = {
         });
       })
       .catch(function(error) {
-        console.log('This user not exist')
+        console.log('This user does not exist')
         return res.send({
           type: false,
           data: 'User does not exist'
@@ -80,7 +80,19 @@ module.exports = {
       .setPassword(req.body.password, function(updated) {
         updated.save()
           .then(function() {
-            res.send(updated)
+            var token = authUtils.issueToken(updated);
+            return res.send({
+              data: updated,
+              type: true,
+              token: token
+            });
+          })
+          //if username alredy exist send back validation error
+          .catch(function(error) {
+            return res.send({
+              type: false,
+              data: error
+            });
           });
       });
 

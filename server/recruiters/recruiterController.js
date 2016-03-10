@@ -6,6 +6,7 @@
 //Require our database instance with its models
 var db = require('../db/db').db;
 var Models = require('../db/models')(db);
+var authUtils = require('../auth/utils');
 
 module.exports = {
   getAllJobs: function(req, res) {
@@ -39,6 +40,43 @@ module.exports = {
     //     return res.json(results);
     //   });
     // });
+  },
+
+  login: function(req, res) {
+    Models.Recruiter.findOne({ where: {username: req.body.username }})
+      .then(function(recruiter) {
+        recruiter.verifyPassword(req.body.password, function(err, isVerified) {
+          //Error in verifying
+          if (err) {
+            console.log('error in recruiterController');
+            return res.send({
+              type: false,
+              data: 'Error occured: ' + err
+            });
+          }
+          if (!(isVerified)) {
+            return res.send({
+              type: false,
+              data: 'Wrong password'
+            });
+          } else {
+            var token = authUtils.issueToken(recruiter);
+            console.log("Signin successful");
+            return res.send({
+              type: true,
+              token: token,
+              data: recruiter
+            });
+          }
+        });
+      })
+      .catch(function(error) {
+        console.log('This user does not exist')
+        return res.send({
+          type: false,
+          data: 'User does not exist'
+        });
+      });
   },
 
   getAllRecs: function(req, res) {
@@ -83,19 +121,18 @@ module.exports = {
   },
 
   signup: function (req, res) {
-    Models.Recruiter.create({
+    var newUser = Models.Recruiter.build({
       name: req.body.name,
       username: req.body.username,
       password: req.body.password,
       email: req.body.email,
     })
-    .then(function(newRecruiter) {
-      return res.send(newRecruiter);
-    })
-    .catch(function(err) {
-      console.log('error in saving recruiter');
-      return res.send(err);
-    });
+      .setPassword(req.body.password, function(updated) {
+        updated.save()
+          .then(function() {
+            res.send(updated)
+          });
+      });
     // pg.defaults.ssl = true;
     // var newRecruiter = {
     //   username: req.body.username,
