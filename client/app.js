@@ -10,7 +10,9 @@ angular.module('evenhire',[
   'ui.router',
   'evenhire.applicants.factory',
   'evenhire.recruiters.factory',
-  'ngMaterial'
+  'ngMaterial',
+  'evenhire.auth.factory',
+  'evenhire.auth'
   ])
 
   .config(function($stateProvider, $urlRouterProvider) {
@@ -39,7 +41,8 @@ angular.module('evenhire',[
       .state('recruiters', {
         url: '/recruiters',
         templateUrl: 'components/recruiters/recHome/recHomeView.html',
-        controller: 'RecHomeController'
+        controller: 'RecHomeController',
+        authenticate: true
       })
       .state('recLogin', {
         url: '/recLogin',
@@ -51,4 +54,13 @@ angular.module('evenhire',[
         templateUrl: 'components/recruiters/recNewAcc/recNewAccView.html',
         controller: 'RecNewAccController'
       });
+  })
+  .run(function($rootScope, $state, Auth, $location) {
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, options) {
+      if (toState.authenticate && !(Auth.isAuth())) {
+        console.log('need to be authenticated');
+        event.preventDefault();
+        $state.go('recLogin');
+      }
+    });
   });

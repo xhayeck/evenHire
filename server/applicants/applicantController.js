@@ -5,6 +5,7 @@
 
 var db = require('../db/db').db;
 var Models = require('../db/models')(db);
+var authUtils = require('../auth/utils');
 
 module.exports = {
   getAllApplicants: function(req, res) {
@@ -30,22 +31,36 @@ module.exports = {
     Models.Applicant.findOne({ where: {username: req.body.username }})
       .then(function(applicant) {
         applicant.verifyPassword(req.body.password, function(err, isVerified) {
+          //Error in verifying password
           if (err) {
             console.log('error');
-            return res.send(err);
+            return res.send({
+              type: false,
+              data: 'Error occured: ' + err
+            });
           }
           if (!(isVerified)) {
-            console.log('Wrong password');
-            return res.send('wrong password');
+            return res.send({
+              type: false,
+              data: 'Wrong password'
+            });
           } else {
+            var token = authUtils.issueToken(applicant);
             console.log('Sign in successful');
-            return res.send('Signed in');
+            return res.send({
+              type: true,
+              token: token,
+              data: applicant
+            });
           }
         });
       })
       .catch(function(error) {
         console.log('This user not exist')
-        return res.send(error);
+        return res.send({
+          type: false,
+          data: 'User does not exist'
+        });
       });
   },
 
