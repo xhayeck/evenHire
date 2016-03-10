@@ -1,5 +1,5 @@
 //Use datatypes of Sequelize to define property types
-var Sequelize = require('Sequelize');
+var Sequelize = require('sequelize');
 var bcrypt = require('bcrypt');
 
 module.exports = function(db) {
