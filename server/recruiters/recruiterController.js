@@ -44,7 +44,7 @@ module.exports = {
 
   login: function(req, res) {
     Models.Recruiter.findOne({ where: {username: req.body.username }})
-      .then(console.log("req.body", req.body), function(recruiter) {
+      .then(function(recruiter) {
         recruiter.verifyPassword(req.body.password, function(err, isVerified) {
           //Error in verifying
           if (err) {
@@ -60,7 +60,7 @@ module.exports = {
               data: 'Wrong password'
             });
           } else {
-            var token = authUtils.issueToke(applicant);
+            var token = authUtils.issueToken(recruiter);
             console.log("Signin successful");
             return res.send({
               type: true,

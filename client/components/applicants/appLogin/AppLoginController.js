@@ -11,7 +11,7 @@ angular.module('evenhire.appLogin', [])
           if (!(data.type)) {
             console.log('error! ', data.data);
           } else {
-            $window.localStorage.setItem('evenhireApplicant', data.token);
+            $window.localStorage.setItem('evenhire', data.token);
             $state.go('allJobs');
           }
         });
