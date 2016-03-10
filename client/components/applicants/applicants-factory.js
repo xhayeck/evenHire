@@ -1,6 +1,6 @@
 angular.module('evenhire.applicants.factory', [])
 
-  .factory('Applicant',['$http', function ($http) {
+  .factory('Applicant',['$http', '$window', '$state', function ($http, $window, $state) {
     var applicant = {};
 
     applicant.signup = function(newUser) {
@@ -52,6 +52,15 @@ angular.module('evenhire.applicants.factory', [])
       }, function(err) {
         console.log('error in applying for job');
       });
+    },
+
+    applicant.isAuth = function() {
+      return !!$window.localStorage.getItem('evenhire');
+    },
+
+    applicant.signOut = function() {
+      $window.localStorage.removeItem('evenhire');
+      $state.go('appLogin');
     }
 
     return applicant;
