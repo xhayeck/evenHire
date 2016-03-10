@@ -1,7 +1,7 @@
 //Uses dotenv to get process.env variables
 require('dotenv').config();
 var connectStr = process.env.DATABASE_URL;
-var Sequelize = require('Sequelize');
+var Sequelize = require('sequelize');
 
 var sequelize = new Sequelize(process.env.DATABASE_URL, {
   dialect: 'postgres',
