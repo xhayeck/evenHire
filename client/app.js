@@ -54,10 +54,15 @@ angular.module('evenhire',[
       });
   })
   .run(function($rootScope, $state, Applicant, $location) {
-    $rootScope.$on('$routeChangeStart', function(evt, next, current) {
-      if(next.$$route && next.$$route.authenticate && !Applicant.isAuth()) {
-        console.log('not authenticated');
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, options) {
+      if (toState.authenticate && (!Applicant.isAuth())) {
+        console.log('need to be authenticated');
         $state.go('appLogin');
       }
+      // && next.$$route.authenticate && !Applicant.isAuth()
+      // if(next.$$route) {
+      //   console.log('not authenticated');
+      //   $state.go('appLogin');
+      // }
     });
   });
