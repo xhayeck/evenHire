@@ -22,9 +22,9 @@ angular.module('evenhire.recruiters.factory', [])
         data: user
       })
       .then(function(data){
-        console.log(data);
+        return data.data;
       }, function(err) {
-        console.log(err);
+        return err;
       });
     };
 
