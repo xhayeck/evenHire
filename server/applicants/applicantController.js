@@ -56,7 +56,7 @@ module.exports = {
         });
       })
       .catch(function(error) {
-        console.log('This user not exist')
+        console.log('This user does not exist')
         return res.send({
           type: false,
           data: 'User does not exist'

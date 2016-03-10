@@ -4,6 +4,14 @@ angular.module('evenhire.recLogin', [])
 
     $scope.user = {};
     $scope.logIn = function() {
-      Recruiter.login($scope.user);
+      Recruiter.login($scope.user)
+      .then(function(data) {
+        if (!(data.type)) {
+          console.log('error!', data.data);
+        } else {
+          $window.localStorage.setItem('evenhireRecruiter', data.token);
+          $state.go('recruiters');
+        }
+      });
     };
 }]);
