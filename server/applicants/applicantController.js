@@ -63,7 +63,10 @@ module.exports = {
       resume: req.body.resume
     })
       .setPassword(req.body.password, function(updated) {
-        updated.save();
+        updated.save()
+          .then(function() {
+            res.send(updated)
+          });
       });
 
 
