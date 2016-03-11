@@ -12,8 +12,6 @@ angular.module('evenhire.allJobs', [])
         });
     };
     $scope.submitApplication = function(job_id) {
-      console.log('in')
-        alert('you just applied for job id: '+ job_id)
       Applicant.apply({job_id: job_id})
        .then(function(data) {
       });

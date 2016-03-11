@@ -5,7 +5,6 @@ angular.module('evenhire.recruiters', [])
   $scope.newJob = {};
   $scope.postedJobs = '';
   $scope.error;
-  $scope.id = 1;
 
   $scope.getJobs = function() {
     Recruiter.getPostedJobs()

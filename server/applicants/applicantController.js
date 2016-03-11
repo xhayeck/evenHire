@@ -46,7 +46,7 @@ module.exports = {
               data: 'Wrong password'
             });
           } else {
-            var token = authUtils.issueToken(applicant.id, 'applicant');
+            var token = authUtils.issueToken(applicant.id, 'Applicant');
             console.log('Sign in successful');
             return res.send({
               type: true,
@@ -82,7 +82,7 @@ module.exports = {
         updated.save()
           .then(function() {
             console.log('updated.id: ', updated.id);
-            var token = authUtils.issueToken(updated.id, 'applicant');
+            var token = authUtils.issueToken(updated.id, 'Applicant');
             return res.send({
               data: updated,
               type: true,
@@ -157,22 +157,20 @@ module.exports = {
     var applicantId = authUtils.decodeToken(req.headers['x-access-token']).id;
     Models.Job.findById(req.body.job_id)
       .then(function(job) {
-        // console.log('job is', job)
-      console.log('applicant id is:', applicantId)
         Models.Applicant.findById(applicantId)
         .then(function(applicant) {
-       // console.log('applicant is :', applicant)
-       job.addApplicant(applicant)
-       .catch(function(err) {
-        return res.send('WE cant find you:', err)
-       })
-        })
-        .catch(function(err) {
-          return res.send('You can not find applicant', err)
-        })
+          job.hasApplicant(applicant)
+          .then(function(result) {
+            if(result) {
+            return res.send(result)
+            }
+            job.addApplicant(applicant)
+            return res.send(applicant)
+          })
+        });
       })
       .catch(function(err) {
-        return res.send('You need to log in', err);
+        return res.send(err);
       });
   }
   // submitApplication: function(req, res) {
