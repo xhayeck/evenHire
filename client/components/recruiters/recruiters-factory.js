@@ -60,5 +60,17 @@ angular.module('evenhire.recruiters.factory', [])
       });
     }
 
+    recruiter.grabApplicants = function() {
+      return $http({
+        method: 'GET',
+        url: 'api/recruiters/whoAreApplicants'
+      })
+      .then (function(data) {
+        return data.data;
+      }, function(err) {
+        console.log('Error in reaching server. Error: ', err);
+      });
+    }
+
     return recruiter;
   }])
