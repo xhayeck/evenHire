@@ -11,10 +11,15 @@ angular.module('evenhire.allJobs', [])
           console.log('data in alljobsController is', data);
         });
     };
+
     $scope.submitApplication = function(job_id) {
+      console.log('in submitApplication')
+
+
       Applicant.apply({job_id: job_id})
-       .then(function(data) {
+        .then(alert('you just applied for job id: '+ job_id))
+        .then(function(data) {
+          console.log("data in submitApplication client side", data)
       });
     };
 }]);
-

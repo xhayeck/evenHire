@@ -16,6 +16,7 @@ angular.module('evenhire.applicants.factory', [])
     };
 
     applicant.apply = function(applicationObject) {
+      console.log(applicationObject)
       return $http({
         method: 'POST',
         url: 'api/applicants/apply',
