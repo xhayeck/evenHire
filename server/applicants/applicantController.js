@@ -81,7 +81,8 @@ module.exports = {
       .setPassword(req.body.password, function(updated) {
         updated.save()
           .then(function() {
-            var token = authUtils.issueToken(updated);
+            console.log('updated.id: ', updated.id);
+            var token = authUtils.issueToken(updated.id, 'applicant');
             return res.send({
               data: updated,
               type: true,
