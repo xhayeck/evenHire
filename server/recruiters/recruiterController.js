@@ -130,7 +130,7 @@ module.exports = {
       .setPassword(req.body.password, function(updated) {
         updated.save()
           .then(function() {
-            var token = authUtils.issueToken(updated);
+            var token = authUtils.issueToken(updated.id, 'recruiter');
             return res.send({
               data: updated,
               type: true,
