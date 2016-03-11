@@ -22,4 +22,8 @@ angular.module('evenhire.recruiters', [])
       });
   };
 
+  $scope.getApplicants = function() {
+
+  };
+
 }]);
