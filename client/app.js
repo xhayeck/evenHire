@@ -15,7 +15,7 @@ angular.module('evenhire',[
   'evenhire.auth'
   ])
 
-  .config(function($stateProvider, $urlRouterProvider) {
+  .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
     $urlRouterProvider.otherwise('/');
     $stateProvider
       .state('home', {
@@ -54,7 +54,7 @@ angular.module('evenhire',[
         templateUrl: 'components/recruiters/recNewAcc/recNewAccView.html',
         controller: 'RecNewAccController'
       });
-      // $httpProvider.interceptors.push('AttachTokens');
+      $httpProvider.interceptors.push('AttachTokens');
   })
   .factory('AttachTokens', function($window) {
     var attach = {
@@ -63,10 +63,10 @@ angular.module('evenhire',[
         if (jwt) {
           object.headers['x-access-token'] = jwt;
         } 
-        object.headers = ['Allow-Control-Allow-Origin'] = '*';
+        object.headers['Allow-Control-Allow-Origin'] = '*';
         return object;
       }
-    }
+    };
     return attach;
   })
   .run(function($rootScope, $state, Auth) {

@@ -28,6 +28,7 @@ module.exports = {
       });
   },
   login: function(req, res) {
+    // decoded token can be viewed thru authUtils.decodeToken(req.headers['x-access-token'])
     Models.Applicant.findOne({ where: {username: req.body.username }})
       .then(function(applicant) {
         applicant.verifyPassword(req.body.password, function(err, isVerified) {

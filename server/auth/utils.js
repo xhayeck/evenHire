@@ -6,5 +6,8 @@ var jwt = require('jwt-simple');
 module.exports = {
   issueToken: function(payload) {
     return jwt.encode(payload, token_secret);
+  },
+  decodeToken: function(token) {
+    return jwt.decode(token, token_secret);
   }
 };
