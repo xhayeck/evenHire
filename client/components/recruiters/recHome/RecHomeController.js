@@ -8,7 +8,7 @@ angular.module('evenhire.recruiters', [])
   $scope.id = 1;
 
   $scope.getJobs = function() {
-    Recruiter.getPostedJobs($scope.id)
+    Recruiter.getPostedJobs()
       .then(function(data) {
       $scope.postedJobs = data;
     }, function() {

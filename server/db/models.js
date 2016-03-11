@@ -29,7 +29,6 @@ module.exports = function(db) {
         });
       },
       verifyPassword: function(password, done) {
-        console.log("verifying password -----------------------")
         return bcrypt.compare(password, this.password, function(err, result) {
           //result is a boolean
           return done(err, result);
