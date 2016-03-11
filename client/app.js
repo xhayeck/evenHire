@@ -62,7 +62,7 @@ angular.module('evenhire',[
         var jwt = $window.localStorage.getItem('evenhire');
         if (jwt) {
           object.headers['x-access-token'] = jwt;
-        } 
+        }
         object.headers['Allow-Control-Allow-Origin'] = '*';
         return object;
       }
@@ -71,7 +71,8 @@ angular.module('evenhire',[
   })
   .run(function($rootScope, $state, Auth) {
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, options) {
-      if (toState && toState.authenticate && !(Auth.isAuth())) {
+      //If a logged in applicant tries to access recruiters state, redirect to login
+      if (toState && toState.authenticate && Auth.getCurrentUserType() !== 'Recruiter') {
         console.log('need to be authenticated');
         event.preventDefault();
         $state.go('recLogin');
