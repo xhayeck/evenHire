@@ -23,7 +23,12 @@ angular.module('evenhire.recruiters', [])
   };
 
   $scope.getApplicants = function() {
-
+    Recruiter.grabApplicants()
+      .then(function(data) {
+        $scope.JobApplicant = data;
+      }, function() {
+        $scope.error = 'Unable to get applicants';
+      });
   };
 
 }]);
