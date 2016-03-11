@@ -60,10 +60,13 @@ angular.module('evenhire.recruiters.factory', [])
       });
     }
 
-    recruiter.grabApplicants = function() {
+    recruiter.grabApplicants = function(jobId) {
+      console.log('WHats my number!: ', jobId);
+      console.log('what up peeps');
       return $http({
-        method: 'GET',
-        url: 'api/recruiters/whoAreApplicants'
+        method: 'POST',
+        url: 'api/recruiters/whoAreApplicants',
+        data: jobId
       })
       .then (function(data) {
         return data.data;

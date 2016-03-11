@@ -10,6 +10,7 @@ angular.module('evenhire.recruiters', [])
     Recruiter.getPostedJobs()
       .then(function(data) {
       $scope.postedJobs = data;
+
     }, function() {
       $scope.error = 'unable to get jobs';
     });
@@ -22,8 +23,8 @@ angular.module('evenhire.recruiters', [])
       });
   };
 
-  $scope.getApplicants = function() {
-    Recruiter.grabApplicants()
+  $scope.getApplicants = function(jobId) {
+    Recruiter.grabApplicants(jobId)
       .then(function(data) {
         $scope.JobApplicant = data;
       }, function() {

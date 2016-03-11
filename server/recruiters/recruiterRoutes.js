@@ -1,6 +1,6 @@
 var Recruiter = require('./recruiterController');
 
-module.exports = function(router) {
+module.exports = function (router) {
   router.post('/login', Recruiter.login);
   router.post('/signup', Recruiter.signup);
   //Get all posted jobs for a given recruiterId
@@ -10,5 +10,5 @@ module.exports = function(router) {
   router.get('/showRecruitersDB', Recruiter.getAllRecs);
   //To view jobs_applicants db, visit /api/recruiters/showJobsAppsDB
   router.get('/showJobsAppsDB', Recruiter.getJobAppRelations);
-  router.get('/whoAreApplicants', Recruiter.grabbingApplicants);
+  router.post('/whoAreApplicants', Recruiter.grabbingApplicants);
 };

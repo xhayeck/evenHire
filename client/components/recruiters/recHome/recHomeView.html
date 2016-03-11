@@ -16,7 +16,8 @@
     Description: {{job.description}}<br>
     Career Level: {{job.career_level}}<br>
     Job Type: {{job.job_type}}<br>
-    <md-button class="md-raised" ng-click="getApplicants()">Applicants</md-button>
+    Job Id: {{job.id}}<br>
+    <md-button class="md-raised" ng-click="getApplicants(job.id)">Applicants</md-button>
     <div ng-repeat="applicant in JobApplicant">
       ID Number: {{applicant.id}}
       City: {{applicant.location}}<br>
