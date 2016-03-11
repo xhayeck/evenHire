@@ -121,5 +121,18 @@ module.exports = {
             });
           });
       });
+  },
+
+  grabbingApplicants: function(req, res) {
+    var decoded = authUtils.decodeToken(req.headers['x-access-token']);
+    var requestorId = decoded.id;
+    Models.JobApplicant.findAll({where: {recruiterId: requestorId}})
+      .then(function(results) {
+        return res.send(results);
+      })
+      .catch(function(err) {
+        return res.send(err);
+      });
   }
+
 };
