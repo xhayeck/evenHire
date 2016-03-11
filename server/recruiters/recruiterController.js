@@ -130,7 +130,18 @@ module.exports = {
       .setPassword(req.body.password, function(updated) {
         updated.save()
           .then(function() {
-            res.send(updated)
+            var token = authUtils.issueToken(updated);
+            return res.send({
+              data: updated,
+              type: true,
+              token: token
+            });
+          })
+          .catch(function(error) {
+            return res.send({
+              type: false,
+              data: error
+            });
           });
       });
     // pg.defaults.ssl = true;
