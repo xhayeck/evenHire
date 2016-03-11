@@ -10,7 +10,9 @@ var authUtils = require('../auth/utils');
 
 module.exports = {
   getAllJobs: function(req, res) {
-    Models.Job.findAll({where: {recruiterId: req.params.id}})
+    var decoded = authUtils.decodeToken(req.headers['x-access-token']);
+    var requestorId = decoded.id;
+    Models.Job.findAll({where: {recruiterId: requestorId}})
       .then(function(results) {
         return res.send(results);
       })
@@ -60,7 +62,7 @@ module.exports = {
               data: 'Wrong password'
             });
           } else {
-            var token = authUtils.issueToken(recruiter);
+            var token = authUtils.issueToken(recruiter.id, 'recruiter');
             console.log("Signin successful");
             return res.send({
               type: true,
@@ -100,7 +102,9 @@ module.exports = {
   },
 
   postJob: function(req, res) {
-    Models.Recruiter.findById(1)
+    var decoded = authUtils.decodeToken(req.headers['x-access-token']);
+    var requestorId = decoded.id;
+    Models.Recruiter.findById(requestorId)
       .then(function(recruiter) {
         recruiter.createJob({
           title: req.body.title,
@@ -130,7 +134,7 @@ module.exports = {
       .setPassword(req.body.password, function(updated) {
         updated.save()
           .then(function() {
-            var token = authUtils.issueToken(updated);
+            var token = authUtils.issueToken(updated.id, 'recruiter');
             return res.send({
               data: updated,
               type: true,

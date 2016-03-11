@@ -28,14 +28,13 @@ angular.module('evenhire.recruiters.factory', [])
       });
     };
 
-    recruiter.getPostedJobs = function(id) {
+    recruiter.getPostedJobs = function() {
       return $http({
         method: 'GET',
-        url: 'api/recruiters/allPostedJobs/' + id,
+        url: 'api/recruiters/allPostedJobs'
       })
       .then(function(data) {
         //data.data is an array of job objects
-        console.log(data.data);
         return data.data;
       }, function(err) {
         console.log('error in getting all posted jobs');
