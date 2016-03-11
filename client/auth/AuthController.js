@@ -1,4 +1,4 @@
-//Controller for authentication
+//Controller for authentication, used in header
 angular.module('evenhire.auth', [])
 
   .controller('AuthController', ['$scope','$state', 'Auth', function ($scope, $state, Auth) {
@@ -10,7 +10,6 @@ angular.module('evenhire.auth', [])
     };
 
     $scope.getUser = function() {
-      // Auth.fetchUserFromJwt();
       console.log('current user is: ', Auth.getCurrentUser());
       console.log('current user type is: ', Auth.getCurrentUserType());
     };
