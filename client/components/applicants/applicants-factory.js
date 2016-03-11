@@ -1,6 +1,6 @@
 angular.module('evenhire.applicants.factory', [])
 
-  .factory('Applicant',['$http', '$window', '$state', function ($http, $window, $state) {
+  .factory('Applicant',['$http', '$window', '$state', 'Auth', function ($http, $window, $state, Auth) {
     var applicant = {};
 
     applicant.signup = function(newUser) {
@@ -10,7 +10,10 @@ angular.module('evenhire.applicants.factory', [])
         data: newUser
       })
       .then(function(data) {
-        return data.data;
+        if (data.data.type) {
+          Auth.setUser(data.data.data, 'applicant');
+        }
+        return data.data.data;
       }, function(response) {
         console.log(response)
       });
@@ -23,6 +26,9 @@ angular.module('evenhire.applicants.factory', [])
         data: user
       })
       .then(function(data) {
+        if (data.data.type) {
+          Auth.setUser(data.data.data, 'applicant');
+        }
         return data.data;
       }, function(err) {
         return err;

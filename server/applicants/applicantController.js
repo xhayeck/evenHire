@@ -46,7 +46,7 @@ module.exports = {
               data: 'Wrong password'
             });
           } else {
-            var token = authUtils.issueToken(applicant.id, 'applicant');
+            var token = authUtils.issueToken(applicant.id, 'Applicant');
             console.log('Sign in successful');
             return res.send({
               type: true,
@@ -82,7 +82,7 @@ module.exports = {
         updated.save()
           .then(function() {
             console.log('updated.id: ', updated.id);
-            var token = authUtils.issueToken(updated.id, 'applicant');
+            var token = authUtils.issueToken(updated.id, 'Applicant');
             return res.send({
               data: updated,
               type: true,

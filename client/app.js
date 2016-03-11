@@ -62,7 +62,7 @@ angular.module('evenhire',[
         var jwt = $window.localStorage.getItem('evenhire');
         if (jwt) {
           object.headers['x-access-token'] = jwt;
-        } 
+        }
         object.headers['Allow-Control-Allow-Origin'] = '*';
         return object;
       }

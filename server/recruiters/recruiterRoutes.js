@@ -2,7 +2,6 @@ var Recruiter = require('./recruiterController');
 
 module.exports = function(router) {
   router.post('/login', Recruiter.login);
-
   router.post('/signup', Recruiter.signup);
   //Get all posted jobs for a given recruiterId
   router.get('/allPostedJobs', Recruiter.getAllJobs);

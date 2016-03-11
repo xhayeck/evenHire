@@ -1,8 +1,3 @@
-//Uses dotenv to get process.env variables, won't need with sequelize
-// require('dotenv').config();
-// var connectStr = process.env.DATABASE_URL;
-// var pg = require('pg');
-
 //Require our database instance with its models
 var db = require('../db/db').db;
 var Models = require('../db/models')(db);
@@ -62,7 +57,7 @@ module.exports = {
               data: 'Wrong password'
             });
           } else {
-            var token = authUtils.issueToken(recruiter.id, 'recruiter');
+            var token = authUtils.issueToken(recruiter.id, 'Recruiter');
             console.log("Signin successful");
             return res.send({
               type: true,
@@ -134,7 +129,7 @@ module.exports = {
       .setPassword(req.body.password, function(updated) {
         updated.save()
           .then(function() {
-            var token = authUtils.issueToken(updated.id, 'recruiter');
+            var token = authUtils.issueToken(updated.id, 'Recruiter');
             return res.send({
               data: updated,
               type: true,
