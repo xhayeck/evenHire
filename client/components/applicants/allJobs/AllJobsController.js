@@ -17,7 +17,6 @@ angular.module('evenhire.allJobs', [])
 
 
       Applicant.apply({job_id: job_id})
-        .then(alert('you just applied for job id: '+ job_id))
         .then(function(data) {
           console.log("data in submitApplication client side", data)
       });
