@@ -54,10 +54,24 @@ angular.module('evenhire',[
         templateUrl: 'components/recruiters/recNewAcc/recNewAccView.html',
         controller: 'RecNewAccController'
       });
+      // $httpProvider.interceptors.push('AttachTokens');
+  })
+  .factory('AttachTokens', function($window) {
+    var attach = {
+      request: function(object) {
+        var jwt = $window.localStorage.getItem('evenhire');
+        if (jwt) {
+          object.headers['x-access-token'] = jwt;
+        } 
+        object.headers = ['Allow-Control-Allow-Origin'] = '*';
+        return object;
+      }
+    }
+    return attach;
   })
   .run(function($rootScope, $state, Auth) {
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, options) {
-      if (toState.authenticate && !(Auth.isAuth())) {
+      if (toState && toState.authenticate && !(Auth.isAuth())) {
         console.log('need to be authenticated');
         event.preventDefault();
         $state.go('recLogin');
