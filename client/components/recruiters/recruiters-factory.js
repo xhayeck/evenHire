@@ -31,7 +31,7 @@ angular.module('evenhire.recruiters.factory', [])
     recruiter.getPostedJobs = function() {
       return $http({
         method: 'GET',
-        url: 'api/recruiters/allPostedJobs/'
+        url: 'api/recruiters/allPostedJobs'
       })
       .then(function(data) {
         //data.data is an array of job objects
