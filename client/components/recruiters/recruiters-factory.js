@@ -10,7 +10,7 @@ angular.module('evenhire.recruiters.factory', [])
       })
       .then(function(data){
         if (data.data.type) {
-          Auth.setUser(data.data.data, 'recruiter');
+          Auth.setUser(data.data.data, '.');
         }
         return data.data;
       }, function(err) {
@@ -26,7 +26,7 @@ angular.module('evenhire.recruiters.factory', [])
       })
       .then(function(data){
         if (data.data.type) {
-          Auth.setUser(data.data.data, 'recruiter');
+          Auth.setUser(data.data.data, 'Recruiter');
         }
         return data.data;
       }, function(err) {
