@@ -1,8 +1,3 @@
-//Uses dotenv to get process.env variables
-// require('dotenv').config();
-// var connectStr = process.env.DATABASE_URL;
-// var pg = require('pg');
-
 var db = require('../db/db').db;
 var Models = require('../db/models')(db);
 var authUtils = require('../auth/utils');
@@ -29,26 +24,18 @@ module.exports = {
   },
 
   login: function(req, res) {
-    console.log(req.body);
     // decoded token can be viewed thru authUtils.decodeToken(req.headers['x-access-token'])
     Models.Applicant.findOne({ where: {username: req.body.username }})
       .then(function(applicant) {
         applicant.verifyPassword(req.body.password, function(err, isVerified) {
           //Error in verifying password
           if (err) {
-            console.log('error');
-            return res.send({
-              type: false,
-              data: 'Error occured: ' + err
-            });
+            return res.status(400).send('Error in verifying password');
           }
           if (!(isVerified)) {
-            return res.send({
-              type: false,
-              data: 'Wrong password'
-            });
+            return res.status(400).send('Password does not match');
           } else {
-            var token = authUtils.issueToken(applicant.id, 'Applicant');
+            var token = authUtils.issueToken(applicant.id, 'applicant');
             console.log('Sign in successful');
             return res.send({
               type: true,
@@ -59,11 +46,7 @@ module.exports = {
         });
       })
       .catch(function(error) {
-        console.log('This user does not exist')
-        return res.send({
-          type: false,
-          data: 'User does not exist'
-        });
+        return res.status(400).send('User does not exist');
       });
   },
 
@@ -90,7 +73,7 @@ module.exports = {
         updated.save()
           .then(function() {
             console.log('updated.id: ', updated.id);
-            var token = authUtils.issueToken(updated.id, 'Applicant');
+            var token = authUtils.issueToken(updated.id, 'applicant');
             return res.send({
               data: updated,
               type: true,

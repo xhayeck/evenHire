@@ -22,43 +22,10 @@ angular.module('evenhire.applicants.factory', [])
         data: applicationObject
       })
       .then(function(data) {
-        console.log(data);
+        console.log('response from server is: ', data);
         return data.data;
       }, function(err) {
         return err
-      });
-    }
-
-    applicant.login = function(user) {
-      return $http({
-        method: 'POST',
-        url: '/api/applicants/login',
-        data: user
-      })
-      .then(function(data) {
-        console.log(data);
-        if (data.data.type) {
-          Auth.setUser(data.data.data, 'Applicant');
-        }
-        return data.data;
-      }, function(err) {
-        return err;
-      });
-    };
-
-    applicant.signup = function(newUser) {
-      return $http({
-        method: 'POST',
-        url: 'api/applicants/signup',
-        data: newUser
-      })
-      .then(function(data) {
-        if (data.data.type) {
-          Auth.setUser(data.data.data, 'Applicant');
-        }
-        return data.data;
-      }, function(response) {
-        console.log(response)
       });
     };
 

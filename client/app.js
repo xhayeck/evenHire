@@ -72,7 +72,7 @@ angular.module('evenhire',[
   .run(function($rootScope, $state, Auth) {
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, options) {
       //If a logged in applicant tries to access recruiters state, redirect to login
-      if (toState && toState.authenticate && Auth.getCurrentUserType() !== 'Recruiter') {
+      if (toState && toState.authenticate && Auth.getCurrentUserType() !== 'recruiter') {
         console.log('need to be authenticated');
         event.preventDefault();
         $state.go('recLogin');
