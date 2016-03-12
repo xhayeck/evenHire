@@ -40,6 +40,7 @@ describe('Routing', function() {
             expect(res.body).to.have.property('type');
             expect(res.body).to.have.property('data');
             expect(res.body.type).to.be.false;
+            expect(res.error).to.be.false;
             done();
           });
       });
@@ -59,6 +60,7 @@ describe('Routing', function() {
             expect(res.body.token).to.be.a('string');
             expect(res.body).to.have.property('token');
             expect(res.body.type).to.be.true;
+            expect(res.error).to.be.false;
             done();
           });
       });
@@ -75,6 +77,7 @@ describe('Routing', function() {
             expect(res.body.data).to.have.string('Wrong password');
             expect(res.body.type).to.be.false;
             expect(res.body).to.not.have.property('token');
+            expect(res.error).to.be.false;
             done();
           });
       });
