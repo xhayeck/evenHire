@@ -24,6 +24,7 @@ angular.module('evenhire.recruiters', [])
   };
 
   $scope.getApplicants = function(jobId) {
+    console.log('jobId: ', jobId);
     Recruiter.grabApplicants(jobId)
       .then(function(data) {
         $scope.JobApplicant = data;

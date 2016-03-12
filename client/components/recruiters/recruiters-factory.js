@@ -62,11 +62,11 @@ angular.module('evenhire.recruiters.factory', [])
 
     recruiter.grabApplicants = function(jobId) {
       console.log('WHats my number!: ', jobId);
-      console.log('what up peeps');
+      console.log("let's try to get into that server!");
       return $http({
         method: 'POST',
         url: 'api/recruiters/whoAreApplicants',
-        data: jobId
+        data: {jobId: jobId}
       })
       .then (function(data) {
         return data.data;

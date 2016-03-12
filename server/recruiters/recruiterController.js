@@ -124,23 +124,24 @@ module.exports = {
   },
 
   grabbingApplicants: function(req, res) {
-    console.log('WOOOOOOOOOOOOO');
+    console.log('WOOOOOOOOOOOOO. In the server!');
     console.log('req.body: ', req.body);
     var decoded = authUtils.decodeToken(req.headers['x-access-token']);
     var requestorId = decoded.id;
-    
+    console.log('requestorId: ', requestorId)
     Models.JobApplicant.findAll({where: {jobId: req.body.jobId}})
-
-      console.log('requestorId: ', requestorId)
       .then(function(results) {
-        
-        console.log('results: ', results);
-        return res.send(results);
+        console.log('eeeeeeeee: ', results.length);
+        Models.Applicants.findAll({where: {id: results.applicantId}})
       })
-      .catch(function(err) {
-        console.log('Danger Will Robinson!');
-        return res.send(err);
-      });
+        .then(function(results) {
+          console.log('results: ', results);
+          return res.send(results);
+        })
+        .catch(function(err) {
+          console.log('Danger Will Robinson!');
+          return res.send(err);
+        });
   }
 
 };
