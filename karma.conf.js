@@ -1,35 +1,26 @@
 // Karma configuration
-// Generated on Sat Mar 05 2016 14:07:29 GMT-0800 (PST)
+// Generated on Fri Mar 11 2016 18:55:58 GMT-0800 (PST)
 
 module.exports = function(config) {
-  var configuration = {
+  config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: './',
+    basePath: '',
 
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['mocha', 'chai'],
+    frameworks: ['mocha', 'requirejs'],
 
 
     // list of files / patterns to load in the browser
     files: [
-        // 'node_modules/angular/angular.js',
-        // 'node_modules/angular-ui-router/release/angular-ui-router.js',
-        // 'node_modules/angular-mocks/angular-mocks.js',
-        // 'node_modules/angular-animate/angular-animate.min.js',
-        // 'node_modules/angular-material/angular-material.js',
-        // 'node_modules/angular-aria/angular-aria.js',
-        // 'client/app.js',
-        // 'client/components/**/*.js',
-        'tests/**/*.js',
+      'tests/test.js'
     ],
 
 
     // list of files to exclude
     exclude: [
-        'karma.config.js'
     ],
 
 
@@ -42,7 +33,7 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress', 'mocha'],
+    reporters: ['progress'],
 
 
     // web server port
@@ -57,50 +48,22 @@ module.exports = function(config) {
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
     logLevel: config.LOG_INFO,
 
-    // client: {
-    //      mocha: {
-    //          reporter: 'html',
-    //          ui: 'bdd'
-    //      }
-    //  },
-
 
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: false,
 
-    captureTimeout: 20000,
 
-    reportsSlowerThan: 500,
-
-    // start these browsers, set up chrome for travis
-    customLaunchers: {
-        Chrome_travis_ci: {
-            base: 'Chrome',
-            flags: ['--no-sandbox']
-        }
-    },
-
+    // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['Chrome'],
 
+
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: true,
+    singleRun: false,
 
     // Concurrency level
     // how many browser should be started simultaneous
-    concurrency: Infinity,
-
-    //Plugins
-    // plugins: [
-    //     'karma-coverage',
-    //     'karma-chrome-launcher'
-    // ]
-  };
-    if (process.env.TRAVIS) {
-        configuration.browsers = ['Chrome_travis_ci'];
-    }
-
-    config.set(configuration);
-};
-
+    concurrency: Infinity
+  })
+}
