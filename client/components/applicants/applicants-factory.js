@@ -22,6 +22,7 @@ angular.module('evenhire.applicants.factory', [])
         data: applicationObject
       })
       .then(function(data) {
+        console.log(data);
         return data.data;
       }, function(err) {
         return err
