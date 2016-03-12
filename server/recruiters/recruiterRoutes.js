@@ -13,5 +13,5 @@ module.exports = function (router) {
   //To view jobs_applicants db, visit /api/recruiters/showJobsAppsDB
   router.get('/showJobsAppsDB', Recruiter.getJobAppRelations);
   //Get list of applicants who've applied to particular job
-  router.post('/whoAreApplicants', Recruiter.grabbingApplicants);
+  router.post('/getApplicants', Recruiter.grabbingApplicants);
 };

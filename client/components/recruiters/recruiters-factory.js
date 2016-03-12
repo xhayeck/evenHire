@@ -10,7 +10,7 @@ angular.module('evenhire.recruiters.factory', [])
       })
       .then(function(data){
         if (data.data.type) {
-          Auth.setUser(data.data.data, '.');
+          Auth.setUser(data.data.data, 'Recruiter');
         }
         return data.data;
       }, function(err) {
@@ -63,7 +63,7 @@ angular.module('evenhire.recruiters.factory', [])
     recruiter.grabApplicants = function(jobId) {
       return $http({
         method: 'POST',
-        url: 'api/recruiters/whoAreApplicants',
+        url: 'api/recruiters/getApplicants',
         data: {jobId: jobId}
       })
       .then (function(data) {
