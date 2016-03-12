@@ -28,6 +28,7 @@ module.exports = {
       });
   },
   login: function(req, res) {
+    console.log(req.body);
     // decoded token can be viewed thru authUtils.decodeToken(req.headers['x-access-token'])
     Models.Applicant.findOne({ where: {username: req.body.username }})
       .then(function(applicant) {
@@ -66,7 +67,7 @@ module.exports = {
   },
 
   signup: function(req, res) {
-    if (!req.body.username || !req.body.password) {
+    if (!req.body.username || !req.body.firstName) {
       return res.send({
         type: false,
         data: null
@@ -160,6 +161,9 @@ module.exports = {
   //   });
   // },
   submitApplication: function(req, res) {
+    if (!req.headers['x-access-token']) {
+      return res.status(500).send('Not logged in');
+    }
     var applicantId = authUtils.decodeToken(req.headers['x-access-token']).id;
     Models.Job.findById(req.body.job_id)
       .then(function(job) {

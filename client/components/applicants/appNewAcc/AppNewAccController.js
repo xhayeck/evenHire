@@ -8,6 +8,7 @@ angular.module('evenhire.appNewAcc', [])
       //send form data to the server at api/applicants/login
       Applicant.signup($scope.applicant)
         .then(function(data) {
+          console.log(data);
           if (!data.type) {
             console.log('User already exists', data.data);
           } else {

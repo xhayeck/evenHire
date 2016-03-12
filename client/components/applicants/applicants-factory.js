@@ -35,6 +35,7 @@ angular.module('evenhire.applicants.factory', [])
         data: user
       })
       .then(function(data) {
+        console.log(data);
         if (data.data.type) {
           Auth.setUser(data.data.data, 'Applicant');
         }
@@ -54,7 +55,7 @@ angular.module('evenhire.applicants.factory', [])
         if (data.data.type) {
           Auth.setUser(data.data.data, 'Applicant');
         }
-        return data.data.data;
+        return data.data;
       }, function(response) {
         console.log(response)
       });
