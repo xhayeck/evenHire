@@ -8,9 +8,8 @@ angular.module('evenhire.allJobs', [])
       Applicant.allJobs()
         .then(function(data) {
           $scope.fetchedJobs = data;
-          console.log('data in alljobsController is', data);
         });
-    };
+    }();
 
     $scope.submitApplication = function(job_id) {
       console.log('in submitApplication')
