@@ -76,6 +76,9 @@ module.exports = {
 
 
   postJob: function(req, res) {
+    if (!req.headers['x-access-token']) {
+      return res.status(500).send('Not logged in');
+    }
     var decoded = authUtils.decodeToken(req.headers['x-access-token']);
     var requestorId = decoded.id;
     Models.Recruiter.findById(requestorId)
@@ -99,6 +102,12 @@ module.exports = {
   },
 
   signup: function (req, res) {
+    if (!req.body.name || !req.body.username) {
+      return res.send({
+        type: false,
+        data: null
+      });
+    }
     var newUser = Models.Recruiter.build({
       name: req.body.name,
       username: req.body.username,
