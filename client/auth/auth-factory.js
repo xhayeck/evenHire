@@ -11,7 +11,6 @@ angular.module('evenhire.auth.factory', [])
       };
 
       auth.fetchUserFromJwt = function() {
-        console.log(auth.isAuth());
         if (auth.isAuth()) {
         var jwtObj = {jwt: auth.getJwt()};
           return $http({
