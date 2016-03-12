@@ -23,12 +23,12 @@ angular.module('evenhire.applicants.factory', [])
         data: applicationObject
       })
       .then(function(data) {
-        console.log("data.data in factory", data.data)
-        if(data.data === true) {
-          alert("You already applied for that job")
-        } else {
-          alert("Thanks for applying!")
-        }
+        console.log("data in factory", data)
+        // if(data.data === true) {
+        //   alert("You already applied for that job")
+        // } else {
+        //   alert("Thanks for applying!")
+        // }
         console.log('data for apply', data.data)
         return data.data;
       }, function(err) {

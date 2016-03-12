@@ -162,10 +162,10 @@ module.exports = {
           job.hasApplicant(applicant)
           .then(function(result) {
             if(result) {
-            return res.send(result)
+              return res.send(!result)
             }
             job.addApplicant(applicant)
-            return res.send(applicant)
+              return res.send(applicant)
           })
         });
       })

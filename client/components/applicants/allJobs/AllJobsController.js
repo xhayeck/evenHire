@@ -17,8 +17,12 @@ angular.module('evenhire.allJobs', [])
 
 
       Applicant.apply({job_id: job_id})
-        .then(function(data) {
-          console.log("data in submitApplication client side", data)
+        .then(function(factoryResponse) {
+          if(!factoryResponse) {
+            alert("You already applied for that job")
+          } else {
+            alert("Thanks for applying " + factoryResponse.first_name)
+          }
       });
     };
 }]);
