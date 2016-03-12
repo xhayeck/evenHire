@@ -14,8 +14,6 @@ angular.module('evenhire.allJobs', [])
 
     $scope.submitApplication = function(job_id) {
       console.log('in submitApplication')
-
-
       Applicant.apply({job_id: job_id})
         .then(function(factoryResponse) {
           console.log("factoryResponse in alljobsController", factoryResponse);

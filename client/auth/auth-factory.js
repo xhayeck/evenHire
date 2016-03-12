@@ -1,6 +1,6 @@
 angular.module('evenhire.auth.factory', [])
 
-  .factory('Auth',['$window', '$http', function ($window, $http) {
+  .factory('Auth', ['$window', '$http', function ($window, $http) {
     var currentUser = null;
     var currentUserType = null;
 
@@ -41,9 +41,42 @@ angular.module('evenhire.auth.factory', [])
         return window.localStorage.getItem('evenhire');
       };
 
+      auth.login = function(userData, userType) {
+        return $http({
+          method: 'POST',
+          url: '/api/' + userType + '/login',
+          data: userData
+        })
+        .then(function(data) {
+          console.log('data in authfactory is', data);
+          if (data.data.type) {
+            auth.setUser(data.data.data, userType);
+          }
+          return data.data;
+        }, function(err) {
+          return err;
+        });
+      };
+
       auth.setUser = function(user, userType) {
         currentUser = user;
         currentUserType = userType;
+      };
+
+      auth.signUp = function(userData, userType) {
+        return $http({
+          method: 'POST',
+          url: 'api/' + userType + '/signup',
+          data: userData
+        })
+        .then(function(data) {
+          if (data.data.type) {
+            auth.setUser(data.data.data, userType);
+          }
+          return data.data;
+        }, function(response) {
+          console.log(response)
+        });
       };
 
       auth.signOut = function() {
