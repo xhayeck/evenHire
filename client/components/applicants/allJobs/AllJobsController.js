@@ -11,10 +11,18 @@ angular.module('evenhire.allJobs', [])
           console.log('data in alljobsController is', data);
         });
     };
+
     $scope.submitApplication = function(job_id) {
+      console.log('in submitApplication')
+
+
       Applicant.apply({job_id: job_id})
-       .then(function(data) {
+        .then(function(factoryResponse) {
+          if(!factoryResponse) {
+            alert("You already applied for that job")
+          } else {
+            alert("Thanks for applying " + factoryResponse.first_name)
+          }
       });
     };
 }]);
-

@@ -22,10 +22,8 @@ angular.module('evenhire.applicants.factory', [])
         data: applicationObject
       })
       .then(function(data) {
-        console.log('data for apply', data.data)
         return data.data;
       }, function(err) {
-        console.log('You need to log in');
         return err
       });
     }
