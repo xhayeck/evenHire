@@ -16,23 +16,14 @@ angular.module('evenhire.applicants.factory', [])
     };
 
     applicant.apply = function(applicationObject) {
-      console.log(applicationObject)
       return $http({
         method: 'POST',
         url: 'api/applicants/apply',
         data: applicationObject
       })
       .then(function(data) {
-        console.log("data in factory", data)
-        // if(data.data === true) {
-        //   alert("You already applied for that job")
-        // } else {
-        //   alert("Thanks for applying!")
-        // }
-        console.log('data for apply', data.data)
         return data.data;
       }, function(err) {
-        console.log('You need to log in');
         return err
       });
     }

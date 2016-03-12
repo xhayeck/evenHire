@@ -12,7 +12,6 @@ angular.module('evenhire.recruiters.factory', [])
         if (data.data.type) {
           Auth.setUser(data.data.data, 'recruiter');
         }
-        (console.log("data.data in recruiter factory", data.data))
         return data.data;
       }, function(err) {
         console.log("Error: ", err);
