@@ -3,6 +3,7 @@ var db = require('../db/db').db;
 var Models = require('../db/models')(db);
 var authUtils = require('../auth/utils');
 
+
 module.exports = {
   getAllJobs: function(req, res) {
     var decoded = authUtils.decodeToken(req.headers['x-access-token']);
@@ -121,5 +122,27 @@ module.exports = {
             });
           });
       });
+  },
+
+  grabbingApplicants: function(req, res) {
+    Models.JobApplicant.findAll({attributes: ['applicantId'], where: {jobId: req.body.jobId}})
+      .then(function(results) {
+        var mappedIDs = results.map(function(record) {
+          return record.dataValues.applicantId;
+        });
+        var promiseMap = mappedIDs.map(function(id) {
+          return Models.Applicant.find({attributes: ['id', 'city', 'work_exp', 'education', 'resume'], where: {id: id}});
+        })
+        return Promise.all(promiseMap);
+      })
+      .then(function(result) {
+        return res.send(result);
+      })
+      .catch(function(err) {
+        return res.send(err);
+      });
   }
+
 };
+
+// [Sequelize.fn(Sequelize.col('results.dataValues.applicantId'))]

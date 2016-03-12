@@ -10,7 +10,7 @@ angular.module('evenhire.recruiters.factory', [])
       })
       .then(function(data){
         if (data.data.type) {
-          Auth.setUser(data.data.data, 'recruiter');
+          Auth.setUser(data.data.data, 'Recruiter');
         }
         return data.data;
       }, function(err) {
@@ -26,7 +26,7 @@ angular.module('evenhire.recruiters.factory', [])
       })
       .then(function(data){
         if (data.data.type) {
-          Auth.setUser(data.data.data, 'recruiter');
+          Auth.setUser(data.data.data, 'Recruiter');
         }
         return data.data;
       }, function(err) {
@@ -57,6 +57,19 @@ angular.module('evenhire.recruiters.factory', [])
         return data.data;
       }, function(err) {
         return err;
+      });
+    }
+
+    recruiter.grabApplicants = function(jobId) {
+      return $http({
+        method: 'POST',
+        url: 'api/recruiters/getApplicants',
+        data: {jobId: jobId}
+      })
+      .then (function(data) {
+        return data.data;
+      }, function(err) {
+        console.log('Error in reaching server. Error: ', err);
       });
     }
 

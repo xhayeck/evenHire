@@ -36,7 +36,7 @@ angular.module('evenhire.applicants.factory', [])
       })
       .then(function(data) {
         if (data.data.type) {
-          Auth.setUser(data.data.data, 'applicant');
+          Auth.setUser(data.data.data, 'Applicant');
         }
         return data.data;
       }, function(err) {
@@ -52,7 +52,7 @@ angular.module('evenhire.applicants.factory', [])
       })
       .then(function(data) {
         if (data.data.type) {
-          Auth.setUser(data.data.data, 'applicant');
+          Auth.setUser(data.data.data, 'Applicant');
         }
         return data.data.data;
       }, function(response) {
