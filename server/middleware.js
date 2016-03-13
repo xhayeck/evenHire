@@ -3,8 +3,8 @@ module.exports = function(app, express) {
   var recruitersRouter = express.Router();
   var authRouter = express.Router();
 
-  app.use('/api/applicants', applicantsRouter);
-  app.use('/api/recruiters', recruitersRouter);
+  app.use('/api/applicant', applicantsRouter);
+  app.use('/api/recruiter', recruitersRouter);
   app.use('/api/auth', authRouter);
 
   require('./auth/authController.js')(authRouter);

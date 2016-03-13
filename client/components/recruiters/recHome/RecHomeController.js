@@ -6,10 +6,21 @@ angular.module('evenhire.recruiters', [])
   $scope.postedJobs = '';
   $scope.error;
 
+  $scope.getApplicants = function(jobId) {
+    console.log('jobId: ', jobId);
+    Recruiter.grabApplicants(jobId)
+      .then(function(data) {
+        $scope.JobApplicant = data;
+      }, function() {
+        $scope.error = 'Unable to get applicants';
+      });
+  };
+
   $scope.getJobs = function() {
     Recruiter.getPostedJobs()
       .then(function(data) {
       $scope.postedJobs = data;
+
     }, function() {
       $scope.error = 'unable to get jobs';
     });

@@ -6,7 +6,7 @@ angular.module('evenhire.applicants.factory', [])
     applicant.allJobs = function() {
       return $http({
         method: 'GET',
-        url: 'api/applicants/allJobs'
+        url: 'api/applicant/allJobs'
       })
       .then(function(data) {
         return data.data;
@@ -18,47 +18,14 @@ angular.module('evenhire.applicants.factory', [])
     applicant.apply = function(applicationObject) {
       return $http({
         method: 'POST',
-        url: 'api/applicants/apply',
+        url: 'api/applicant/apply',
         data: applicationObject
       })
       .then(function(data) {
-        console.log('data for apply', data.data)
+        console.log('response from server is: ', data);
         return data.data;
       }, function(err) {
-        console.log('You need to log in');
         return err
-      });
-    }
-
-    applicant.login = function(user) {
-      return $http({
-        method: 'POST',
-        url: '/api/applicants/login',
-        data: user
-      })
-      .then(function(data) {
-        if (data.data.type) {
-          Auth.setUser(data.data.data, 'applicant');
-        }
-        return data.data;
-      }, function(err) {
-        return err;
-      });
-    };
-
-    applicant.signup = function(newUser) {
-      return $http({
-        method: 'POST',
-        url: 'api/applicants/signup',
-        data: newUser
-      })
-      .then(function(data) {
-        if (data.data.type) {
-          Auth.setUser(data.data.data, 'applicant');
-        }
-        return data.data.data;
-      }, function(response) {
-        console.log(response)
       });
     };
 

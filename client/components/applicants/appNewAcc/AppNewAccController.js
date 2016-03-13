@@ -1,13 +1,14 @@
 angular.module('evenhire.appNewAcc', [])
 
-  .controller('AppNewAccController', ['$scope', '$state','$http','Applicant','$window', function ($scope, $state, $http, Applicant, $window) {
+  .controller('AppNewAccController', ['$scope', '$state','$http','Applicant','$window', 'Auth', function ($scope, $state, $http, Applicant, $window, Auth) {
 
     $scope.applicant = {};
 
     $scope.createAccount = function() {
       //send form data to the server at api/applicants/login
-      Applicant.signup($scope.applicant)
+      Auth.signUp($scope.applicant, 'applicant')
         .then(function(data) {
+          console.log(data);
           if (!data.type) {
             console.log('User already exists', data.data);
           } else {

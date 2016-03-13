@@ -3,6 +3,7 @@ var db = require('../db/db').db;
 var Models = require('../db/models')(db);
 var authUtils = require('../auth/utils');
 
+
 module.exports = {
   getAllJobs: function(req, res) {
     var decoded = authUtils.decodeToken(req.headers['x-access-token']);
@@ -54,7 +55,7 @@ module.exports = {
               data: 'Wrong password'
             });
           } else {
-            var token = authUtils.issueToken(recruiter.id, 'Recruiter');
+            var token = authUtils.issueToken(recruiter.id, 'recruiter');
             console.log("Signin successful");
             return res.send({
               type: true,
@@ -75,6 +76,9 @@ module.exports = {
 
 
   postJob: function(req, res) {
+    if (!req.headers['x-access-token']) {
+      return res.status(500).send('Not logged in');
+    }
     var decoded = authUtils.decodeToken(req.headers['x-access-token']);
     var requestorId = decoded.id;
     Models.Recruiter.findById(requestorId)
@@ -98,6 +102,12 @@ module.exports = {
   },
 
   signup: function (req, res) {
+    if (!req.body.name || !req.body.username) {
+      return res.send({
+        type: false,
+        data: null
+      });
+    }
     var newUser = Models.Recruiter.build({
       name: req.body.name,
       username: req.body.username,
@@ -107,7 +117,7 @@ module.exports = {
       .setPassword(req.body.password, function(updated) {
         updated.save()
           .then(function() {
-            var token = authUtils.issueToken(updated.id, 'Recruiter');
+            var token = authUtils.issueToken(updated.id, 'recruiter');
             return res.send({
               data: updated,
               type: true,
@@ -121,5 +131,27 @@ module.exports = {
             });
           });
       });
+  },
+
+  grabbingApplicants: function(req, res) {
+    Models.JobApplicant.findAll({attributes: ['applicantId'], where: {jobId: req.body.jobId}})
+      .then(function(results) {
+        var mappedIDs = results.map(function(record) {
+          return record.dataValues.applicantId;
+        });
+        var promiseMap = mappedIDs.map(function(id) {
+          return Models.Applicant.find({attributes: ['id', 'city', 'work_exp', 'education', 'resume'], where: {id: id}});
+        })
+        return Promise.all(promiseMap);
+      })
+      .then(function(result) {
+        return res.send(result);
+      })
+      .catch(function(err) {
+        return res.send(err);
+      });
   }
+
 };
+
+// [Sequelize.fn(Sequelize.col('results.dataValues.applicantId'))]

@@ -4,7 +4,7 @@ var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
 var app = express();
-
+module.exports = app;
 //every request to our server will pass through app.use
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
