@@ -1,18 +1,17 @@
 angular.module('evenhire.recruiters', [])
 
 
-.controller('RecHomeController', ['$scope', '$state', 'Recruiter', function ($scope, $state, Recruiter) {
+.controller('RecHomeController', ['$scope', '$state', 'Recruiter', 'Auth', function ($scope, $state, Recruiter, Auth) {
   $scope.newJob = {};
-  // $scope.postedJobs = '';
   $scope.JobApplicant = {};
   $scope.error;
 
-
+  var currentUser = Auth.getCurrentUser();
+  $scope.companyName = currentUser.name;
   $scope.getApplicants = function(jobId) {
     console.log('jobId: ', jobId);
     Recruiter.grabApplicants(jobId)
       .then(function(data) {
-        console.log(data);
         $scope.JobApplicant[jobId] = data;
       }, function() {
         $scope.error = 'Unable to get applicants';
@@ -27,12 +26,12 @@ angular.module('evenhire.recruiters', [])
     }, function() {
       $scope.error = 'unable to get jobs';
     });
-  };
+  }();
 
   $scope.postJob = function() {
     Recruiter.postNewJob($scope.newJob)
       .then(function(newJob) {
-        console.log(newJob)
+        console.log('new job is', newJob)
       });
   };
 

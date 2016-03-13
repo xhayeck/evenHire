@@ -10,6 +10,7 @@ module.exports = {
     var requestorId = decoded.id;
     Models.Job.findAll({where: {recruiterId: requestorId}})
       .then(function(results) {
+        console.log(results);
         return res.send(results);
       })
       .catch(function(err) {
