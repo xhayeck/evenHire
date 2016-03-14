@@ -12,7 +12,8 @@ angular.module('evenhire',[
   'evenhire.recruiters.factory',
   'ngMaterial',
   'evenhire.auth.factory',
-  'evenhire.auth'
+  'evenhire.auth',
+  'ngDialog'
   ])
 
   .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
