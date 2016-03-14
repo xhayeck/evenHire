@@ -19,6 +19,7 @@ angular.module('evenhire.recruiters', [])
 
   var currentUser = Auth.getCurrentUser();
   $scope.companyName = currentUser.name;
+  $scope.companyEmail = currentUser.email;
   $scope.getApplicants = function(jobId) {
     Recruiter.grabApplicants(jobId)
       .then(function(data) {
@@ -43,6 +44,13 @@ angular.module('evenhire.recruiters', [])
         $state.go('recruiters');
         console.log('new job is', newJob);
       })
+  };
+
+  $scope.sendEmail = function(applicantEmail, jobTitle) {
+    Recruiter.sendEmail(applicantEmail, jobTitle, $scope.companyName, $scope.companyEmail)
+      .then(function(response) {
+        alert(response.message);
+      });
   };
 
 }]);

@@ -14,8 +14,13 @@ module.exports = {
   },
 
   getAllJobs: function(req, res) {
-    Models.Job.findAll()
+    Models.Job.findAll({
+      include: [{
+        model: Models.Recruiter
+      }]
+    })
       .then(function(data) {
+        console.log(data);
         return res.send(data);
       })
       .catch(function(err) {

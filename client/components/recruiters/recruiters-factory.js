@@ -16,6 +16,19 @@ angular.module('evenhire.recruiters.factory', [])
       });
     };
 
+    recruiter.grabApplicants = function(jobId) {
+      return $http({
+        method: 'POST',
+        url: 'api/recruiter/getApplicants',
+        data: {jobId: jobId}
+      })
+      .then (function(data) {
+        return data.data;
+      }, function(err) {
+        console.log('Error in reaching server. Error: ', err);
+      });
+    };
+
     recruiter.postNewJob = function(newJobObj) {
       return $http({
         method: 'POST',
@@ -29,16 +42,21 @@ angular.module('evenhire.recruiters.factory', [])
       });
     };
 
-    recruiter.grabApplicants = function(jobId) {
+    recruiter.sendEmail = function(applicantEmail, jobTitle, company, email) {
       return $http({
         method: 'POST',
-        url: 'api/recruiter/getApplicants',
-        data: {jobId: jobId}
+        url: 'api/recruiter/sendEmail',
+        data: {
+          email: applicantEmail,
+          jobTitle: jobTitle,
+          company: company,
+          email: email
+        }
       })
-      .then (function(data) {
+      .then(function(data) {
         return data.data;
       }, function(err) {
-        console.log('Error in reaching server. Error: ', err);
+        return err;
       });
     };
 
