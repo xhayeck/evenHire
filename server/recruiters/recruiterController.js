@@ -8,10 +8,24 @@ module.exports = {
   getAllJobs: function(req, res) {
     var decoded = authUtils.decodeToken(req.headers['x-access-token']);
     var requestorId = decoded.id;
+    var applicantCount = [];
     Models.Job.findAll({where: {recruiterId: requestorId}})
       .then(function(results) {
-        console.log(results);
-        return res.send(results);
+        //add applicant count to each job
+        for (var i = 0; i < results.length; i++) {
+        // var job = results[0]
+          results[i].countApplicants()
+            .then(function(count) {
+              console.log(count);
+              applicantCount.push(count);
+              if (applicantCount.length === results.length) {
+                return res.send({'results': results, 'applicantCount': applicantCount});
+              }
+            })
+            .catch(function(err) {
+              console.log('Error in counting applicants');
+            });
+        }
       })
       .catch(function(err) {
         return res.send(err);

@@ -8,10 +8,11 @@ angular.module('evenhire.recruiters.factory', [])
         url: 'api/recruiter/allPostedJobs'
       })
       .then(function(data) {
-        //data.data is an array of job objects
+        //data.data is an object with an array of job objects and an array of applicant counts
         return data.data;
       }, function(err) {
         console.log('error in getting all posted jobs');
+        return err;
       });
     };
 
