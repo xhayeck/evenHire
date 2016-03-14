@@ -48,7 +48,6 @@ gulp.task('scripts', function() {
     .pipe(uglify({mangle: false}))
     .pipe(rename('./all.min.js'))
     .pipe(gulp.dest('./client/dist/'));
-    // .pipe(gulp.dest('./client/dist/'));
 });
 
 //Compile Sass into CSS

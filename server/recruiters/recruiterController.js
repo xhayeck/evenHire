@@ -1,8 +1,11 @@
+//Uses dotenv to get process.env variables
+require('dotenv').config();
+var mailgun = require('mailgun-js')({apiKey: process.env.MAILGUNAPI_KEY, domain: process.env.MAILGUN_DOMAIN});
+
 //Require our database instance with its models
 var db = require('../db/db').db;
 var Models = require('../db/models')(db);
 var authUtils = require('../auth/utils');
-
 
 module.exports = {
   getAllJobs: function(req, res) {
@@ -36,6 +39,25 @@ module.exports = {
     Models.Recruiter.findAll()
       .then(function(results) {
         return res.send(results);
+      })
+      .catch(function(err) {
+        return res.send(err);
+      });
+  },
+
+  getApplicants: function(req, res) {
+    Models.JobApplicant.findAll({attributes: ['applicantId'], where: {jobId: req.body.jobId}})
+      .then(function(results) {
+        var mappedIDs = results.map(function(record) {
+          return record.dataValues.applicantId;
+        });
+        var promiseMap = mappedIDs.map(function(id) {
+          return Models.Applicant.find({attributes: ['id', 'city', 'work_exp', 'education', 'resume', 'email'], where: {id: id}});
+        })
+        return Promise.all(promiseMap);
+      })
+      .then(function(result) {
+        return res.send(result);
       })
       .catch(function(err) {
         return res.send(err);
@@ -116,6 +138,19 @@ module.exports = {
     });
   },
 
+  sendEmail: function(req, res) {
+    var email = {
+      from: req.body.company + ' <' + req.body.email + ' >',
+      to: req.body.email,
+      subject: req.body.jobTitle + ' position for ' + req.body.company,
+      text: 'We\'d like to schedule an interview'
+    };
+    mailgun.messages().send(email, function(error, body) {
+      console.log(body);
+      res.send(body);
+    });
+  },
+
   signup: function (req, res) {
     if (!req.body.name || !req.body.username) {
       return res.send({
@@ -145,25 +180,6 @@ module.exports = {
               data: error
             });
           });
-      });
-  },
-
-  grabbingApplicants: function(req, res) {
-    Models.JobApplicant.findAll({attributes: ['applicantId'], where: {jobId: req.body.jobId}})
-      .then(function(results) {
-        var mappedIDs = results.map(function(record) {
-          return record.dataValues.applicantId;
-        });
-        var promiseMap = mappedIDs.map(function(id) {
-          return Models.Applicant.find({attributes: ['id', 'city', 'work_exp', 'education', 'resume'], where: {id: id}});
-        })
-        return Promise.all(promiseMap);
-      })
-      .then(function(result) {
-        return res.send(result);
-      })
-      .catch(function(err) {
-        return res.send(err);
       });
   }
 
