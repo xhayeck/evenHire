@@ -9,7 +9,6 @@ angular.module('evenhire.recruiters', [])
   var currentUser = Auth.getCurrentUser();
   $scope.companyName = currentUser.name;
   $scope.getApplicants = function(jobId) {
-    console.log('jobId: ', jobId);
     Recruiter.grabApplicants(jobId)
       .then(function(data) {
         $scope.JobApplicant[jobId] = data;
@@ -22,7 +21,6 @@ angular.module('evenhire.recruiters', [])
     Recruiter.getPostedJobs()
       .then(function(data) {
       $scope.postedJobs = data;
-
     }, function() {
       $scope.error = 'unable to get jobs';
     });
@@ -31,7 +29,7 @@ angular.module('evenhire.recruiters', [])
   $scope.postJob = function() {
     Recruiter.postNewJob($scope.newJob)
       .then(function(newJob) {
-        console.log('new job is', newJob)
+        console.log('new job is', newJob);
       });
   };
 
