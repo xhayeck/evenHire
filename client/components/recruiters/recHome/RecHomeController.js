@@ -7,14 +7,13 @@ angular.module('evenhire.recruiters', [])
   $scope.error;
 
   $scope.clickToOpen = function () {
-        ngDialog.open({
-          template: './components/recruiters/recHome/tabDialog.tmpl.html',
-          controller: 'RecHomeController',
-          className: 'ngdialog-theme-default'
-        });
+    ngDialog.open({
+      template: './components/recruiters/recHome/tabDialog.tmpl.html',
+      controller: 'RecHomeController',
+      className: 'ngdialog-theme-default'
+    });
   };
-  $scope.closeSecond = function () {
-    console.log('dasd')
+  $scope.closeDialog = function () {
     ngDialog.close();
   };
 
@@ -39,11 +38,11 @@ angular.module('evenhire.recruiters', [])
   }();
 
   $scope.postJob = function() {
-    console.log('inside post a job');
     Recruiter.postNewJob($scope.newJob)
       .then(function(newJob) {
         $state.go('recruiters');
         console.log('new job is', newJob);
-      });
+      })
   };
+
 }]);
