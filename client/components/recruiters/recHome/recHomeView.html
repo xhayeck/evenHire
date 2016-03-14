@@ -13,7 +13,7 @@
       Posted on: {{job.createdAt | date:'MM/dd/yyyy'}}<br>
       <br>
     </md-card-content>
-    <md-button class="md-raised" ng-click="getApplicants(job.id)">Applicants</md-button>
+    <md-button class="md-raised" ng-click="getApplicants(job.id)">Show all applicants for this job</md-button>
     <div ng-repeat="applicant in JobApplicant[job.id]">
       <br>
       ID Number: {{applicant.id}}<br>
