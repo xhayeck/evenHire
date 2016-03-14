@@ -6,7 +6,7 @@
   <md-button ui-sref="recruiters" class="md-raised">Click here to post a job</md-button>
   <md-content class="jobCard md-padding" ng-repeat="job in fetchedJobs | filter:searchText">
     <md-card>
-      <md-card-title class="md-padding md-headline">{{job.recruiterId}} - {{job.title}}</md-card-title>
+      <md-card-title class="md-padding md-headline">{{job.recruiter.name}} - {{job.title}}</md-card-title>
       <md-card-content>
         <h4 class="md-title">Posted at: </h4><p>{{job.createdAt | date:'MM/dd/yyyy'}}</p>
         <h4 class="md-title">Industry: </h4><p>{{job.industry}}</p>
