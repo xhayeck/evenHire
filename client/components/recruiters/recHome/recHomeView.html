@@ -1,6 +1,6 @@
 <md-content>
   <h2 class="md-headline">Welcome {{companyName}}!</h2>
-  <md-button class="md-raised">Click here to post a job (scroll down)</md-button>
+  <md-button class="md-raised" ng-click="clickToOpen()">Click here to post a job (scroll down)</md-button>
   <h3 class="md-title">Here are your job listings:</h3>
   <md-card class="md-padding" ng-repeat="job in postedJobs.results">
     <md-card-title class="md-headline">{{job.title}} - {{postedJobs.applicantCount[$index]}} applicants</md-card-title>
@@ -25,7 +25,7 @@
     </div>
   </md-card>
 </div>
-
+<!--
 <div layout="row" layout-align="center center">
   <div flex="50">
     <h2 class="md-headline">Recruiters Post a job</h2>
@@ -63,3 +63,8 @@
   </div>
 </md-content><br>
 <md-button ui-sref="allJobs" class="md-raised">Click here to view job postings</md-button>
+
+
+ -->
+
+
