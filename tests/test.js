@@ -22,20 +22,20 @@ describe('Routing', function() {
     });
   });
   describe('Applicant routes', function() {
-    it('GET /api/applicants/allJobs should return 200', function(done) {
+    it('GET /api/applicant/allJobs should return 200', function(done) {
       request(app)
-        .get('/api/applicants/allJobs')
+        .get('/api/applicant/allJobs')
         .expect(200, done);
     });
-    it('GET /api/applicants/allJobs should return 200', function(done) {
+    it('GET /api/applicant/allJobs should return 200', function(done) {
       request(app)
-        .get('/api/applicants/allJobs')
+        .get('/api/applicant/allJobs')
         .expect(200, done);
     });
     describe('Applicant login', function() {
-      it('POST /api/applicants/login should return an object with type and data', function(done) {
+      it('POST /api/applicant/login should return an object with type and data', function(done) {
         request(app)
-          .post('/api/applicants/login')
+          .post('/api/applicant/login')
           .end(function(err, res) {
             expect(res.body).to.have.property('type');
             expect(res.body).to.have.property('data');
@@ -50,7 +50,7 @@ describe('Routing', function() {
           password: 'test'
         };
         request(app)
-          .post('/api/applicants/login')
+          .post('/api/applicant/login')
           .send(data)
           .expect(200)
           .end(function(err, res) {
@@ -70,7 +70,7 @@ describe('Routing', function() {
           password: 'notTest'
         };
         request(app)
-          .post('/api/applicants/login')
+          .post('/api/applicant/login')
           .send(data)
           .end(function(err, res) {
             expect(res.body).to.have.property('type');
@@ -83,13 +83,13 @@ describe('Routing', function() {
       });
     });
     describe('Signing up', function() {
-      it('POST /api/applicants/signup should return an object with type and data', function(done) {
+      it('POST /api/applicant/signup should return an object with type and data', function(done) {
         var data = {
           firstName: 'test',
           username: 'testing'
         };
         request(app)
-          .post('/api/applicants/signup')
+          .post('/api/applicant/signup')
           .send(data)
           .end(function(err, res) {
             expect(res.body).to.have.property('type');
@@ -102,7 +102,7 @@ describe('Routing', function() {
     describe('Applying for jobs', function() {
       it('Should not allow to apply for same job', function(done) {
         request(app)
-          .post('/api/applicants/apply')
+          .post('/api/applicant/apply')
           .set('x-access-token', testApplicantToken)
           .send({job_id: 1})
           .end(function(err, res) {
@@ -114,14 +114,14 @@ describe('Routing', function() {
     });
   });
   describe('Recruiter routes', function() {
-    it('GET /api/recruiters/showJobsAppsDB should return 200', function(done) {
+    it('GET /api/recruiter/showJobsAppsDB should return 200', function(done) {
       request(app)
-        .get('/api/recruiters/showJobsAppsDB')
+        .get('/api/recruiter/showJobsAppsDB')
         .expect(200, done());
     });
-    it('POST /api/recruiters/login should return an object with data and type', function(done) {
+    it('POST /api/recruiter/login should return an object with data and type', function(done) {
       request(app)
-        .post('/api/recruiters/login')
+        .post('/api/recruiter/login')
         .end(function(err, res) {
           expect(res.body).to.have.property('data');
           expect(res.body).to.have.property('type');
@@ -129,9 +129,9 @@ describe('Routing', function() {
           done();
         });
     });
-    it('POST /api/recruiters/signup should return an object with data and type', function(done) {
+    it('POST /api/recruiter/signup should return an object with data and type', function(done) {
       request(app)
-        .post('/api/recruiters/signup')
+        .post('/api/recruiter/signup')
         .end(function(err, res) {
           expect(res.body).to.have.property('data');
           expect(res.body).to.have.property('type');
@@ -139,9 +139,9 @@ describe('Routing', function() {
           done();
         });
     });
-    it('POST /api/recruiters/newJob should return an object', function(done) {
+    it('POST /api/recruiter/newJob should return an object', function(done) {
       request(app)
-        .post('/api/recruiters/newJob')
+        .post('/api/recruiter/newJob')
         .set('x-access-token', testRecruiterToken)
         .end(function(err, res) {
           expect(res.body).to.exist;
