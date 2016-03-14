@@ -46,22 +46,38 @@ module.exports = {
   },
 
   getApplicants: function(req, res) {
-    Models.JobApplicant.findAll({attributes: ['applicantId'], where: {jobId: req.body.jobId}})
-      .then(function(results) {
-        var mappedIDs = results.map(function(record) {
-          return record.dataValues.applicantId;
-        });
-        var promiseMap = mappedIDs.map(function(id) {
-          return Models.Applicant.find({attributes: ['id', 'city', 'work_exp', 'education', 'resume', 'email'], where: {id: id}});
-        })
-        return Promise.all(promiseMap);
+    Models.Job.findById(req.body.jobId)
+      .then(function(job) {
+        job.getApplicants()
+          .then(function(applicants) {
+            console.log('applicants are', applicants);
+            res.send(applicants);
+          })
+          .catch(function(err) {
+            console.log('Error in finding applicants', err);
+            res.send(err);
+          });
       })
-      .then(function(result) {
-        return res.send(result);
-      })
-      .catch(function(err) {
-        return res.send(err);
+      .catch(function(error) {
+        res.send(error);
       });
+    // Models.JobApplicant.findAll({attributes: ['applicantId'], where: {jobId: req.body.jobId}})
+    //   .then(function(results) {
+    //     // console.log(results);
+    //     var mappedIDs = results.map(function(record) {
+    //       return record.dataValues.applicantId;
+    //     });
+    //     var promiseMap = mappedIDs.map(function(id) {
+    //       return Models.Applicant.find({attributes: ['id', 'city', 'work_exp', 'education', 'resume', 'email'], where: {id: id}});
+    //     })
+    //     return Promise.all(promiseMap);
+    //   })
+    //   .then(function(result) {
+    //     return res.send(result);
+    //   })
+    //   .catch(function(err) {
+    //     return res.send(err);
+    //   });
   },
 
   getJobAppRelations: function(req, res) {
