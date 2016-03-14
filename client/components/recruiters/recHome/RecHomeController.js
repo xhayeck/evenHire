@@ -1,10 +1,21 @@
 angular.module('evenhire.recruiters', [])
 
 
-.controller('RecHomeController', ['$scope', '$state', 'Recruiter', 'Auth', function ($scope, $state, Recruiter, Auth) {
+.controller('RecHomeController', ['$scope', '$state', 'Recruiter', 'Auth','$mdDialog','ngDialog', function ($scope, $state, Recruiter, Auth, $mdDialog, ngDialog) {
   $scope.newJob = {};
   $scope.JobApplicant = {};
   $scope.error;
+
+  $scope.clickToOpen = function () {
+    ngDialog.open({
+      template: './components/recruiters/recHome/tabDialog.tmpl.html',
+      controller: 'RecHomeController',
+      className: 'ngdialog-theme-default'
+    });
+  };
+  $scope.closeDialog = function () {
+    ngDialog.close();
+  };
 
   var currentUser = Auth.getCurrentUser();
   $scope.companyName = currentUser.name;
@@ -29,8 +40,9 @@ angular.module('evenhire.recruiters', [])
   $scope.postJob = function() {
     Recruiter.postNewJob($scope.newJob)
       .then(function(newJob) {
+        $state.go('recruiters');
         console.log('new job is', newJob);
-      });
+      })
   };
 
 }]);
