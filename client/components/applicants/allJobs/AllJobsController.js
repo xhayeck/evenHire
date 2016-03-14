@@ -19,9 +19,10 @@ angular.module('evenhire.allJobs', [])
           if(factoryResponse.status === 500){
             console.log("You need to login");
             $state.go('appLogin')
-          }
-          else if(!factoryResponse) {
+          } else if(factoryResponse.toString() === 'false') { 
             alert("You already applied for that job")
+          } else if(!factoryResponse) {
+            alert("You need to be logged in as an applicant to apply for a job")
           } else {
             alert("Thanks for applying " + factoryResponse.first_name)
           }
