@@ -1,15 +1,20 @@
 <div>
+  <md-content layout="row" layout-align="end">
+    <input flex=30 type="text" ng-model="searchText" placeholder="search" />
+  </md-content>
   <h2 class="md-headline">Job Postings</h2>
   <md-button ui-sref="recruiters" class="md-raised">Click here to post a job</md-button>
-
-  <md-content class="md-padding" class="jobCard" ng-repeat="job in fetchedJobs">
+  <md-content class="jobCard md-padding" ng-repeat="job in fetchedJobs | filter:searchText">
     <md-card>
-      <md-card-title class="md-headline">{{job.title}}</md-card-title>
+      <md-card-title class="md-padding md-headline">{{job.recruiterId}} - {{job.title}}</md-card-title>
       <md-card-content>
-        <h4>Location: </h4><p>{{job.location}}</p>
-        <h4>Description: </h4><p>{{job.description}}</p>
-        <h4>Posted at: </h4><p>{{job.createdAt}}</p>
-        <h4>Experience: </h4><p>{{job.experience}}</p>
+        <h4 class="md-title">Posted at: </h4><p>{{job.createdAt | date:'MM/dd/yyyy'}}</p>
+        <h4 class="md-title">Industry: </h4><p>{{job.industry}}</p>
+        <h4 class="md-title">Location: </h4><p>{{job.location}}</p>
+        <h4 class="md-title">Description: </h4><p>{{job.description}}</p>
+        <h4 class="md-title">Job Type: </h4><p>{{job.job_type}}</p>
+        <h4 class="md-title">Experience: </h4><p>{{job.experience}}</p>
+        <h4 class="md-title">Career Level: </h4><p>{{job.career_level}}</p>
       </md-card-content>
       <md-button class="md-raised" ng-click="submitApplication(job.id)">Apply for job id {{job.id}}</md-button>
     </md-card>

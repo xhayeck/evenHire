@@ -7,6 +7,7 @@ angular.module('evenhire.allJobs', [])
     $scope.getAllJobs = function() {
       Applicant.allJobs()
         .then(function(data) {
+          console.log(data);
           $scope.fetchedJobs = data;
         });
     }();
