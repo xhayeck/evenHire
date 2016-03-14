@@ -20,7 +20,6 @@ module.exports = {
       }]
     })
       .then(function(data) {
-        console.log(data);
         return res.send(data);
       })
       .catch(function(err) {

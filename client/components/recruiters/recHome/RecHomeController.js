@@ -23,6 +23,7 @@ angular.module('evenhire.recruiters', [])
   $scope.getApplicants = function(jobId) {
     Recruiter.grabApplicants(jobId)
       .then(function(data) {
+        console.log(data);
         $scope.JobApplicant[jobId] = data;
       }, function() {
         $scope.error = 'Unable to get applicants';
@@ -32,6 +33,8 @@ angular.module('evenhire.recruiters', [])
   $scope.getJobs = function() {
     Recruiter.getPostedJobs()
       .then(function(data) {
+      //sorting jobs by most recent, so need to reverse count array to match
+      data.applicantCount.reverse();
       $scope.postedJobs = data;
     }, function() {
       $scope.error = 'unable to get jobs';
