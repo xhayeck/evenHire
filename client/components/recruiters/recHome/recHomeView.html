@@ -1,34 +1,33 @@
-<div>
-  <h2 class="md-headline">Home</h2>
-  <md-button ui-sref="allJobs" class="md-raised">Click here to view job postings</md-button>
-</div>
-<div>
-  <h2 class="md-headline">Welcome Uber!</h2>
-  <h3 class="md-title">Job Postings</h3>
+<md-content>
+  <h2 class="md-headline">Welcome {{companyName}}!</h2>
+  <md-button class="md-raised" ng-click="clickToOpen()">Click here to post a job (scroll down)</md-button>
   <h3 class="md-title">Here are your job listings:</h3>
-  <md-button class="md-raised" ng-click="getJobs()">Click here to view job postings in db:</md-button><br>
-  Retrieved jobs from db:<br>
-  <div ng-repeat="job in postedJobs">
-    <h4>{{job.title}}</h4><br>
-    <h4>{{job.recruiterId}}</h4><br>
-    Location: {{job.location}}<br>
-    Industry: {{job.industry}}<br>
-    Description: {{job.description}}<br>
-    Career Level: {{job.career_level}}<br>
-    Job Type: {{job.job_type}}<br>
-    Job Id: {{job.id}}<br>
-    <md-button class="md-raised" ng-click="getApplicants(job.id)">Applicants</md-button>
-    <div ng-repeat="applicant in JobApplicant">
+  <md-card class="md-padding" ng-repeat="job in postedJobs.results | orderBy: '-createdAt'">
+    <md-card-title class="md-headline">{{job.title}} - {{postedJobs.applicantCount[$index]}} applicants</md-card-title>
+    <md-card-content>
+      Location: {{job.location}}<br>
+      Industry: {{job.industry}}<br>
+      Description: {{job.description}}<br>
+      Career Level: {{job.career_level}}<br>
+      Job Type: {{job.job_type}}<br>
+      Posted on: {{job.createdAt | date:'MM/dd/yyyy'}}<br>
+      <br>
+    </md-card-content>
+    <md-button class="md-raised" ng-click="getApplicants(job.id)">Show all applicants for this job</md-button>
+    <div ng-repeat="applicant in JobApplicant[job.id]">
+      <br>
       ID Number: {{applicant.id}}<br>
       City: {{applicant.city}}<br>
       Work Experience: {{applicant.work_exp}}<br>
       Education: {{applicant.education}}<br>
       Resume: {{applicant.resume}}<br>
+      Email: {{applicant.email}}<br>
       <br>
+      <md-button class="md-raised" ng-click="sendEmail(applicant.email, job.title)">Contact</md-button>
     </div>
-  </div>
+  </md-card>
 </div>
-
+<!--
 <div layout="row" layout-align="center center">
   <div flex="50">
     <h2 class="md-headline">Recruiters Post a job</h2>
@@ -64,4 +63,10 @@
       <md-button class="md-raised md-primary" type="submit" ng-click="postJob()">Submit</md-button>
     </md-content>
   </div>
-</div>
+</md-content><br>
+<md-button ui-sref="allJobs" class="md-raised">Click here to view job postings</md-button>
+
+
+ -->
+
+

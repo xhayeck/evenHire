@@ -1,16 +1,30 @@
 angular.module('evenhire.recruiters', [])
 
 
-.controller('RecHomeController', ['$scope', '$state', 'Recruiter', function ($scope, $state, Recruiter) {
+.controller('RecHomeController', ['$scope', '$state', 'Recruiter', 'Auth','$mdDialog','ngDialog', function ($scope, $state, Recruiter, Auth, $mdDialog, ngDialog) {
   $scope.newJob = {};
-  $scope.postedJobs = '';
+  $scope.JobApplicant = {};
   $scope.error;
 
+  $scope.clickToOpen = function () {
+    ngDialog.open({
+      template: './components/recruiters/recHome/tabDialog.tmpl.html',
+      controller: 'RecHomeController',
+      className: 'ngdialog-theme-default'
+    });
+  };
+  $scope.closeDialog = function () {
+    ngDialog.close();
+  };
+
+  var currentUser = Auth.getCurrentUser();
+  $scope.companyName = currentUser.name;
+  $scope.companyEmail = currentUser.email;
   $scope.getApplicants = function(jobId) {
-    console.log('jobId: ', jobId);
     Recruiter.grabApplicants(jobId)
       .then(function(data) {
-        $scope.JobApplicant = data;
+        console.log(data);
+        $scope.JobApplicant[jobId] = data;
       }, function() {
         $scope.error = 'Unable to get applicants';
       });
@@ -19,17 +33,26 @@ angular.module('evenhire.recruiters', [])
   $scope.getJobs = function() {
     Recruiter.getPostedJobs()
       .then(function(data) {
+      //sorting jobs by most recent, so need to reverse count array to match
+      data.applicantCount.reverse();
       $scope.postedJobs = data;
-
     }, function() {
       $scope.error = 'unable to get jobs';
     });
-  };
+  }();
 
   $scope.postJob = function() {
     Recruiter.postNewJob($scope.newJob)
       .then(function(newJob) {
-        console.log(newJob)
+        $state.go('recruiters');
+        console.log('new job is', newJob);
+      })
+  };
+
+  $scope.sendEmail = function(applicantEmail, jobTitle) {
+    Recruiter.sendEmail(applicantEmail, jobTitle, $scope.companyName, $scope.companyEmail)
+      .then(function(response) {
+        alert(response.message);
       });
   };
 

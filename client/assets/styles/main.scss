@@ -9,6 +9,11 @@ body {
   height: 40px;
 }
 
-.jobCard {
-  margin: 10px;
+md-content.jobCard {
+  h4 {
+    margin: 2px 0px;
+  }
+  p {
+    margin: 0 0 8px 0;
+  }
 }
