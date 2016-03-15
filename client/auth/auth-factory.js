@@ -92,6 +92,7 @@ angular.module('evenhire.auth.factory', [])
           data: userData
         })
         .then(function(data) {
+          console.log('data nova e:', data.data)
           if (data.data.type) {
             auth.setUser(data.data.data, userType);
           }
