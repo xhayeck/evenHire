@@ -43,15 +43,16 @@ angular.module('evenhire.recruiters.factory', [])
       });
     };
 
-    recruiter.sendEmail = function(applicantEmail, jobTitle, company, email) {
+    recruiter.sendEmail = function(applicantEmail, jobTitle, company, email, message) {
       return $http({
         method: 'POST',
         url: 'api/recruiter/sendEmail',
         data: {
-          email: applicantEmail,
+          applicantEmail: applicantEmail,
           jobTitle: jobTitle,
           company: company,
-          email: email
+          email: email,
+          message: message
         }
       })
       .then(function(data) {
