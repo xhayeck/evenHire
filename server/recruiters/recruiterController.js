@@ -61,23 +61,6 @@ module.exports = {
       .catch(function(error) {
         res.send(error);
       });
-    // Models.JobApplicant.findAll({attributes: ['applicantId'], where: {jobId: req.body.jobId}})
-    //   .then(function(results) {
-    //     // console.log(results);
-    //     var mappedIDs = results.map(function(record) {
-    //       return record.dataValues.applicantId;
-    //     });
-    //     var promiseMap = mappedIDs.map(function(id) {
-    //       return Models.Applicant.find({attributes: ['id', 'city', 'work_exp', 'education', 'resume', 'email'], where: {id: id}});
-    //     })
-    //     return Promise.all(promiseMap);
-    //   })
-    //   .then(function(result) {
-    //     return res.send(result);
-    //   })
-    //   .catch(function(err) {
-    //     return res.send(err);
-    //   });
   },
 
   getJobAppRelations: function(req, res) {
@@ -138,7 +121,9 @@ module.exports = {
       .then(function(recruiter) {
         recruiter.createJob({
           title: req.body.title,
-          location: req.body.location,
+          city: req.body.city,
+          state: req.body.state,
+          zipcode: req.body.zipcode,
           description: req.body.description,
           industry: req.body.industry,
           career_level: req.body.career_level,
