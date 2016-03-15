@@ -161,11 +161,10 @@ module.exports = {
       subject: req.body.jobTitle + ' position for ' + req.body.company,
       text: req.body.message
     };
-    console.log(email);
-    // mailgun.messages().send(email, function(error, body) {
-    //   console.log(body);
-    //   res.send(body);
-    // });
+    mailgun.messages().send(email, function(error, body) {
+      console.log(body);
+      res.send(body);
+    });
   },
 
   signup: function (req, res) {
