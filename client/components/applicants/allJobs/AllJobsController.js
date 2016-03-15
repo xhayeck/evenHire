@@ -1,7 +1,7 @@
 
 angular.module('evenhire.allJobs', [])
 
-  .controller('AllJobsController', ['$scope', '$state', 'Applicant','$mdDialog','ngDialog', 'Auth', function ($scope, $state, Applicant, $mdDialog, ngDialog, Auth) {
+  .controller('AllJobsController', ['$scope', '$state', 'Applicant', 'ngDialog', 'Auth', function ($scope, $state, Applicant, ngDialog, Auth) {
     $scope.fetchedJobs = [];
 
     $scope.getAllJobs = function() {
@@ -40,16 +40,17 @@ angular.module('evenhire.allJobs', [])
         template: './components/applicants/allJobs/applicantHome.tmpl.html',
         controller: 'AllJobsController',
         className: 'ngdialog-theme-plain',
+        closeByDocument: false,
         scope: $scope
       });
     };
-    $scope.currentUserType = Auth.getCurrentUserType()
+    $scope.currentUserType = Auth.getCurrentUserType();
     $scope.saveUpdate = function(loggedInUser, userType) {
-      console.log(loggedInUser, userType)
+      console.log(loggedInUser, userType);
       Auth.userUpdate(loggedInUser, userType)
       .then(function(data) {
-        console.log('saveUpdate is:', data)
-      })
+        console.log('saveUpdate is:', data);
+      });
     };
 
 }]);
