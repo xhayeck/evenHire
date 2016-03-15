@@ -150,6 +150,6 @@ module.exports = {
     //   })
     //   console.log('applicant:', applicant.dataValues)
     // })
-  };
+  }
 
 };
