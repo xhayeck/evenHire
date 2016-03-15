@@ -1,24 +1,13 @@
-angular.module('evenhire.appNewAcc', ['ngDialog'])
+angular.module('evenhire.appNewAcc', [])
 
   .controller('AppNewAccController', ['$scope', '$state','$http','Applicant','$window', 'Auth', function ($scope, $state, $http, Applicant, $window, Auth) {
 
     $scope.applicant = {};
 
-    // $scope.customeFullscreen = $mdMedia('xs') || $mdMedia('sm');
-
-
-    // 'ndDialog'
-    // $scope.showAlert = function(ev) {
-    //   ngDialog.open({template: 'passwordVerification.tmpl.html', classname: 'ngdialog-theme-default'});
-    // };
-
-    // else {
-    //     $scope.showAlert();
-    //   }
-
     $scope.createAccount = function() {
-      //send form data to the server at api/applicants/login
+      //Checking if passwords match
       if($scope.applicant.verify_password === $scope.applicant.password) {
+        //send form data to the server at api/applicants/login
         Auth.signUp($scope.applicant, 'applicant')
         .then(function(data) {
           if (!data.type) {
@@ -29,6 +18,9 @@ angular.module('evenhire.appNewAcc', ['ngDialog'])
             $state.go('allJobs');
           }
         }); 
+      } else {
+        //Alerting user their passwords don't match
+        alert("Your passwords don't match!");
       };   
     };
 
