@@ -4,11 +4,16 @@ angular.module('evenhire.recruiters', [])
 .controller('RecHomeController', ['$scope', '$state', 'Recruiter', 'Auth','$mdDialog','ngDialog', function ($scope, $state, Recruiter, Auth, $mdDialog, ngDialog) {
   $scope.newJob = {};
   $scope.JobApplicant = {};
-  $scope.error;
+  // $scope.error;
+  var currentUser = Auth.getCurrentUser();
+  $scope.companyName = currentUser.name;
+  $scope.contactMessage = 'We\'d like to schedule an interview!';
+  $scope.companyEmail = currentUser.email;
+
 
   $scope.clickToOpen = function () {
     ngDialog.open({
-      template: './components/recruiters/recHome/tabDialog.tmpl.html',
+      template: './components/recruiters/recHome/newJobDialog.tmpl.html',
       controller: 'RecHomeController',
       className: 'ngdialog-theme-default'
     });
@@ -17,9 +22,18 @@ angular.module('evenhire.recruiters', [])
     ngDialog.close();
   };
 
-  var currentUser = Auth.getCurrentUser();
-  $scope.companyName = currentUser.name;
-  $scope.companyEmail = currentUser.email;
+  $scope.clickToOpenContact = function (applicantIndex, jobIndex) {
+    $scope.jobToContactAbout = $scope.postedJobs.results[jobIndex].title;
+    var jobId = $scope.postedJobs.results[jobIndex].id;
+    $scope.applicantToContact = $scope.JobApplicant[jobId][applicantIndex].email;
+    ngDialog.open({
+      template: './components/recruiters/recHome/contactDialog.tmpl.html',
+      controller: 'RecHomeController',
+      className: 'ngdialog-theme-default',
+      scope: $scope
+    });
+  };
+
   $scope.getApplicants = function(jobId) {
     Recruiter.grabApplicants(jobId)
       .then(function(data) {
@@ -35,6 +49,7 @@ angular.module('evenhire.recruiters', [])
       .then(function(data) {
       //sorting jobs by most recent, so need to reverse count array to match
       data.applicantCount.reverse();
+      data.results.reverse();
       $scope.postedJobs = data;
     }, function() {
       $scope.error = 'unable to get jobs';
@@ -44,15 +59,16 @@ angular.module('evenhire.recruiters', [])
   $scope.postJob = function() {
     Recruiter.postNewJob($scope.newJob)
       .then(function(newJob) {
-        $state.go('recruiters');
+        $state.reload();
         console.log('new job is', newJob);
       })
   };
 
-  $scope.sendEmail = function(applicantEmail, jobTitle) {
-    Recruiter.sendEmail(applicantEmail, jobTitle, $scope.companyName, $scope.companyEmail)
+  $scope.sendEmail = function() {
+    Recruiter.sendEmail($scope.applicantToContact, $scope.jobToContactAbout, $scope.companyName, $scope.companyEmail, $scope.contactMessage)
       .then(function(response) {
         alert(response.message);
+        $scope.closeDialog();
       });
   };
 

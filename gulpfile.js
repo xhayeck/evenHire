@@ -6,8 +6,10 @@ var del = require('del');
 var nodemon = require('gulp-nodemon');
 var rename = require('gulp-rename');
 var sass = require('gulp-sass');
+var mocha = require('gulp-mocha');
 var Server = require('karma').Server;
 var uglify = require('gulp-uglify');
+var util = require('gulp-util');
 
 var libraries = [
   './client/assets/libs/**/*.js',
@@ -59,12 +61,19 @@ gulp.task('styles', function() {
     .pipe(gulp.dest('./client/dist/styles/'));
 });
 
-//Run tests
-gulp.task('tests', function(done) {
+//Run jasmine tests
+gulp.task('jasmine_tests', function(done) {
   new Server({
     configFile: __dirname + '/karma.config.js',
     singleRun: false,
     }, done).start();
+});
+
+//Run mocha tests
+gulp.task('mocha_tests', function() {
+  return gulp.src(['tests/**/*.js'], {read: false})
+    .pipe(mocha({reporter: 'spec'}))
+    .on('error', util.log);
 });
 
 //Watch for changes in client folder
@@ -74,6 +83,6 @@ gulp.task('watch', function() {
 });
 
 gulp.task('build', ['styles', 'scripts', 'libs']);
-gulp.task('test', ['tests']);
+gulp.task('test', ['mocha_tests', 'jasmine_tests']);
 gulp.task('start', ['build', 'serve', 'watch']);
 gulp.task('default', ['build', 'serve', 'watch']);

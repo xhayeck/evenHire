@@ -157,9 +157,9 @@ module.exports = {
   sendEmail: function(req, res) {
     var email = {
       from: req.body.company + ' <' + req.body.email + ' >',
-      to: req.body.email,
+      to: req.body.applicantEmail,
       subject: req.body.jobTitle + ' position for ' + req.body.company,
-      text: 'We\'d like to schedule an interview'
+      text: req.body.message
     };
     mailgun.messages().send(email, function(error, body) {
       console.log(body);

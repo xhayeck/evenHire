@@ -1,7 +1,7 @@
 
 angular.module('evenhire.allJobs', [])
 
-  .controller('AllJobsController', ['$scope', '$state', 'Applicant', function ($scope, $state, Applicant) {
+  .controller('AllJobsController', ['$scope', '$state', 'Applicant','$mdDialog','ngDialog', function ($scope, $state, Applicant, $mdDialog, ngDialog) {
     $scope.fetchedJobs = [];
 
     $scope.getAllJobs = function() {
@@ -19,7 +19,7 @@ angular.module('evenhire.allJobs', [])
           if(factoryResponse.status === 500){
             console.log("You need to login");
             $state.go('appLogin')
-          } else if(factoryResponse.toString() === 'false') { 
+          } else if(factoryResponse.toString() === 'false') {
             alert("You already applied for that job")
           } else if(!factoryResponse) {
             alert("You need to be logged in as an applicant to apply for a job")
