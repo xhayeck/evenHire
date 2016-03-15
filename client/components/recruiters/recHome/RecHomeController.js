@@ -44,7 +44,7 @@ angular.module('evenhire.recruiters', [])
   $scope.postJob = function() {
     Recruiter.postNewJob($scope.newJob)
       .then(function(newJob) {
-        $state.go('recruiters');
+        $state.reload();
         console.log('new job is', newJob);
       })
   };
