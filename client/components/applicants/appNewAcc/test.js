@@ -1,26 +1,26 @@
-describe('AppNewAccController', function() {
-  
-  var scope;
-  var createController;
-  var httpBackend;
-  var $state;
+// describe('AppNewAccController', function() {
 
-  beforeEach(module('evenhire'));
-  beforeEach(inject(function($rootScope, $controller, $httpBackend) {
-    scope = $rootScope.$new();
-    httpBackend = $httpBackend;
+//   var scope;
+//   var createController;
+//   var httpBackend;
+//   var $state;
 
-    createController = function() {
-      return $controller('AppNewAccController', {
-        '$scope': scope,
-        '$http': $httpBackend
-      });
-    };
-    createController();
-  }));
+//   beforeEach(module('evenhire'));
+//   beforeEach(inject(function($rootScope, $controller, $httpBackend) {
+//     scope = $rootScope.$new();
+//     httpBackend = $httpBackend;
 
-  it('should have a createAccount function', function() {
-    expect(scope.createAccount).toBeDefined();
-  });
+//     createController = function() {
+//       return $controller('AppNewAccController', {
+//         '$scope': scope,
+//         '$http': $httpBackend
+//       });
+//     };
+//     createController();
+//   }));
 
-})
+//   it('should have a createAccount function', function() {
+//     expect(scope.createAccount).toBeDefined();
+//   });
+
+// })
