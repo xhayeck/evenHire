@@ -7,7 +7,7 @@ angular.module('evenhire.appNewAcc', [])
     $scope.createAccount = function() {
       //Checking if passwords match
       if($scope.applicant.verify_password === $scope.applicant.password) {
-        //send form data to the server at api/applicants/login
+        //send form data to the server at api/applicant/signUp
         Auth.signUp($scope.applicant, 'applicant')
         .then(function(data) {
           if (!data.type) {
