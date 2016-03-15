@@ -67,6 +67,7 @@
     "karma-mocha": "^0.2.2",
     "mailgun-js": "^0.7.7",
     "ng-dialog": "^0.5.9",
+    "pg": "^4.5.1",
     "sequelize": "^3.19.3"
   }
 }
