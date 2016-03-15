@@ -120,12 +120,36 @@ module.exports = {
 
   userUpdate: function(req, res) {
     var applicantId = authUtils.decodeToken(req.headers['x-access-token']).id;
-    console.log('request is :', req.body)
     Models.Applicant.findById(req.body.id)
-    .then(function(applicant) {
-
-      console.log('applicant:', applicant.dataValues)
-    })
+      .then(function(applicant) {
+        applicant.update({
+          first_name: req.body.first_name,
+          last_name: req.body.last_name,
+          username: req.body.username,
+          password: req.body.password,
+          email: req.body.email,
+          city: req.body.city,
+          work_exp: req.body.work_exp,
+          education: req.body.education,
+          resume: req.body.resume
+         })
+        .then(function() {
+           console.log('applicant is :', applicant.dataValues)
+           return res.send(applicant.dataValues)
+        })
+        .catch(function(err) {
+          return res.send(err);
+        })
+      })
+    // console.log('request is :', req.body)
+    // Models.Applicant.findById(req.body.id)
+    // .then(function(applicant) {
+    //   Applicant.update({
+    //     applicant : req.body
+    //     // return res.send('updated :', applicant.dataValues)
+    //   })
+    //   console.log('applicant:', applicant.dataValues)
+    // })
   }
 
 };
