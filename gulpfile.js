@@ -12,11 +12,13 @@ var uglify = require('gulp-uglify');
 var util = require('gulp-util');
 
 var libraries = [
-  './client/assets/libs/**/*.js',
+  // './client/assets/libs/**/*.js', moved angular library to node modules
+  './node_modules/angular/angular.min.js',
   './node_modules/angular-ui-router/release/angular-ui-router.min.js',
   './node_modules/angular-animate/angular-animate.min.js',
   './node_modules/angular-material/angular-material.js',
-  './node_modules/angular-aria/angular-aria.js'
+  './node_modules/angular-aria/angular-aria.js',
+  './node_modules/ng-dialog/js/ngDialog.min.js'
 ];
 
 //Clean out the dist folder
@@ -45,7 +47,7 @@ gulp.task('serve', function() {
 
 //Concatenante and minify JS
 gulp.task('scripts', function() {
-  return gulp.src(['./client/**/*.js', '!./client/dist/**/*.js', '!./client/assets/libs/**/*.js', '!./tests/**/*.js', '!./client/**/test.js'])
+  return gulp.src(['./client/**/*.js', '!./client/dist/**/*.js', '!./client/assets/libs/**/*.js', '!./tests/**/*.js', '!./client/**/test.spec.js'])
     .pipe(concat('./all.js'))
     .pipe(uglify({mangle: false}))
     .pipe(rename('./all.min.js'))
@@ -61,16 +63,16 @@ gulp.task('styles', function() {
     .pipe(gulp.dest('./client/dist/styles/'));
 });
 
-//Run jasmine tests
-gulp.task('jasmine_tests', function(done) {
+//Run client-side tests
+gulp.task('clientTest', function(done) {
   new Server({
     configFile: __dirname + '/karma.config.js',
     singleRun: false,
     }, done).start();
 });
 
-//Run mocha tests
-gulp.task('mocha_tests', function() {
+//Run server-side tests
+gulp.task('serverTest', function() {
   return gulp.src(['tests/**/*.js'], {read: false})
     .pipe(mocha({reporter: 'spec'}))
     .on('error', util.log);
@@ -83,6 +85,7 @@ gulp.task('watch', function() {
 });
 
 gulp.task('build', ['styles', 'scripts', 'libs']);
-gulp.task('test', ['mocha_tests', 'jasmine_tests']);
+gulp.task('test:server', ['serverTest']);
+gulp.task('test:client', ['clientTest']);
 gulp.task('start', ['build', 'serve', 'watch']);
 gulp.task('default', ['build', 'serve', 'watch']);

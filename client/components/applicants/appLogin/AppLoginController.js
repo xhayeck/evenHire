@@ -1,6 +1,6 @@
 angular.module('evenhire.appLogin', [])
 
-  .controller('AppLoginController', ['$scope','$state','$http','Applicant', '$window', 'Auth', function ($scope, $state, $http, Applicant, $window, Auth) {
+  .controller('AppLoginController', ['$scope', '$state', '$http', 'Applicant', '$window', 'Auth', function ($scope, $state, $http, Applicant, $window, Auth) {
 
     $scope.user = {};
     $scope.logIn = function() {
