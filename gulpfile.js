@@ -61,15 +61,16 @@ gulp.task('styles', function() {
     .pipe(gulp.dest('./client/dist/styles/'));
 });
 
-//Run tests
-gulp.task('tests', function(done) {
+//Run jasmine tests
+gulp.task('jasmine_tests', function(done) {
   new Server({
     configFile: __dirname + '/karma.config.js',
     singleRun: false,
     }, done).start();
 });
 
-gulp.task('test1', function() {
+//Run mocha tests
+gulp.task('mocha_tests', function() {
   return gulp.src(['tests/**/*.js'], {read: false})
     .pipe(mocha({reporter: 'spec'}))
     .on('error', util.log);
@@ -82,6 +83,6 @@ gulp.task('watch', function() {
 });
 
 gulp.task('build', ['styles', 'scripts', 'libs']);
-gulp.task('test', ['tests', 'test1']);
+gulp.task('test', ['mocha_tests', 'jasmine_tests']);
 gulp.task('start', ['build', 'serve', 'watch']);
 gulp.task('default', ['build', 'serve', 'watch']);
