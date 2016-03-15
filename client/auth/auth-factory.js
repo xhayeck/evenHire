@@ -85,5 +85,21 @@ angular.module('evenhire.auth.factory', [])
         currentUserType = null;
       };
 
+      auth.userUpdate = function(userData, userType) {
+        return $http({
+          method: 'POST',
+          url: 'api/' + userType + '/userUpdate',
+          data: userData
+        })
+        .then(function(data) {
+          if (data.data.type) {
+            auth.setUser(data.data.data, userType);
+          }
+          return data.data;
+        }, function(response) {
+          console.log(response)
+        });
+      }
+
     return auth;
   }]);

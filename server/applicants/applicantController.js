@@ -116,6 +116,16 @@ module.exports = {
       .catch(function(err) {
         return res.send(err);
       });
+  },
+
+  userUpdate: function(req, res) {
+    var applicantId = authUtils.decodeToken(req.headers['x-access-token']).id;
+    console.log('request is :', req.body)
+    Models.Applicant.findById(req.body.id)
+    .then(function(applicant) {
+
+      console.log('applicant:', applicant.dataValues)
+    })
   }
 
 };
