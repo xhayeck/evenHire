@@ -6,8 +6,10 @@ var del = require('del');
 var nodemon = require('gulp-nodemon');
 var rename = require('gulp-rename');
 var sass = require('gulp-sass');
+var mocha = require('gulp-mocha');
 var Server = require('karma').Server;
 var uglify = require('gulp-uglify');
+var util = require('gulp-util');
 
 var libraries = [
   './client/assets/libs/**/*.js',
@@ -67,6 +69,12 @@ gulp.task('tests', function(done) {
     }, done).start();
 });
 
+gulp.task('test1', function() {
+  return gulp.src(['tests/**/*.js'], {read: false})
+    .pipe(mocha({reporter: 'spec'}))
+    .on('error', util.log);
+});
+
 //Watch for changes in client folder
 gulp.task('watch', function() {
   gulp.watch(['./client/**/*.js', '!./client/dist/**/*.js'], ['scripts']);
@@ -74,6 +82,6 @@ gulp.task('watch', function() {
 });
 
 gulp.task('build', ['styles', 'scripts', 'libs']);
-gulp.task('test', ['tests']);
+gulp.task('test', ['tests', 'test1']);
 gulp.task('start', ['build', 'serve', 'watch']);
 gulp.task('default', ['build', 'serve', 'watch']);
