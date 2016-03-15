@@ -2,9 +2,10 @@
   <h2 class="md-headline">Welcome {{companyName}}!</h2>
   <md-button class="md-raised" ng-click="clickToOpen()">Click here to post a job</md-button>
   <h3 class="md-title">Here are your job listings:</h3>
-  <md-card class="md-padding" ng-repeat="job in postedJobs.results | orderBy: '-createdAt'">
+  <md-card class="md-padding" ng-repeat="job in postedJobs.results">
     <md-card-title class="md-headline">{{job.title}} - {{postedJobs.applicantCount[$index]}} applicants</md-card-title>
     <md-card-content>
+    {{job.id}}
       Location: {{job.location}}<br>
       Industry: {{job.industry}}<br>
       Description: {{job.description}}<br>

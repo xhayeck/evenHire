@@ -4,8 +4,13 @@ angular.module('evenhire.recruiters', [])
 .controller('RecHomeController', ['$scope', '$state', 'Recruiter', 'Auth','$mdDialog','ngDialog', function ($scope, $state, Recruiter, Auth, $mdDialog, ngDialog) {
   $scope.newJob = {};
   $scope.JobApplicant = {};
-  $scope.error;
-  $scope.contactMessage = '';
+  // $scope.error;
+  var currentUser = Auth.getCurrentUser();
+  $scope.companyName = currentUser.name;
+  $scope.contactMessage = 'We\'d like to schedule an interview!';
+  $scope.companyEmail = currentUser.email;
+
+
   $scope.clickToOpen = function () {
     ngDialog.open({
       template: './components/recruiters/recHome/newJobDialog.tmpl.html',
@@ -18,10 +23,9 @@ angular.module('evenhire.recruiters', [])
   };
 
   $scope.clickToOpenContact = function (applicantIndex, jobIndex) {
-    console.log('applicants:', $scope.JobApplicant)
-    console.log('job:', $scope.postedJobs[results])
-    $scope.applicantToContact = $scope.JobApplicant[$scope.postedJobs[results][jobIndex]][applicantIndex];
-    $scope.jobToContactAbout = $scope.postedJobs[results][jobIndex];
+    $scope.jobToContactAbout = $scope.postedJobs.results[jobIndex].title;
+    var jobId = $scope.postedJobs.results[jobIndex].id;
+    $scope.applicantToContact = $scope.JobApplicant[jobId][applicantIndex].email;
     ngDialog.open({
       template: './components/recruiters/recHome/contactDialog.tmpl.html',
       controller: 'RecHomeController',
@@ -29,9 +33,6 @@ angular.module('evenhire.recruiters', [])
     });
   };
 
-  var currentUser = Auth.getCurrentUser();
-  $scope.companyName = currentUser.name;
-  $scope.companyEmail = currentUser.email;
   $scope.getApplicants = function(jobId) {
     Recruiter.grabApplicants(jobId)
       .then(function(data) {
@@ -47,6 +48,7 @@ angular.module('evenhire.recruiters', [])
       .then(function(data) {
       //sorting jobs by most recent, so need to reverse count array to match
       data.applicantCount.reverse();
+      data.results.reverse();
       $scope.postedJobs = data;
     }, function() {
       $scope.error = 'unable to get jobs';
@@ -61,12 +63,12 @@ angular.module('evenhire.recruiters', [])
       })
   };
 
-  $scope.sendEmail = function(applicantEmail, jobTitle) {
-    console.log(applicantEmail, jobTitle);
-    // Recruiter.sendEmail(applicantEmail, jobTitle, $scope.companyName, $scope.companyEmail, $scope.contactMessage)
-    //   .then(function(response) {
-    //     alert(response.message);
-    //   });
+  $scope.sendEmail = function() {
+    Recruiter.sendEmail($scope.applicantToContact, $scope.jobToContactAbout, $scope.companyName, $scope.companyEmail, $scope.contactMessage)
+      .then(function(response) {
+        alert(response.message);
+        $scope.closeDialog();
+      });
   };
 
 }]);
