@@ -9,4 +9,5 @@ module.exports = function(router) {
   router.get('/showJobsDB', Applicant.getAllJobs);
   //To view applicants db, visit /api/applicants/showApplicantsDB
   router.get('/showApplicantsDB', Applicant.getAllApplicants);
+  router.post('/userUpdate', Applicant.userUpdate);
 };
