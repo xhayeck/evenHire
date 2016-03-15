@@ -134,13 +134,13 @@ module.exports = {
           resume: req.body.resume
          })
         .then(function() {
-           console.log('applicant is :', applicant.dataValues)
-           return res.send(applicant.dataValues)
+           console.log('applicant is :', applicant.dataValues);
+           return res.send(applicant.dataValues);
         })
         .catch(function(err) {
           return res.send(err);
-        })
-      })
+        });
+      });
     // console.log('request is :', req.body)
     // Models.Applicant.findById(req.body.id)
     // .then(function(applicant) {
@@ -150,6 +150,6 @@ module.exports = {
     //   })
     //   console.log('applicant:', applicant.dataValues)
     // })
-  }
+  };
 
 };
