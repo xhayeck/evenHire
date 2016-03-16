@@ -14,13 +14,15 @@ angular.module('evenhire.recruiters', [])
     'WY').split(' ').map(function(state) {
         return {abbrev: state};
       });
+  $scope.careerLevels = ['Entry-level', 'Experienced', 'Manager'];
+  $scope.jobTypes = ['Full-time', 'Part-time', 'Contract', 'Internship', 'Temporary', 'Commission'];
 
 
   $scope.clickToOpen = function () {
     ngDialog.open({
       template: './components/recruiters/recHome/newJobDialog.tmpl.html',
       controller: 'RecHomeController',
-      className: 'ngdialog-theme-default'
+      className: 'ngdialog-theme-default',
     });
   };
   $scope.closeDialog = function () {
