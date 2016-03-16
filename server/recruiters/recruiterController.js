@@ -110,7 +110,6 @@ module.exports = {
       });
   },
 
-
   postJob: function(req, res) {
     if (!req.headers['x-access-token']) {
       return res.status(500).send('Not logged in');
