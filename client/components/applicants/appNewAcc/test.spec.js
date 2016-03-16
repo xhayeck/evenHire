@@ -5,11 +5,13 @@ describe("A test suite", function() {
 });
 
 describe('AppNewAccController', function() {
+
   var $scope;
   var httpBackend;
   var $state;
   var Applicant;
   var $controller;
+
 
   beforeEach(module('evenhire'));
   beforeEach(inject(function($injector) {
@@ -27,13 +29,25 @@ describe('AppNewAccController', function() {
         Applicant: Applicant
       });
     };
+
+    httpBackend.whenGET('api/applicant/signup').respond(200, {data: ['firstName', 'lastName', 'email', 'username', 'city']});
+    httpBackend.whenGET('components/home/homeView').respond('<div>mock template</div>');
     createController();
+
   }));
 
-  describe('the createAccount function', function () {
-    it('should be defined', function() {
+  afterEach(function () {
+    httpBackend.flush();
+    httpBackend.verifyNoOutstandingExpectation();
+    httpBackend.verifyNoOutstandingRequest();
+  });
+
+  describe('should have a createAccount function', function () {
+
+    it('should be defined', function () {
       expect($scope.createAccount).to.exist;
     });
+    
   });
 
 });
