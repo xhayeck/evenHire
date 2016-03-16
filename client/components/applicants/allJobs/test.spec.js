@@ -1,9 +1,9 @@
-describe('AllJobsController', function(){
+describe('AllJobsController', function () {
   var $scope;
   var httpBackend;
   var $state;
   var Applicant;
-  var $controller
+  var $controller;
 
   //load module
   beforeEach(module('evenhire'));
