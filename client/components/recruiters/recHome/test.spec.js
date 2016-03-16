@@ -11,7 +11,7 @@ describe('RecHomeController', function () {
 
   //inject services before testing
   beforeEach(inject(function ($injector) {
-    
+
     $rootScope = $injector.get('$rootScope');
     httpBackend = $injector.get('$httpBackend');
     $state = $injector.get('$state');
@@ -59,4 +59,3 @@ describe('RecHomeController', function () {
   });
 
 });
-
