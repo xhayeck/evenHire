@@ -17,3 +17,12 @@ md-content.jobCard {
     margin: 0 0 8px 0;
   }
 }
+
+.ngdialog.ngdialog-theme-default .ngdialog-content {
+    width: 900px;
+}
+
+div.md-select-menu-container.md-active.md-clickable {
+  z-index: 99999;
+}
+

@@ -86,7 +86,7 @@ module.exports = function(db) {
     industry: Sequelize.STRING,
     career_level: Sequelize.STRING,
     job_type: Sequelize.STRING,
-    experience: Sequelize.TEXT
+    qualifications: Sequelize.TEXT
     //sequelize automatically creates a createdAt property
   });
 

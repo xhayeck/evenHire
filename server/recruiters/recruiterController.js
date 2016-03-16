@@ -128,7 +128,7 @@ module.exports = {
           industry: req.body.industry,
           career_level: req.body.career_level,
           job_type: req.body.job_type,
-          experience: req.body.experience,
+          requirements: req.body.requirements,
         })
         .then(function(newJob) {
           return res.send(newJob);
