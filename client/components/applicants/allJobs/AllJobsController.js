@@ -3,6 +3,10 @@ angular.module('evenhire.allJobs', [])
 
   .controller('AllJobsController', ['$scope', '$state', 'Applicant', 'ngDialog', 'Auth', function ($scope, $state, Applicant, ngDialog, Auth) {
     $scope.fetchedJobs = [];
+    $scope.jobTypes = ['Full-time', 'Part-time', 'Contract', 'Internship', 'Temporary', 'Commission'];
+    $scope.jobTypeFilter = [];
+    $scope.cityFilter = [];
+    $scope.cities = ['San Francisco, CA', 'Los Angeles, CA', 'New York City, NY', 'Austin, TX', 'Seattle, WA', 'Chicago, IL'];
 
     $scope.getAllJobs = function() {
       Applicant.allJobs()
@@ -51,6 +55,20 @@ angular.module('evenhire.allJobs', [])
       .then(function(data) {
         console.log('saveUpdate is:', data);
       });
+    };
+
+    $scope.toggle = function (item, list) {
+      var idx = list.indexOf(item);
+      if (idx > -1) {
+        list.splice(idx, 1);
+      } else {
+        list.push(item);
+      }
+      console.log('updated list is', list);
+    };
+
+    $scope.exists = function (item, list) {
+      return list.indexOf(item) > -1;
     };
 
 }]);
