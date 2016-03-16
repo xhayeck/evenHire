@@ -15,6 +15,7 @@ describe('AppNewAccController', function() {
   beforeEach(module('evenhire'));
 
   beforeEach(inject(function ($injector) {
+
     $rootScope = $injector.get('$rootScope');
     httpBackend = $injector.get('$httpBackend');
     $state = $injector.get('$state');
