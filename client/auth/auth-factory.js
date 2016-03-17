@@ -92,7 +92,22 @@ angular.module('evenhire.auth.factory', [])
           data: userData
         })
         .then(function(data) {
-          console.log('data nova e:', data.data)
+          if (data.data.type) {
+            auth.setUser(data.data.data, userType);
+          }
+          return data.data;
+        }, function(response) {
+          console.log(response)
+        });
+      };
+
+      auth.forgotPassword = function(userData, userType) {
+        return $http({
+          method: 'POST',
+          url: 'api/' + userType + '/forgotPassword',
+          data: userData
+        })
+        .then(function(data) {
           if (data.data.type) {
             auth.setUser(data.data.data, userType);
           }

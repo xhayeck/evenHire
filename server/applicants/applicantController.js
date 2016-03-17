@@ -1,6 +1,7 @@
 var db = require('../db/db').db;
 var Models = require('../db/models')(db);
 var authUtils = require('../auth/utils');
+var mailgun = require('mailgun-js')({apiKey: process.env.MAILGUNAPI_KEY, domain: process.env.MAILGUN_DOMAIN});
 
 module.exports = {
   getAllApplicants: function(req, res) {
@@ -141,15 +142,45 @@ module.exports = {
           return res.send(err);
         });
       });
-    // console.log('request is :', req.body)
-    // Models.Applicant.findById(req.body.id)
-    // .then(function(applicant) {
-    //   Applicant.update({
-    //     applicant : req.body
-    //     // return res.send('updated :', applicant.dataValues)
-    //   })
-    //   console.log('applicant:', applicant.dataValues)
-    // })
+  },
+
+  forgotPassword: function(req, res) {
+
+    Models.Applicant.findOne({ where: {email: req.body.email }})
+    .then(function(applicant) {
+      console.log('applicant is:', applicant.first_name)
+      var email = {
+      from: 'Even Hire' + ' <' + 'evenhire@gmail.com' + ' >',
+      to: req.body.email,
+      subject: 'Reset Password',
+      text: 'Dear ' + applicant.first_name + ',' + 'We are sending this email because we received a request from you to change your password. If you did not make this request, please ignore this email. To change your password, click the link below. ' + 'this should be link' + 'Once you change your password,  be sure to keep it secure. Never reveal your password to anyone, and never respond to an email asking for your password information. The Even Hire Team'
+//       text: 'Dear' + applicant.first_name + 'We are sending this email because we received a request from you to change your password. If you did not make this request, please ignore this email.To change your password, click the link below.
+// this should be link Once you change your password, be sure to keep it secure. Never reveal your password to anyone, and never respond to an email asking for your password information.
+// The Even Hire Team'
+    };
+    mailgun.messages().send(email, function(error, body) {
+      console.log(body);
+      res.send(body);
+    });
+    })
   }
 
+
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

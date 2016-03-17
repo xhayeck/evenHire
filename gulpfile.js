@@ -10,6 +10,7 @@ var mocha = require('gulp-mocha');
 var Server = require('karma').Server;
 var uglify = require('gulp-uglify');
 var util = require('gulp-util');
+var concatCss = require('gulp-concat-css');
 
 var libraries = [
   // './client/assets/libs/**/*.js', moved angular library to node modules
@@ -19,6 +20,12 @@ var libraries = [
   './node_modules/angular-material/angular-material.js',
   './node_modules/angular-aria/angular-aria.js',
   './node_modules/ng-dialog/js/ngDialog.min.js'
+];
+
+var stylesheets = [
+  './node_modules/ng-dialog/css/ngDialog.min.css',
+  './node_modules/ng-dialog/css/ngDialog-theme-default.min.css',
+  './client/dist/styles/main.css'
 ];
 
 //Clean out the dist folder
@@ -55,11 +62,18 @@ gulp.task('scripts', function() {
 });
 
 //Compile Sass into CSS
-gulp.task('styles', function() {
+gulp.task('scss', function() {
   return gulp.src('./client/assets/styles/*.scss')
     .pipe(sass())
+    .pipe(rename('./main.css'))
+    .pipe(gulp.dest('./client/dist/styles/'));
+});
+
+//Compile and minify Styles
+gulp.task('minStyles', function() {
+  return gulp.src(stylesheets)
+    .pipe(concatCss('./all.min.css'))
     .pipe(cssmin())
-    .pipe(rename({suffix: '.min'}))
     .pipe(gulp.dest('./client/dist/styles/'));
 });
 
@@ -84,6 +98,7 @@ gulp.task('watch', function() {
   gulp.watch('./client/**/*.scss', ['styles']);
 });
 
+gulp.task('styles', ['scss', 'minStyles']);
 gulp.task('build', ['styles', 'scripts', 'libs']);
 gulp.task('test:server', ['serverTest']);
 gulp.task('test:client', ['clientTest']);
