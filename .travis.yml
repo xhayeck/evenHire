@@ -10,7 +10,7 @@ before_script:
   # - 'export CHROME_BIN=chromium-browser'
   # - npm install
   - npm install -g gulp
-script: gulp test:server
+script: gulp serverTest
 # node_modules/karma/bin/karma start karma.config.js --single-run
 notifications:
   email: false
