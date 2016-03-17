@@ -1,7 +1,7 @@
 //Uses dotenv to get process.env variables
 require('dotenv').config();
 var connectStr = process.env.DATABASE_URL;
-console.log('==========================', connectStr);
+console.log('==========================', process.env.MAILGUN_DOMAIN);
 var Sequelize = require('sequelize');
 
 var sequelize = new Sequelize(connectStr, {

@@ -104,7 +104,6 @@ gulp.task('watch', function() {
 
 gulp.task('styles', ['scss', 'minStyles']);
 gulp.task('build', ['styles', 'scripts', 'libs']);
-gulp.task('test:server', ['serverTest']);
-gulp.task('test:client', ['clientTest']);
+gulp.task('tests', ['serverTest', 'clientTest']);
 gulp.task('start', ['build', 'serve', 'watch']);
 gulp.task('default', ['build', 'serve', 'watch']);
