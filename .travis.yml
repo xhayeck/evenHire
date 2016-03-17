@@ -16,6 +16,9 @@ notifications:
   email: false
 #   slack: mks31:v3TzTDrOf5TAzxkyflH1uzr9
 sudo: false
+cache:
+  directories:
+    - node_modules
 # addons:
 #   apt:
 #     sources:

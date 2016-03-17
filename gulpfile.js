@@ -82,6 +82,13 @@ gulp.task('minStyles', function() {
 gulp.task('clientTest', function(done) {
   new Server({
     configFile: __dirname + '/karma.config.js',
+    singleRun: true,
+    }, done).start();
+});
+
+gulp.task('clientTest:dev', function(done) {
+  new Server({
+    configFile: __dirname + '/karma.config.js',
     singleRun: false,
     }, done).start();
 });
