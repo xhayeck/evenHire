@@ -1,12 +1,14 @@
 
 angular.module('evenhire.allJobs', [])
 
-  .controller('AllJobsController', ['$scope', '$state', 'Applicant', 'ngDialog', 'Auth', function ($scope, $state, Applicant, ngDialog, Auth) {
+  .controller('AllJobsController', ['$scope', '$state', 'Applicant', 'ngDialog', 'Auth', 'Home', function ($scope, $state, Applicant, ngDialog, Auth, Home) {
     $scope.fetchedJobs = [];
-    $scope.jobTypes = ['Full-time', 'Part-time', 'Contract', 'Internship', 'Temporary', 'Commission'];
-    $scope.cities = [{fullName: 'San Francisco, CA', shortName: 'San Francisco'}, {fullName: 'Los Angeles, CA', shortName: 'Los Angeles'}, {fullName: 'New York City, NY', shortName: 'New York City'}, {fullName: 'Austin, TX', shortName: 'Austin'}, {fullName: 'Seattle, WA', shortName: 'Seattle'}, {fullName: 'Chicago, IL', shortName: 'Chicago'}];
-    $scope.careerLevels = ['Entry-level', 'Experienced', 'Manager'];
-    $scope.industries = ['Administrative', 'Construction', 'Customer Service', 'Education', 'Financial', 'Healthcare', 'Human Resources', 'Legal', 'Marketing', 'Media', 'Real Estate', 'Retail', 'Sales','Technology', 'Transportation'];
+    $scope.cities = Home.cities;
+    // $scope.states = Home.states;
+    $scope.careerLevels = Home.careerLevels;
+    $scope.jobTypes = Home.jobTypes;
+    $scope.industries = Home.industries;
+    //automatically hide the sidebar filter options
     $scope.citiesDropdownShown = false;
     $scope.jobTypeDropdownShown = false;
     $scope.careerLevelDropdownShown = false;
