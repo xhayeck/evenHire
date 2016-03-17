@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha tests/test.spec.js",
+    "test": "./node_modules/mocha/bin/mocha ./tests/test*",
     "test:client": "karma start karma.config.js",
     "test:server": "mocha tests/",
     "postinstall": "gulp build"
