@@ -8,7 +8,7 @@ before_script:
   - 'export CHROME_BIN=chromium-browser'
   - npm install
   - npm install -g gulp
-script: gulp test
+script: npm test
 notifications:
   email: false
 #   slack: mks31:v3TzTDrOf5TAzxkyflH1uzr9

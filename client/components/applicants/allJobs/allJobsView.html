@@ -1,23 +1,60 @@
-<div>
+<div md-padding>
   <md-content layout="row" layout-align="end">
     <input flex=30 type="text" ng-model="searchText" placeholder="search" />
   </md-content>
   <h2 class="md-headline">Job Postings</h2>
   <md-button class="md-raised" ng-click="showAppInfo()">Applicants! View your profile</md-button><br>
   <md-button ui-sref="recruiters" class="md-raised">Recruiters! Click here to see your posted jobs</md-button>
-  <md-content class="jobCard md-padding" ng-repeat="job in fetchedJobs | filter:searchText">
-    <md-card>
-      <md-card-title class="md-padding md-headline">{{job.recruiter.name}} - {{job.title}}</md-card-title>
-      <md-card-content>
-        <h4 class="md-title">Posted at: </h4><p>{{job.createdAt | date:'MM/dd/yyyy'}}</p>
-        <h4 class="md-title">Industry: </h4><p>{{job.industry}}</p>
-        <h4 class="md-title">Location: </h4><p>{{job.location}}</p>
-        <h4 class="md-title">Description: </h4><p>{{job.description}}</p>
-        <h4 class="md-title">Job Type: </h4><p>{{job.job_type}}</p>
-        <h4 class="md-title">Experience: </h4><p>{{job.experience}}</p>
-        <h4 class="md-title">Career Level: </h4><p>{{job.career_level}}</p>
-      </md-card-content>
-      <md-button class="md-raised" ng-click="submitApplication(job.id)">Apply for job id {{job.id}}</md-button>
-    </md-card>
-  </md-content>
+  <div layout="row">
+    <div id="jobFilterColumn" layout="column" flex="20">
+      <div layout="column">
+
+        <fieldset class="standard">
+          <lengend>Location</lengend>
+          <div>
+            <div ng-repeat="city in cities" class="md-caption">
+              <md-checkbox ng-checked="exists(city.shortName, cityFilter)" ng-click="toggle(city.shortName, cityFilter)" value="city.shortName">
+                {{city.fullName}}
+              </md-checkbox>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <div layout="column">
+        <fieldset class="standard">
+          <lengend>Job Type</lengend>
+          <div>
+            <div ng-repeat="type in jobTypes" class="md-caption">
+              <md-checkbox ng-checked="exists(type, jobTypeFilter)" ng-click="toggle(type, jobTypeFilter)">
+                {{type}}
+              </md-checkbox>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+    <div id="jobPostings" flex="80">
+      <div flex-gt-xs="50" class="jobCard" ng-repeat="job in fetchedJobs | filter:searchText | sidebar:jobTypeFilter | sidebar:cityFilter">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">{{job.recruiter.name}} - {{job.title}}</span><br>
+              <span class="md-subhead">{{job.city}}, {{job.state}}</span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content>
+            <h4 class="md-title">Posted at: </h4><p>{{job.createdAt | date:'MM/dd/yyyy'}}</p>
+            <h4 class="md-title">Industry: </h4><p>{{job.industry}}</p>
+            <h4 class="md-title">Description: </h4><p>{{job.description}}</p>
+            <h4 class="md-title">Job Type: </h4><p>{{job.job_type}}</p>
+            <h4 class="md-title">Qualifications: </h4><p>{{job.qualifications}}</p>
+            <h4 class="md-title">Career Level: </h4><p>{{job.career_level}}</p>
+          </md-card-content>
+          <md-card-actions layout="row" layout-align="end center">
+            <md-button class="md-raised" ng-click="submitApplication(job.id)">Apply for job id {{job.id}}</md-button>
+          </md-card-actions>
+        </md-card>
+      </md-content>
+    </div>
+  </div>
 </div>

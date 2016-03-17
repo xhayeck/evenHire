@@ -110,7 +110,6 @@ module.exports = {
       });
   },
 
-
   postJob: function(req, res) {
     if (!req.headers['x-access-token']) {
       return res.status(500).send('Not logged in');
@@ -128,7 +127,7 @@ module.exports = {
           industry: req.body.industry,
           career_level: req.body.career_level,
           job_type: req.body.job_type,
-          requirements: req.body.requirements,
+          qualifications: req.body.qualifications,
         })
         .then(function(newJob) {
           return res.send(newJob);
