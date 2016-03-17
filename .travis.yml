@@ -7,20 +7,15 @@ before_install:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 before_script:
-  # - 'export CHROME_BIN=chromium-browser'
-  # - npm install
   - npm install -g gulp
-script: gulp serverTest
+script: gulp clientTest
 # node_modules/karma/bin/karma start karma.config.js --single-run
 notifications:
   email: false
-#   slack: mks31:v3TzTDrOf5TAzxkyflH1uzr9
 sudo: false
 cache:
   directories:
     - node_modules
-env:
-  - TRAVIS_SECURE_ENV_VARS: false
 # addons:
 #   apt:
 #     sources:

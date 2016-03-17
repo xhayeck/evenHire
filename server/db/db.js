@@ -1,7 +1,7 @@
 //Uses dotenv to get process.env variables
 require('dotenv').config();
 var connectStr = process.env.DATABASE_URL;
-console.log('==========================', process.env.DATABASE_URL);
+//NOTE- travis unable to read process.env.DATABASE_URL, throws an error
 var Sequelize = require('sequelize');
 
 var sequelize = new Sequelize(connectStr, {
