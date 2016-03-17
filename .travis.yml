@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - '4'
+  - '0.1'
 before_install:
   - npm install -g npm
 before_script:
@@ -10,12 +10,12 @@ before_script:
 script: gulp test:server
 notifications:
   email: false
-addons:
-  apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    packages:
-    - g++-4.8
-env:
-  CXX=g++-4.8
 #   slack: mks31:v3TzTDrOf5TAzxkyflH1uzr9
+# addons:
+#   apt:
+#     sources:
+#     - ubuntu-toolchain-r-test
+#     packages:
+#     - g++-4.8
+# env:
+#   CXX=g++-4.8
