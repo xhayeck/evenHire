@@ -10,6 +10,7 @@ angular.module('evenhire',[
   'ui.router',
   'evenhire.applicants.factory',
   'evenhire.recruiters.factory',
+  'evenhire.home.factory',
   'ngMaterial',
   'evenhire.auth.factory',
   'evenhire.auth',

@@ -1,7 +1,6 @@
 angular.module('evenhire.recruiters', [])
 
-
-.controller('RecHomeController', ['$scope', '$state', 'Recruiter', 'Auth','$mdDialog','ngDialog', function ($scope, $state, Recruiter, Auth, $mdDialog, ngDialog) {
+.controller('RecHomeController', ['$scope', '$state', 'Recruiter', 'Auth','$mdDialog','ngDialog', 'Home', function ($scope, $state, Recruiter, Auth, $mdDialog, ngDialog, Home) {
   $scope.newJob = {};
   $scope.JobApplicant = {};
   // $scope.error;
@@ -9,13 +8,10 @@ angular.module('evenhire.recruiters', [])
   $scope.companyName = currentUser.name;
   $scope.contactMessage = 'We\'d like to schedule an interview!';
   $scope.companyEmail = currentUser.email;
-  $scope.states = ('AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS ' +
-    'MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI ' +
-    'WY').split(' ').map(function(state) {
-        return {abbrev: state};
-      });
-  $scope.careerLevels = ['Entry-level', 'Experienced', 'Manager'];
-  $scope.jobTypes = ['Full-time', 'Part-time', 'Contract', 'Internship', 'Temporary', 'Commission'];
+  $scope.states = Home.states;
+  $scope.careerLevels = Home.careerLevels;
+  $scope.jobTypes = Home.jobTypes;
+  $scope.industries = Home.industries;
 
 
   $scope.clickToOpen = function () {
