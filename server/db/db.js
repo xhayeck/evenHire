@@ -3,7 +3,7 @@ require('dotenv').config();
 var connectStr = process.env.DATABASE_URL;
 var Sequelize = require('sequelize');
 
-var sequelize = new Sequelize(process.env.DATABASE_URL, {
+var sequelize = new Sequelize(connectStr, {
   dialect: 'postgres',
   dialectOptions: {
     ssl: true
