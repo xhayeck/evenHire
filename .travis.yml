@@ -10,4 +10,12 @@ before_script:
 script: gulp test:server
 notifications:
   email: false
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - g++-4.8
+env:
+  CXX=g++-4.8
 #   slack: mks31:v3TzTDrOf5TAzxkyflH1uzr9
