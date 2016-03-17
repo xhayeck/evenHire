@@ -6,24 +6,25 @@
   <md-button class="md-raised" ng-click="showAppInfo()">Applicants! View your profile</md-button><br>
   <md-button ui-sref="recruiters" class="md-raised">Recruiters! Click here to see your posted jobs</md-button>
   <div layout="row">
-    <div layout="column" layout-align="start start" id="jobFilterColumn" flex="20">
-      <div>
+    <div id="jobFilterColumn" layout="column" flex="20">
+      <div layout="column">
+
         <fieldset class="standard">
           <lengend>Location</lengend>
-          <div layout="row" layout-wrap flex>
-            <div flex="50" ng-repeat="city in cities">
-              <md-checkbox ng-checked="exists(city, cityFilter)" ng-click="toggle(city, cityFilter)">
-                {{city}}
+          <div>
+            <div ng-repeat="city in cities" class="md-caption">
+              <md-checkbox ng-checked="exists(city.shortName, cityFilter)" ng-click="toggle(city.shortName, cityFilter)" value="city.shortName">
+                {{city.fullName}}
               </md-checkbox>
             </div>
           </div>
         </fieldset>
       </div>
-      <div>
+      <div layout="column">
         <fieldset class="standard">
           <lengend>Job Type</lengend>
-          <div layout="row" layout-wrap flex>
-            <div flex="50" ng-repeat="type in jobTypes">
+          <div>
+            <div ng-repeat="type in jobTypes" class="md-caption">
               <md-checkbox ng-checked="exists(type, jobTypeFilter)" ng-click="toggle(type, jobTypeFilter)">
                 {{type}}
               </md-checkbox>
@@ -32,8 +33,8 @@
         </fieldset>
       </div>
     </div>
-    <div flex="80">
-      <div flex-gt-xs="50" class="jobCard" ng-repeat="job in fetchedJobs | filter:searchText">
+    <div id="jobPostings" flex="80">
+      <div flex-gt-xs="50" class="jobCard" ng-repeat="job in fetchedJobs | filter:searchText | sidebar:jobTypeFilter | sidebar:cityFilter">
         <md-card>
           <md-card-title>
             <md-card-title-text>
@@ -46,7 +47,7 @@
             <h4 class="md-title">Industry: </h4><p>{{job.industry}}</p>
             <h4 class="md-title">Description: </h4><p>{{job.description}}</p>
             <h4 class="md-title">Job Type: </h4><p>{{job.job_type}}</p>
-            <h4 class="md-title">Experience: </h4><p>{{job.experience}}</p>
+            <h4 class="md-title">Qualifications: </h4><p>{{job.qualifications}}</p>
             <h4 class="md-title">Career Level: </h4><p>{{job.career_level}}</p>
           </md-card-content>
           <md-card-actions layout="row" layout-align="end center">

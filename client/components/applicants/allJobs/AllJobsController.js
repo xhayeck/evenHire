@@ -4,9 +4,12 @@ angular.module('evenhire.allJobs', [])
   .controller('AllJobsController', ['$scope', '$state', 'Applicant', 'ngDialog', 'Auth', function ($scope, $state, Applicant, ngDialog, Auth) {
     $scope.fetchedJobs = [];
     $scope.jobTypes = ['Full-time', 'Part-time', 'Contract', 'Internship', 'Temporary', 'Commission'];
+    $scope.cities = [{fullName: 'San Francisco, CA', shortName: 'San Francisco'}, {fullName: 'Los Angeles, CA', shortName: 'Los Angeles'}, {fullName: 'New York City, NY', shortName: 'New York City'}, {fullName: 'Austin, TX', shortName: 'Austin'}, {fullName: 'Seattle, WA', shortName: 'Seattle'}, {fullName: 'Chicago, IL', shortName: 'Chicago'}];
+
+    //these will be populated wtih which boxes are checked in the sidebar filter
     $scope.jobTypeFilter = [];
     $scope.cityFilter = [];
-    $scope.cities = ['San Francisco, CA', 'Los Angeles, CA', 'New York City, NY', 'Austin, TX', 'Seattle, WA', 'Chicago, IL'];
+    $scope.city.isOpen = false;
 
     $scope.getAllJobs = function() {
       Applicant.allJobs()
@@ -31,10 +34,6 @@ angular.module('evenhire.allJobs', [])
             alert("Thanks for applying " + factoryResponse.first_name)
           }
       });
-    };
-
-    $scope.closeDialog = function () {
-      ngDialog.close();
     };
 
     $scope.showAppInfo = function() {
@@ -71,13 +70,38 @@ angular.module('evenhire.allJobs', [])
       return list.indexOf(item) > -1;
     };
 
-}]);
+  }])
 
-
-
-
-
-
-
-
-
+  .filter('sidebar', function($filter) {
+      return function(jobs, filter) {
+        var isFilterEmpty = true;
+        //check to see if any checkboxes are checked
+        angular.forEach(filter, function(filterStr) {
+          //if any boxes are checked, our filterStr will be a string and the filter is not empty
+          if (filterStr !== null && filterStr !== '') {
+            isFilterEmpty = false;
+          }
+        });
+        if (!isFilterEmpty) {
+          //if any boxes are checked, we will need to filter by the various filter arrays
+          var result = [];
+        angular.forEach(jobs, function(job) {
+          var isFound = false;
+          //loop through columns of a particular job
+          angular.forEach(job, function(term, key) {
+            //term is value in job row, like SF or Part-time
+            if (term !== null && !isFound) {
+              //loop through the desired search array created from checkboxes
+              if (filter.indexOf(term) > -1 && !isFound) {
+                result.push(job);
+                isFound = true;
+              }
+            }
+          })
+        });
+        return result;
+      }
+      //if no boxes are checked, show all jobs
+      return jobs;
+    };
+  });
