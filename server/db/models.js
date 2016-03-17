@@ -79,12 +79,14 @@ module.exports = function(db) {
 
   var Job = db.define('jobs', {
     title: Sequelize.STRING,
-    location: Sequelize.STRING,
+    city: Sequelize.STRING,
+    state: Sequelize.STRING,
+    zipcode: Sequelize.STRING,
     description: Sequelize.TEXT,
     industry: Sequelize.STRING,
     career_level: Sequelize.STRING,
     job_type: Sequelize.STRING,
-    experience: Sequelize.TEXT
+    qualifications: Sequelize.TEXT
     //sequelize automatically creates a createdAt property
   });
 
@@ -99,7 +101,7 @@ module.exports = function(db) {
   Applicant.belongsToMany(Job, {through: 'jobs_applicants'});
 
   //WARNING! to sync and possibly clear db uncomment this line:
-  //db.sync({force: true});
+  // db.sync({force: true});
 
   return {
     Job: Job,

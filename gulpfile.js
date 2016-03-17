@@ -10,13 +10,23 @@ var mocha = require('gulp-mocha');
 var Server = require('karma').Server;
 var uglify = require('gulp-uglify');
 var util = require('gulp-util');
+var concatCss = require('gulp-concat-css');
 
 var libraries = [
-  './client/assets/libs/**/*.js',
+  // './client/assets/libs/**/*.js', moved angular library to node modules
+  './node_modules/angular/angular.min.js',
   './node_modules/angular-ui-router/release/angular-ui-router.min.js',
   './node_modules/angular-animate/angular-animate.min.js',
   './node_modules/angular-material/angular-material.js',
-  './node_modules/angular-aria/angular-aria.js'
+  './node_modules/angular-aria/angular-aria.js',
+  './node_modules/ng-dialog/js/ngDialog.min.js'
+];
+
+var stylesheets = [
+  './node_modules/angular-material/angular-material.min.css',
+  './node_modules/ng-dialog/css/ngDialog.min.css',
+  './node_modules/ng-dialog/css/ngDialog-theme-default.min.css',
+  './client/dist/styles/main.css'
 ];
 
 //Clean out the dist folder
@@ -45,7 +55,7 @@ gulp.task('serve', function() {
 
 //Concatenante and minify JS
 gulp.task('scripts', function() {
-  return gulp.src(['./client/**/*.js', '!./client/dist/**/*.js', '!./client/assets/libs/**/*.js', '!./tests/**/*.js', '!./client/**/test.js'])
+  return gulp.src(['./client/**/*.js', '!./client/dist/**/*.js', '!./client/assets/libs/**/*.js', '!./tests/**/*.js', '!./client/**/test.spec.js'])
     .pipe(concat('./all.js'))
     .pipe(uglify({mangle: false}))
     .pipe(rename('./all.min.js'))
@@ -53,24 +63,31 @@ gulp.task('scripts', function() {
 });
 
 //Compile Sass into CSS
-gulp.task('styles', function() {
+gulp.task('scss', function() {
   return gulp.src('./client/assets/styles/*.scss')
     .pipe(sass())
-    .pipe(cssmin())
-    .pipe(rename({suffix: '.min'}))
+    .pipe(rename('./main.css'))
     .pipe(gulp.dest('./client/dist/styles/'));
 });
 
-//Run jasmine tests
-gulp.task('jasmine_tests', function(done) {
+//Compile and minify Styles
+gulp.task('minStyles', function() {
+  return gulp.src(stylesheets)
+    .pipe(concatCss('./all.min.css'))
+    .pipe(cssmin())
+    .pipe(gulp.dest('./client/dist/styles/'));
+});
+
+//Run client-side tests
+gulp.task('clientTest', function(done) {
   new Server({
     configFile: __dirname + '/karma.config.js',
     singleRun: false,
     }, done).start();
 });
 
-//Run mocha tests
-gulp.task('mocha_tests', function() {
+//Run server-side tests
+gulp.task('serverTest', function() {
   return gulp.src(['tests/**/*.js'], {read: false})
     .pipe(mocha({reporter: 'spec'}))
     .on('error', util.log);
@@ -82,7 +99,9 @@ gulp.task('watch', function() {
   gulp.watch('./client/**/*.scss', ['styles']);
 });
 
+gulp.task('styles', ['scss', 'minStyles']);
 gulp.task('build', ['styles', 'scripts', 'libs']);
-gulp.task('test', ['mocha_tests', 'jasmine_tests']);
+gulp.task('test:server', ['serverTest']);
+gulp.task('test:client', ['clientTest']);
 gulp.task('start', ['build', 'serve', 'watch']);
 gulp.task('default', ['build', 'serve', 'watch']);

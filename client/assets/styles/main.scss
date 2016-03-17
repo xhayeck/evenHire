@@ -9,11 +9,34 @@ body {
   height: 40px;
 }
 
-md-content.jobCard {
+div.jobCard {
   h4 {
     margin: 2px 0px;
   }
   p {
     margin: 0 0 8px 0;
+  }
+}
+
+.ngdialog.ngdialog-theme-default .ngdialog-content {
+    width: 900px;
+}
+
+div.md-select-menu-container.md-active.md-clickable {
+  z-index: 99999;
+}
+
+#jobFilterColumn {
+  div {
+    fieldset {
+      div {
+        div {
+          md-checkbox {
+            margin: 0px;
+            line-height: 21px;
+          }
+        }
+      }
+    }
   }
 }

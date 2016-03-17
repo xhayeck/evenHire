@@ -1,7 +1,6 @@
 angular.module('evenhire.recruiters', [])
 
-
-.controller('RecHomeController', ['$scope', '$state', 'Recruiter', 'Auth','$mdDialog','ngDialog', function ($scope, $state, Recruiter, Auth, $mdDialog, ngDialog) {
+.controller('RecHomeController', ['$scope', '$state', 'Recruiter', 'Auth','$mdDialog','ngDialog', 'Home', function ($scope, $state, Recruiter, Auth, $mdDialog, ngDialog, Home) {
   $scope.newJob = {};
   $scope.JobApplicant = {};
   // $scope.error;
@@ -9,13 +8,17 @@ angular.module('evenhire.recruiters', [])
   $scope.companyName = currentUser.name;
   $scope.contactMessage = 'We\'d like to schedule an interview!';
   $scope.companyEmail = currentUser.email;
+  $scope.states = Home.states;
+  $scope.careerLevels = Home.careerLevels;
+  $scope.jobTypes = Home.jobTypes;
+  $scope.industries = Home.industries;
 
 
   $scope.clickToOpen = function () {
     ngDialog.open({
       template: './components/recruiters/recHome/newJobDialog.tmpl.html',
       controller: 'RecHomeController',
-      className: 'ngdialog-theme-default'
+      className: 'ngdialog-theme-default',
     });
   };
   $scope.closeDialog = function () {

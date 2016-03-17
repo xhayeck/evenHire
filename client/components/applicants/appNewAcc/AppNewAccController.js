@@ -5,8 +5,10 @@ angular.module('evenhire.appNewAcc', [])
     $scope.applicant = {};
 
     $scope.createAccount = function() {
-      //send form data to the server at api/applicants/login
-      Auth.signUp($scope.applicant, 'applicant')
+      //Checking if passwords match
+      if($scope.applicant.verify_password === $scope.applicant.password) {
+        //send form data to the server at api/applicant/signUp
+        Auth.signUp($scope.applicant, 'applicant')
         .then(function(data) {
           if (!data.type) {
             console.log('User already exists', data.data);
@@ -15,7 +17,11 @@ angular.module('evenhire.appNewAcc', [])
             console.log('NEW USER is :', data);
             $state.go('allJobs');
           }
-      });
+        }); 
+      } else {
+        //Alerting user their passwords don't match
+        alert("Your passwords don't match!");
+      };   
     };
 
   }]);
