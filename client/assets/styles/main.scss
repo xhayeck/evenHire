@@ -26,3 +26,17 @@ div.md-select-menu-container.md-active.md-clickable {
   z-index: 99999;
 }
 
+#jobFilterColumn {
+  div {
+    fieldset {
+      div {
+        div {
+          md-checkbox {
+            margin: 0px;
+            line-height: 21px;
+          }
+        }
+      }
+    }
+  }
+}

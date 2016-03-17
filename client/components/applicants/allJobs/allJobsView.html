@@ -8,11 +8,10 @@
   <div layout="row">
     <div id="jobFilterColumn" layout="column" flex="20">
       <div layout="column">
-
         <fieldset class="standard">
-          <lengend>Location</lengend>
+          <lengend ng-click="citiesDropdownShown=!citiesDropdownShown">Location</lengend>
           <div>
-            <div ng-repeat="city in cities" class="md-caption">
+            <div ng-show="citiesDropdownShown" ng-repeat="city in cities" class="md-caption animate-repeat">
               <md-checkbox ng-checked="exists(city.shortName, cityFilter)" ng-click="toggle(city.shortName, cityFilter)" value="city.shortName">
                 {{city.fullName}}
               </md-checkbox>
@@ -22,9 +21,9 @@
       </div>
       <div layout="column">
         <fieldset class="standard">
-          <lengend>Job Type</lengend>
+          <lengend ng-click="jobTypeDropdownShown=!jobTypeDropdownShown">Job Type</lengend>
           <div>
-            <div ng-repeat="type in jobTypes" class="md-caption">
+            <div ng-show="jobTypeDropdownShown" ng-repeat="type in jobTypes" class="md-caption">
               <md-checkbox ng-checked="exists(type, jobTypeFilter)" ng-click="toggle(type, jobTypeFilter)">
                 {{type}}
               </md-checkbox>
@@ -32,9 +31,33 @@
           </div>
         </fieldset>
       </div>
+      <div layout="column">
+        <fieldset class="standard">
+          <lengend ng-click="careerLevelDropdownShown=!careerLevelDropdownShown">Career Level</lengend>
+          <div>
+            <div ng-show="careerLevelDropdownShown" ng-repeat="level in careerLevels" class="md-caption animate-repeat">
+              <md-checkbox ng-checked="exists(level, levelFilter)" ng-click="toggle(level, levelFilter)">
+                {{level}}
+              </md-checkbox>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <div layout="column">
+        <fieldset class="standard">
+          <lengend ng-click="industryDropdownShown=!industryDropdownShown">Industry</lengend>
+          <div>
+            <div ng-show="industryDropdownShown" ng-repeat="industry in industries" class="md-caption animate-repeat">
+              <md-checkbox ng-checked="exists(industry, industryFilter)" ng-click="toggle(industry, industryFilter)">
+                {{industry}}
+              </md-checkbox>
+            </div>
+          </div>
+        </fieldset>
+      </div>
     </div>
     <div id="jobPostings" flex="80">
-      <div flex-gt-xs="50" class="jobCard" ng-repeat="job in fetchedJobs | filter:searchText | sidebar:jobTypeFilter | sidebar:cityFilter">
+      <div flex-gt-xs="50" class="jobCard" ng-repeat="job in fetchedJobs | orderBy:'-createdAt' | filter:searchText | sidebar:jobTypeFilter | sidebar:cityFilter | sidebar:levelFilter">
         <md-card>
           <md-card-title>
             <md-card-title-text>

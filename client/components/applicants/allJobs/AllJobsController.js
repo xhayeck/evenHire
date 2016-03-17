@@ -5,11 +5,17 @@ angular.module('evenhire.allJobs', [])
     $scope.fetchedJobs = [];
     $scope.jobTypes = ['Full-time', 'Part-time', 'Contract', 'Internship', 'Temporary', 'Commission'];
     $scope.cities = [{fullName: 'San Francisco, CA', shortName: 'San Francisco'}, {fullName: 'Los Angeles, CA', shortName: 'Los Angeles'}, {fullName: 'New York City, NY', shortName: 'New York City'}, {fullName: 'Austin, TX', shortName: 'Austin'}, {fullName: 'Seattle, WA', shortName: 'Seattle'}, {fullName: 'Chicago, IL', shortName: 'Chicago'}];
+    $scope.careerLevels = ['Entry-level', 'Experienced', 'Manager'];
+    $scope.industries = ['Administrative', 'Construction', 'Customer Service', 'Education', 'Financial', 'Healthcare', 'Human Resources', 'Legal', 'Marketing', 'Media', 'Real Estate', 'Retail', 'Sales','Technology', 'Transportation'];
+    $scope.citiesDropdownShown = false;
+    $scope.jobTypeDropdownShown = false;
+    $scope.careerLevelDropdownShown = false;
 
     //these will be populated wtih which boxes are checked in the sidebar filter
     $scope.jobTypeFilter = [];
     $scope.cityFilter = [];
-    $scope.city.isOpen = false;
+    $scope.levelFilter = [];
+    $scope.industryFilter = [];
 
     $scope.getAllJobs = function() {
       Applicant.allJobs()
