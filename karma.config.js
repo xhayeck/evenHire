@@ -17,8 +17,7 @@ module.exports = function (config) {
 
             //client files with tests in each folder respectively
             'client/app.js',
-            'client/auth/*.js',
-            'client/components/**/*.js'
+            'tests/**/*.js'
         ],
 
         //test results reporters to use
