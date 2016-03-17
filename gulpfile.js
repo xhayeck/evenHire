@@ -80,10 +80,12 @@ gulp.task('minStyles', function() {
 
 //Run client-side tests
 gulp.task('clientTest', function(done) {
-  new Server({
-    configFile: __dirname + '/karma.config.js',
-    singleRun: true,
-    }, done).start();
+  return gulp.src(['tests/client_side/*.js'], {read: false})
+    .pipe(mocha({reporter: 'spec'}))
+    .on('error', util.log)
+    .once('end', function() {
+      process.exit();
+    });
 });
 
 gulp.task('clientTest:dev', function(done) {
@@ -93,9 +95,9 @@ gulp.task('clientTest:dev', function(done) {
     }, done).start();
 });
 
-//Run server-side tests
+Run server-side tests
 gulp.task('serverTest', function() {
-  return gulp.src(['tests/**/*.js'], {read: false})
+  return gulp.src(['tests/test.spec.js'], {read: false})
     .pipe(mocha({reporter: 'spec'}))
     .on('error', util.log)
     .once('end', function() {
@@ -111,6 +113,6 @@ gulp.task('watch', function() {
 
 gulp.task('styles', ['scss', 'minStyles']);
 gulp.task('build', ['styles', 'scripts', 'libs']);
-gulp.task('tests', ['serverTest', 'clientTest']);
+gulp.task('tests', ['clientTest','serverTest']);
 gulp.task('start', ['build', 'serve', 'watch']);
 gulp.task('default', ['build', 'serve', 'watch']);
