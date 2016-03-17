@@ -20,4 +20,9 @@ module.exports = function(app) {
         return res.send(err)
       });
   });
+
+  app.get('/resetPassword/:userKey', function(req, res) {
+    console.log('hash password: ', req.params.userKey);
+    res.send('succes');
+  })
 };
