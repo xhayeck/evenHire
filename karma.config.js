@@ -1,6 +1,6 @@
 module.exports = function (config) {
     'use strict';
-    config.set({
+    var configuration = {
 
         basePath: '',
 
@@ -46,7 +46,18 @@ module.exports = function (config) {
         // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
         logLevel: config.LOG_INFO,
 
-        browsers: ['PhantomJS']
+        browsers: ['Chrome'],
 
-    });
+        customLaunchers: {
+          ChromeTravisCi: {
+            base: 'Chrome',
+            flags: ['--no-sandbox']
+          }
+        }
+
+    };
+    if (process.env.TRAVIS) {
+      configuration.browsers = ['ChromeTravisCi'];
+    }
+    config.set(configuration)
 };
