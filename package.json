@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test:client -- --single-run --no-auto-watch && npm run test:server",
+    "test": "./node_modules/mocha/bin/mocha tests/test.spec.js",
     "test:client": "karma start karma.config.js",
     "test:server": "mocha tests/",
     "postinstall": "gulp build"
