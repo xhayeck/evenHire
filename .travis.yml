@@ -19,6 +19,8 @@ sudo: false
 cache:
   directories:
     - node_modules
+env:
+  - MAILGUN_DOMAIN="sandboxbcccb20c591d4be4a7388488eece5dbe.mailgun.org"
 # addons:
 #   apt:
 #     sources:
