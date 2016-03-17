@@ -145,15 +145,14 @@ module.exports = {
   },
 
   forgotPassword: function(req, res) {
-
     Models.Applicant.findOne({ where: {email: req.body.email }})
     .then(function(applicant) {
-      console.log('applicant is:', applicant.first_name)
+      console.log('applicant is:', applicant.password)
       var email = {
-      from: 'Even Hire' + ' <' + 'evenhire@gmail.com' + ' >',
+      from: 'Even Hire' + ' < evenhire@gmail.com >',
       to: req.body.email,
       subject: 'Reset Password',
-      html: 'Dear ' + applicant.first_name + ',<br><br>' + 'We are sending this email because we received a request from you to change your password. If you did not make this request, please ignore this email. To change your password, click the link below.<br><br>' + '<a href="evenhire.herokuapp.com">Update Password</a>' + '<br/><br>Once you change your password,  be sure to keep it secure. Never reveal your password to anyone, and never respond to an email asking for your password information.<br><br><br>The Even Hire Team'
+      html: 'Dear ' + applicant.first_name + ',<br><br>We are sending this email because we received a request from you to change your password. If you did not make this request, please ignore this email. To change your password, click the link below.<br><br><a href="evenhire.herokuapp.com/api/auth/resetPassword/' + applicant.password + '">Update Password</a><br/><br>Once you change your password,  be sure to keep it secure. Never reveal your password to anyone, and never respond to an email asking for your password information.<br><br><br>The Even Hire Team'
     };
     mailgun.messages().send(email, function(error, body) {
       console.log(body);
