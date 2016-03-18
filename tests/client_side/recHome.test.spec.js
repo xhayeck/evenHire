@@ -1,39 +1,40 @@
-// describe("A test suite", function() {
-//    beforeEach(function() { });
-//    afterEach(function() { });
-//    it('should pass', function() { expect(false).to.be.false; });
-// });
+describe('HomeController', function(){
 
-// describe('RecHomeController', function() {
-//   var $scope;
-//   var httpBackend;
-//   var $state;
-//   var Recruiter;
-//   var $controller;
+  var $scope;
+  var httpBackend;
+  var $state;
+  var Recruiter;
+  var $controller
 
-//   beforeEach(module('evenhire'));
-//   beforeEach(inject(function($injector) {
-//     $rootScope = $injector.get('$rootScope');
-//     httpBackend = $injector.get('$httpBackend');
-//     $state = $injector.get('$state');
-//     Recruiter = $injector.get('Recruiter');
-//     $controller = $injector.get('$controller');
-//     $scope = $rootScope.$new();
+  //load module
+  beforeEach(module('evenhire'));
+  //inject services for testing
+  beforeEach(inject(function ($injector) {
+    $rootScope = $injector.get('$rootScope');
+    httpBackend = $injector.get('$httpBackend');
+    $state = $injector.get('$state');
+    Recruiter = $injector.get('Recruiter');
+    $controller = $injector.get('$controller');
+    $scope = $rootScope.$new();
 
-//     createController = function() {
-//       return $controller('RecHomeController', {
-//         $scope: $scope,
-//         $state: $state,
-//         Recruiter: Recruiter
-//       });
-//     };
-//     createController();
-//   }));
+    createController = function() {
+      return $controller('HomeController', {
+        $scope: $scope,
+        $state: $state,
+        Recruiter: Recruiter
+      });
+    };
 
-//   describe('the postJob function', function () {
-//     it('should be defined', function() {
-//       expect($scope.postJob).to.exist;
-//     });
-//   });
+      httpBackend.whenGET('api/recruiter/getPostedJobs').respond(200, {data: ['job1', 'job2', 'job3']});
+      httpBackend.whenGET('components/home/homeView.html').respond('<div>mock template</div>');
+      createController();
 
-// });
+  }));
+
+  afterEach(function() {
+    httpBackend.flush();
+    httpBackend.verifyNoOutstandingExpectation();
+    httpBackend.verifyNoOutstandingRequest();
+  });
+
+});
