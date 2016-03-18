@@ -1,7 +1,6 @@
 module.exports = function (config) {
     'use strict';
     var configuration = {
-
         basePath: '',
 
         frameworks: ['mocha', 'chai'],
