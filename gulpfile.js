@@ -25,7 +25,7 @@ var libraries = [
 var stylesheets = [
   './node_modules/ng-dialog/css/ngDialog.min.css',
   './node_modules/ng-dialog/css/ngDialog-theme-default.min.css',
-  './node_modules/angular-material/angular-material.min.css',
+  './node_modules/angular-material/angular-material.css',
   './client/dist/styles/main.css'
 ];
 
