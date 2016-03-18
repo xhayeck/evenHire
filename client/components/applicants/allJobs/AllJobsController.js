@@ -9,9 +9,10 @@ angular.module('evenhire.allJobs', [])
     $scope.jobTypes = Home.jobTypes;
     $scope.industries = Home.industries;
     //automatically hide the sidebar filter options
-    $scope.citiesDropdownShown = false;
-    $scope.jobTypeDropdownShown = false;
-    $scope.careerLevelDropdownShown = false;
+    $scope.citiesDropdownShown = true;
+    $scope.jobTypeDropdownShown = true;
+    $scope.careerLevelDropdownShown = true;
+    $scope.industryDropdownShown = true;
 
     //these will be populated wtih which boxes are checked in the sidebar filter
     $scope.jobTypeFilter = [];
@@ -35,11 +36,12 @@ angular.module('evenhire.allJobs', [])
             console.log("You need to login");
             $state.go('appLogin')
           } else if(factoryResponse.toString() === 'false') {
-            alert("You already applied for that job")
+            $scope.duplicateApplication();
           } else if(!factoryResponse) {
-            alert("You need to be logged in as an applicant to apply for a job")
+            $scope.onlyApplicantCanApply();
           } else {
-            alert("Thanks for applying " + factoryResponse.first_name)
+            $scope.thankYouName = factoryResponse.first_name;
+            $scope.applicationThankYou();
           }
       });
     };
@@ -51,10 +53,41 @@ angular.module('evenhire.allJobs', [])
         template: './components/applicants/allJobs/applicantHome.tmpl.html',
         controller: 'AllJobsController',
         className: 'ngdialog-theme-plain',
-        closeByDocument: false,
+        closeByDocument: true,
         scope: $scope
       });
     };
+
+    $scope.duplicateApplication = function() {
+      ngDialog.open({
+        template: './components/applicants/allJobs/duplicateApplication.tmpl.html',
+        controller: 'AllJobsController',
+        className: 'ngdialog-theme-default',
+        closeByDocument: true,
+        scope: $scope
+      });
+    };
+
+    $scope.applicationThankYou = function() {
+      ngDialog.open({
+        template: './components/applicants/allJobs/applicationThankYou.tmpl.html',
+        controller: 'AllJobsController',
+        className: 'ngdialog-theme-default',
+        closeByDocument: true,
+        scope: $scope
+      });
+    };
+
+    $scope.onlyApplicantCanApply = function() {
+      ngDialog.open({
+        template: './components/applicants/allJobs/onlyApplicantCanApply.tmpl.html',
+        controller: 'AllJobsController',
+        className: 'ngdialog-theme-default',
+        closeByDocument: true,
+        scope: $scope
+      });
+    }
+
     $scope.currentUserType = Auth.getCurrentUserType();
     $scope.saveUpdate = function(loggedInUser, userType) {
       console.log(loggedInUser, userType);

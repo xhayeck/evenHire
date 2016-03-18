@@ -1,7 +1,6 @@
 module.exports = function (config) {
     'use strict';
-    config.set({
-
+    var configuration = {
         basePath: '',
 
         frameworks: ['mocha', 'chai'],
@@ -14,11 +13,14 @@ module.exports = function (config) {
             'node_modules/angular-aria/angular-aria.js',
             'node_modules/ng-dialog/js/ngDialog.min.js',
             'node_modules/angular-mocks/angular-mocks.js',
+            'node_modules/sinon-chai/lib/sinon-chai.js',
+            'node_modules/sinon/pkg/sinon.js',
 
             //client files with tests in each folder respectively
             'client/app.js',
             'client/auth/*.js',
-            'client/components/**/*.js'
+            'client/components/**/*.js',
+            'tests/client_side/**/*.js'
         ],
 
         //test results reporters to use
@@ -46,7 +48,18 @@ module.exports = function (config) {
         // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
         logLevel: config.LOG_INFO,
 
-        browsers: ['PhantomJS']
+        browsers: ['Chrome'],
 
-    });
+        customLaunchers: {
+          ChromeTravisCi: {
+            base: 'Chrome',
+            flags: ['--no-sandbox']
+          }
+        }
+
+    };
+    if (process.env.TRAVIS) {
+      configuration.browsers = ['ChromeTravisCi'];
+    }
+    config.set(configuration)
 };

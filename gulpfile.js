@@ -23,9 +23,9 @@ var libraries = [
 ];
 
 var stylesheets = [
-  './node_modules/angular-material/angular-material.min.css',
   './node_modules/ng-dialog/css/ngDialog.min.css',
   './node_modules/ng-dialog/css/ngDialog-theme-default.min.css',
+  './node_modules/angular-material/angular-material.min.css',
   './client/dist/styles/main.css'
 ];
 
@@ -82,15 +82,25 @@ gulp.task('minStyles', function() {
 gulp.task('clientTest', function(done) {
   new Server({
     configFile: __dirname + '/karma.config.js',
+    singleRun: true,
+    }, done).start();
+});
+
+gulp.task('clientTest:dev', function(done) {
+  new Server({
+    configFile: __dirname + '/karma.config.js',
     singleRun: false,
     }, done).start();
 });
 
 //Run server-side tests
 gulp.task('serverTest', function() {
-  return gulp.src(['tests/**/*.js'], {read: false})
+  return gulp.src(['tests/server_side/**/*.js'], {read: false})
     .pipe(mocha({reporter: 'spec'}))
-    .on('error', util.log);
+    .on('error', util.log)
+    .once('end', function() {
+      process.exit();
+    });
 });
 
 //Watch for changes in client folder
@@ -101,7 +111,6 @@ gulp.task('watch', function() {
 
 gulp.task('styles', ['scss', 'minStyles']);
 gulp.task('build', ['styles', 'scripts', 'libs']);
-gulp.task('test:server', ['serverTest']);
-gulp.task('test:client', ['clientTest']);
+gulp.task('tests', ['serverTest', 'clientTest']);
 gulp.task('start', ['build', 'serve', 'watch']);
 gulp.task('default', ['build', 'serve', 'watch']);

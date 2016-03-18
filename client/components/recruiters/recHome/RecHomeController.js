@@ -13,7 +13,6 @@ angular.module('evenhire.recruiters', [])
   $scope.jobTypes = Home.jobTypes;
   $scope.industries = Home.industries;
 
-
   $scope.clickToOpen = function () {
     ngDialog.open({
       template: './components/recruiters/recHome/newJobDialog.tmpl.html',
@@ -74,5 +73,4 @@ angular.module('evenhire.recruiters', [])
         $scope.closeDialog();
       });
   };
-
 }]);
