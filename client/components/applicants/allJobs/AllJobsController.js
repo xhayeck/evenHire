@@ -47,21 +47,6 @@ angular.module('evenhire.allJobs', [])
               }
             });      
       }
-      // Applicant.apply({job_id: job_id})
-      //   .then(function(factoryResponse) {
-      //     console.log("factoryResponse in alljobsController", factoryResponse);
-      //     if(factoryResponse.status === 500){
-      //       console.log("You need to login");
-      //       $state.go('appLogin')
-      //     } else if(factoryResponse.toString() === 'false') {
-      //       $scope.duplicateApplication();
-      //     } else if(!factoryResponse) {
-      //       $scope.onlyApplicantCanApply();
-      //     } else {
-      //       $scope.thankYouName = factoryResponse.first_name;
-      //       $scope.applicationThankYou();
-      //     }
-      // });
     };
 
     $scope.showAppInfo = function() {
