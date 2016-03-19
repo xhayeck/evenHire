@@ -18,6 +18,7 @@ angular.module('evenhire.recruiters', [])
   $scope.jobTypes = Home.jobTypes;
   $scope.industries = Home.industries;
 
+
   $scope.newJobModal = function() {
     ngDialog.open({
       template: './components/recruiters/recHome/newJobDialog.tmpl.html',
@@ -49,10 +50,21 @@ angular.module('evenhire.recruiters', [])
             for(var i = 0; i < data.length; i++) {
               for(var j = 0; j < interested.length; j++) {
                 if(data[i].id === interested[j].applicantId) {
-                  $scope.applicantsToView.push({who: data[i], interesting: interested[j]});
+                  if(interested[j].isInterested === true) {
+                    $scope.applicantsToView.push({who: data[i], interesting: 'interesting'});
+                  }
+                  if(interested[j].isInterested === false) {
+                    $scope.applicantsToView.push({who: data[i], interesting: 'uninteresting'});
+                  }
+                  if(interested[j].isInterested === null) {
+                    $scope.applicantsToView.push({who: data[i], interesting: 'neutral'});
+                  }
                 }
               }
             }
+            // setCSS();
+            console.log('WOOOOOOOOOO: ', $scope.applicantsToView);
+            console.log('');
           }, function() {
             $scope.error = 'Unable to grab stuff';
           });
