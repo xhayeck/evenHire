@@ -1,5 +1,5 @@
 angular.module('evenhire.recruiters.factory', [])
-  .factory('Recruiter', ['$http', 'Auth', function ($http, Auth) {
+  .factory('Recruiter', ['$http', 'Auth', function($http, Auth) {
     var recruiter = {};
 
     recruiter.getPostedJobs = function() {
