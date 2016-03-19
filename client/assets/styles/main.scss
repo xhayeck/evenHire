@@ -5,10 +5,33 @@ body {
   font-family: 'Arial', 'sans-serif';
 }
 
-// NG DIALOG
-div.ngdialog-content {
-
+.prewrap {
+  white-space: pre-wrap;
 }
+
+// NG DIALOG
+.ngdialog.ngdialog-theme-default .ngdialog-content {
+    width: 1200px;
+    div {
+      md-content {
+        md-tabs {
+          md-tab-content {
+            span.subtitle {
+              font-weight: 600;
+            }
+            div.headerId {
+              text-align: center;
+            }
+          }
+        }
+      }
+    }
+}
+
+div.md-select-menu-container.md-active.md-clickable {
+  z-index: 99999;
+}
+
 //JOB CARDS (IN VIEW ALL JOBS AND RECRUITER HOME)
 
 div {
@@ -58,14 +81,6 @@ div {
       }
     }
   }
-}
-
-.ngdialog.ngdialog-theme-default .ngdialog-content {
-    width: 900px;
-}
-
-div.md-select-menu-container.md-active.md-clickable {
-  z-index: 99999;
 }
 
 // AUTH SIGN IN WITH USERNAME AND PASSWORDS

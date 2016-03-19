@@ -23,7 +23,7 @@ angular.module('evenhire.recruiters.factory', [])
         data: {jobId: jobId}
       })
       .then (function(data) {
-        console.log(data);
+        console.log('in factory', data);
         return data.data;
       }, function(err) {
         console.log('Error in reaching server. Error: ', err);
@@ -73,6 +73,7 @@ angular.module('evenhire.recruiters.factory', [])
         }
       })
       .then(function(data) {
+        console.log(data);
         return data.data;
       }, function(err) {
         return err;

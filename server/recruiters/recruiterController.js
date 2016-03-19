@@ -47,7 +47,8 @@ module.exports = {
       .then(function(job) {
         job.getApplicants()
           .then(function(applicants) {
-            console.log('applicants are', applicants);
+            // console.log(work.indexOf('\n'));
+            // console.log('applicants is array',typeof work);
             res.send(applicants);
           })
           .catch(function(err) {

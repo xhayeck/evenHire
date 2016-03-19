@@ -4,12 +4,15 @@ angular.module('evenhire.recruiters', [])
   $scope.newJob = {};
   // $scope.currentJobId = '';
   $scope.applicantsToView = [];
+  //Info about logged in recruiter
   var currentUser = Auth.getCurrentUser();
   $scope.companyName = currentUser.name;
   $scope.companyEmail = currentUser.email;
 
   // $scope.applicantToContact = {};
-  $scope.contactMessage = 'We\'d like to schedule an interview!';
+  $scope.contactMessage = 'We\'d like to schedule an interview. \n\n- ' + $scope.companyName;
+
+  //Options for drop down select when posting a job
   $scope.states = Home.states;
   $scope.careerLevels = Home.careerLevels;
   $scope.jobTypes = Home.jobTypes;
@@ -26,15 +29,9 @@ angular.module('evenhire.recruiters', [])
     ngDialog.close();
   };
 
-// <<<<<<< c5e231a640c1fc8b0e87672dac6be6c296118bc0
-//   $scope.clickToOpenContact = function(applicantIndex, jobIndex) {
-//     $scope.applicantToContact = $scope.JobApplicant[$scope.jobId][applicantIndex].email;
-//     $scope.applicantIdNum = $scope.JobApplicant[$scope.jobId][applicantIndex].id;
-// =======
   $scope.contactApplicantModal = function(applicantIndex) {
     $scope.emailOfApplicantToContact = $scope.applicantsToView[applicantIndex].email;
     $scope.interestedApplicant = $scope.applicantsToView[applicantIndex];
-// >>>>>>> [feat] Factored out nested ng repeat in rec home
     ngDialog.open({
       template: './components/recruiters/recHome/contactDialog.tmpl.html',
       controller: 'RecHomeController',
