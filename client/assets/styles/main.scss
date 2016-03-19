@@ -5,9 +5,13 @@ body {
   font-family: 'Arial', 'sans-serif';
 }
 
-//APPLICANT - VIEW ALL JOBS
+// NG DIALOG
+div.ngdialog-content {
 
-div.jobCard {
+}
+//JOB CARDS (IN VIEW ALL JOBS AND RECRUITER HOME)
+
+div {
   md-card {
     md-card-title-text {
       span.md-subhead {

@@ -1,8 +1,9 @@
 angular.module('evenhire.appNewAcc', [])
 
-  .controller('AppNewAccController', ['$scope', '$state','$http','Applicant','$window', 'Auth', function($scope, $state, $http, Applicant, $window, Auth) {
+  .controller('AppNewAccController', ['$scope', '$state','$http','Applicant','$window', 'Auth', 'Home', function ($scope, $state, $http, Applicant, $window, Auth, Home) {
 
     $scope.applicant = {};
+    $scope.states = Home.states;
 
     $scope.createAccount = function() {
       //Checking if passwords match
@@ -17,11 +18,11 @@ angular.module('evenhire.appNewAcc', [])
             console.log('NEW USER is :', data);
             $state.go('allJobs');
           }
-        }); 
+        });
       } else {
         //Alerting user their passwords don't match
         alert("Your passwords don't match!");
-      };   
+      };
     };
 
   }]);
