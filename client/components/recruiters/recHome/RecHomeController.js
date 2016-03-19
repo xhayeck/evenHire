@@ -76,12 +76,14 @@ angular.module('evenhire.recruiters', [])
   };
 
   $scope.isInterested = function() {
-    console.log('Controller');
-    console.log('isInterested: ', isInterested);
-    console.log('jobId: ', jobId);
-    console.log('applicantIdNum: ', applicantIdNum);
-    console.log('');
     Recruiter.isInterested(true, $scope.jobId, $scope.applicantIdNum)
+      .then(function (response) {
+        console.log(response);
+      });
+  };
+
+  $scope.isNotInterested = function() {
+    Recruiter.isInterested(false, $scope.jobId, $scope.applicantIdNum)
       .then(function (response) {
         console.log(response);
       });

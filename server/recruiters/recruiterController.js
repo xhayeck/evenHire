@@ -186,15 +186,9 @@ module.exports = {
     var job = req.body.jobId;
     var applicant = req.body.applicantIdNum;
     var interested = req.body.isInterested;
-    console.log('');
-    console.log('Server');
-    console.log('isInterested: ', isInterested);
-    console.log('jobId: ', jobId);
-    console.log('applicantIdNum: ', applicantIdNum);
-    console.log('');
     Models.JobApplicant.findOne({where: {applicantId: applicant, jobId: job}})
       .then(function (found) {
-        found.upsert({
+        found.update({
           isInterested: interested
         })
         .then(function (inserted) {
@@ -202,6 +196,7 @@ module.exports = {
         });
       })
       .catch(function (err) {
+        console.log('Err: ', err);
         return res.status().send(err);
       })
   }

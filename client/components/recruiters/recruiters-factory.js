@@ -63,11 +63,6 @@ angular.module('evenhire.recruiters.factory', [])
     };
 
     recruiter.isInterested = function (isInterested, jobId, applicantIdNum) {
-      console.log('Factory');
-      console.log('isInterested: ', isInterested);
-      console.log('jobId: ', jobId);
-      console.log('applicantIdNum: ', applicantIdNum);
-      console.log('');
       return $http({
         method: 'POST',
         url: 'api/recruiter/isInterested',
