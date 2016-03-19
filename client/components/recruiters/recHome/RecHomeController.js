@@ -30,8 +30,8 @@ angular.module('evenhire.recruiters', [])
   };
 
   $scope.contactApplicantModal = function(applicantIndex) {
-    $scope.emailOfApplicantToContact = $scope.applicantsToView[applicantIndex].email;
-    $scope.interestedApplicant = $scope.applicantsToView[applicantIndex];
+    $scope.emailOfApplicantToContact = $scope.applicantsToView[applicantIndex]['who'].email;
+    $scope.interestedApplicant = $scope.applicantsToView[applicantIndex]['who'];
     ngDialog.open({
       template: './components/recruiters/recHome/contactDialog.tmpl.html',
       controller: 'RecHomeController',
@@ -43,10 +43,19 @@ angular.module('evenhire.recruiters', [])
   $scope.getApplicants = function(jobId, jobObj) {
     Recruiter.grabApplicants(jobId)
       .then(function(data) {
-        $scope.applicantsToView = data;
-        $scope.currentJob = jobObj;
-      }, function() {
-        $scope.error = 'Unable to get applicants';
+        Recruiter.grabInterested(jobId)
+          .then(function(interested) {
+            $scope.currentJob = jobObj;
+            for(var i = 0; i < data.length; i++) {
+              for(var j = 0; j < interested.length; j++) {
+                if(data[i].id === interested[j].applicantId) {
+                  $scope.applicantsToView.push({who: data[i], interesting: interested[j]});
+                }
+              }
+            }
+          }, function() {
+            $scope.error = 'Unable to grab stuff';
+          });
       });
   };
 
@@ -92,15 +101,6 @@ angular.module('evenhire.recruiters', [])
     Recruiter.isInterested(false, $scope.currentJob.id, applicantId)
       .then(function(response) {
         console.log(response);
-      });
-  };
-
-  $scope.grabInterested = function(jobId) {
-    Recruiter.grabInterested(jobId)
-      .then(function(yesNo) {
-        console.log(yesNo);
-      }, function() {
-        $scope.error = 'Unable to grab interested parties';
       });
   };
 

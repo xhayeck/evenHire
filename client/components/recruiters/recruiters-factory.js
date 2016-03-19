@@ -23,7 +23,6 @@ angular.module('evenhire.recruiters.factory', [])
         data: {jobId: jobId}
       })
       .then (function(data) {
-        console.log('in factory', data);
         return data.data;
       }, function(err) {
         console.log('Error in reaching server. Error: ', err);
@@ -81,7 +80,6 @@ angular.module('evenhire.recruiters.factory', [])
     };
 
     recruiter.grabInterested = function(jobId) {
-      console.log('HEEEEEELLLLLLLOOOOOOOOO!!!!');
       return $http({
         method: 'POST',
         url: 'api/recruiter/grabbingInterested',
