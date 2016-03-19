@@ -94,4 +94,14 @@ angular.module('evenhire.recruiters', [])
         console.log(response);
       });
   };
+
+  $scope.grabInterested = function(jobId) {
+    Recruiter.grabInterested(jobId)
+      .then(function(yesNo) {
+        console.log(yesNo);
+      }, function() {
+        $scope.error = 'Unable to grab interested parties';
+      });
+  };
+
 }]);
