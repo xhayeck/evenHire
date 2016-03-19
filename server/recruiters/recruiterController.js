@@ -150,7 +150,7 @@ module.exports = {
     });
   },
 
-  signup: function (req, res) {
+  signup: function(req, res) {
     if (!req.body.name || !req.body.username) {
       return res.send({
         type: false,
@@ -182,20 +182,20 @@ module.exports = {
       });
   },
 
-  isInterested: function (req, res) {
+  isInterested: function(req, res) {
     var job = req.body.jobId;
     var applicant = req.body.applicantIdNum;
     var interested = req.body.isInterested;
     Models.JobApplicant.findOne({where: {applicantId: applicant, jobId: job}})
-      .then(function (found) {
+      .then(function(found) {
         found.update({
           isInterested: interested
         })
-        .then(function (inserted) {
+        .then(function(inserted) {
           res.status(200).send(inserted);
         });
       })
-      .catch(function (err) {
+      .catch(function(err) {
         console.log('Err: ', err);
         return res.status().send(err);
       })

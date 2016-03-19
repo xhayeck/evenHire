@@ -1,6 +1,6 @@
 angular.module('evenhire.recruiters', [])
 
-.controller('RecHomeController', ['$scope', '$state', 'Recruiter', 'Auth','$mdDialog','ngDialog', 'Home', function ($scope, $state, Recruiter, Auth, $mdDialog, ngDialog, Home) {
+.controller('RecHomeController', ['$scope', '$state', 'Recruiter', 'Auth','$mdDialog','ngDialog', 'Home', function($scope, $state, Recruiter, Auth, $mdDialog, ngDialog, Home) {
   $scope.newJob = {};
   $scope.JobApplicant = {};
   // $scope.error;
@@ -13,18 +13,18 @@ angular.module('evenhire.recruiters', [])
   $scope.jobTypes = Home.jobTypes;
   $scope.industries = Home.industries;
 
-  $scope.clickToOpen = function () {
+  $scope.clickToOpen = function() {
     ngDialog.open({
       template: './components/recruiters/recHome/newJobDialog.tmpl.html',
       controller: 'RecHomeController',
       className: 'ngdialog-theme-default',
     });
   };
-  $scope.closeDialog = function () {
+  $scope.closeDialog = function() {
     ngDialog.close();
   };
 
-  $scope.clickToOpenContact = function (applicantIndex, jobIndex) {
+  $scope.clickToOpenContact = function(applicantIndex, jobIndex) {
     $scope.jobToContactAbout = $scope.postedJobs.results[jobIndex].title;
     $scope.jobId = $scope.postedJobs.results[jobIndex].id;
     $scope.applicantToContact = $scope.JobApplicant[$scope.jobId][applicantIndex].email;
@@ -39,7 +39,7 @@ angular.module('evenhire.recruiters', [])
 
   $scope.getApplicants = function(jobId) {
     Recruiter.grabApplicants(jobId)
-      .then(function (data) {
+      .then(function(data) {
         console.log(data);
         $scope.JobApplicant[jobId] = data;
       }, function() {
@@ -49,7 +49,7 @@ angular.module('evenhire.recruiters', [])
 
   $scope.getJobs = function() {
     Recruiter.getPostedJobs()
-      .then(function (data) {
+      .then(function(data) {
       //sorting jobs by most recent, so need to reverse count array to match
       data.applicantCount.reverse();
       data.results.reverse();
@@ -61,7 +61,7 @@ angular.module('evenhire.recruiters', [])
 
   $scope.postJob = function() {
     Recruiter.postNewJob($scope.newJob)
-      .then(function (newJob) {
+      .then(function(newJob) {
         $state.reload();
         console.log('new job is', newJob);
       })
@@ -69,7 +69,7 @@ angular.module('evenhire.recruiters', [])
 
   $scope.sendEmail = function() {
     Recruiter.sendEmail($scope.applicantToContact, $scope.jobToContactAbout, $scope.companyName, $scope.companyEmail, $scope.contactMessage)
-      .then(function (response) {
+      .then(function(response) {
         console.log(response);
         $scope.closeDialog();
       });
@@ -77,14 +77,14 @@ angular.module('evenhire.recruiters', [])
 
   $scope.isInterested = function() {
     Recruiter.isInterested(true, $scope.jobId, $scope.applicantIdNum)
-      .then(function (response) {
+      .then(function(response) {
         console.log(response);
       });
   };
 
   $scope.isNotInterested = function() {
     Recruiter.isInterested(false, $scope.jobId, $scope.applicantIdNum)
-      .then(function (response) {
+      .then(function(response) {
         console.log(response);
       });
   };
