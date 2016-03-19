@@ -1,5 +1,5 @@
 angular.module('evenhire.recruiters.factory', [])
-  .factory('Recruiter', ['$http', 'Auth', function($http, Auth) {
+  .factory('Recruiter', ['$http', 'Auth', function ($http, Auth) {
     var recruiter = {};
 
     recruiter.getPostedJobs = function() {
@@ -7,22 +7,22 @@ angular.module('evenhire.recruiters.factory', [])
         method: 'GET',
         url: 'api/recruiter/allPostedJobs'
       })
-      .then(function(data) {
+      .then(function (data) {
         //data.data is an object with an array of job objects and an array of applicant counts
         return data.data;
-      }, function(err) {
+      }, function (err) {
         console.log('error in getting all posted jobs');
         return err;
       });
     };
 
-    recruiter.grabApplicants = function(jobId) {
+    recruiter.grabApplicants = function (jobId) {
       return $http({
         method: 'POST',
         url: 'api/recruiter/getApplicants',
         data: {jobId: jobId}
       })
-      .then (function(data) {
+      .then (function (data) {
         console.log(data);
         return data.data;
       }, function(err) {
@@ -30,20 +30,20 @@ angular.module('evenhire.recruiters.factory', [])
       });
     };
 
-    recruiter.postNewJob = function(newJobObj) {
+    recruiter.postNewJob = function (newJobObj) {
       return $http({
         method: 'POST',
         url: 'api/recruiter/newJob',
         data: newJobObj
       })
-      .then(function(data) {
+      .then(function (data) {
         return data.data;
-      }, function(err) {
+      }, function (err) {
         return err;
       });
     };
 
-    recruiter.sendEmail = function(applicantEmail, jobTitle, company, email, message) {
+    recruiter.sendEmail = function (applicantEmail, jobTitle, company, email, message) {
       return $http({
         method: 'POST',
         url: 'api/recruiter/sendEmail',
@@ -55,9 +55,31 @@ angular.module('evenhire.recruiters.factory', [])
           message: message
         }
       })
-      .then(function(data) {
+      .then(function (data) {
         return data.data;
-      }, function(err) {
+      }, function (err) {
+        return err;
+      });
+    };
+
+    recruiter.isInterested = function (isInterested, jobId, applicantIdNum) {
+      console.log('Factory');
+      console.log('isInterested: ', isInterested);
+      console.log('jobId: ', jobId);
+      console.log('applicantIdNum: ', applicantIdNum);
+      console.log('');
+      return $http({
+        method: 'POST',
+        url: 'api/recruiter/isInterested',
+        data: {
+          isInterested: isInterested,
+          jobId: jobId,
+          applicantIdNum: applicantIdNum
+        }
+      })
+      .then(function (data) {
+        return data.data;
+      }, function (err) {
         return err;
       });
     };

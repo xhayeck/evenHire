@@ -6,6 +6,8 @@
         <label>Message</label>
         <input type="text" name="message" ng-model="contactMessage">
       </md-input-container>
+      <md-button class="md-raised md-primary" type="submit" ng-click="isNotInterested()">Not Interested</md-button>
+      <md-button class="md-raised md-primary" type="submit" ng-click="isInterested()">Interested</md-button>
       <md-button class="md-raised md-primary" type="submit" ng-click="sendEmail()">Submit</md-button>
     </md-content>
   </div>
