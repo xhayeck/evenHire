@@ -1,6 +1,6 @@
 angular.module('evenhire.recruiters', [])
 
-.controller('RecHomeController', ['$scope', '$state', 'Recruiter', 'Auth','$mdDialog','ngDialog', 'Home', function ($scope, $state, Recruiter, Auth, $mdDialog, ngDialog, Home) {
+.controller('RecHomeController', ['$scope', '$state', 'Recruiter', 'Auth','$mdDialog','ngDialog', 'Home', function($scope, $state, Recruiter, Auth, $mdDialog, ngDialog, Home) {
   $scope.newJob = {};
   $scope.JobApplicant = {};
   // $scope.error;
@@ -13,21 +13,22 @@ angular.module('evenhire.recruiters', [])
   $scope.jobTypes = Home.jobTypes;
   $scope.industries = Home.industries;
 
-  $scope.clickToOpen = function () {
+  $scope.clickToOpen = function() {
     ngDialog.open({
       template: './components/recruiters/recHome/newJobDialog.tmpl.html',
       controller: 'RecHomeController',
       className: 'ngdialog-theme-default',
     });
   };
-  $scope.closeDialog = function () {
+  $scope.closeDialog = function() {
     ngDialog.close();
   };
 
-  $scope.clickToOpenContact = function (applicantIndex, jobIndex) {
+  $scope.clickToOpenContact = function(applicantIndex, jobIndex) {
     $scope.jobToContactAbout = $scope.postedJobs.results[jobIndex].title;
-    var jobId = $scope.postedJobs.results[jobIndex].id;
-    $scope.applicantToContact = $scope.JobApplicant[jobId][applicantIndex].email;
+    $scope.jobId = $scope.postedJobs.results[jobIndex].id;
+    $scope.applicantToContact = $scope.JobApplicant[$scope.jobId][applicantIndex].email;
+    $scope.applicantIdNum = $scope.JobApplicant[$scope.jobId][applicantIndex].id;
     ngDialog.open({
       template: './components/recruiters/recHome/contactDialog.tmpl.html',
       controller: 'RecHomeController',
@@ -71,6 +72,20 @@ angular.module('evenhire.recruiters', [])
       .then(function(response) {
         console.log(response);
         $scope.closeDialog();
+      });
+  };
+
+  $scope.isInterested = function() {
+    Recruiter.isInterested(true, $scope.jobId, $scope.applicantIdNum)
+      .then(function(response) {
+        console.log(response);
+      });
+  };
+
+  $scope.isNotInterested = function() {
+    Recruiter.isInterested(false, $scope.jobId, $scope.applicantIdNum)
+      .then(function(response) {
+        console.log(response);
       });
   };
 }]);
