@@ -18,6 +18,7 @@ angular.module('evenhire.recruiters', [])
   $scope.jobTypes = Home.jobTypes;
   $scope.industries = Home.industries;
 
+  //Setting var so $interval is available to other functions
   var grabbingApplicants;
 
   $scope.newJobModal = function() {
@@ -91,12 +92,6 @@ angular.module('evenhire.recruiters', [])
     Recruiter.isInterested(true, $scope.currentJob.id, applicantId)
       .then(function(response) {
         $scope.closeDialog();
-        // $scope.apply(function() {
-        //   $scope.getApplicants($scope.currentJob.id, $scope.currentJob);
-        // });
-        // $state.go($state.current, {}, {reload: true});
-        // angular.element('#applicants').trigger('click');
-        // $scope.selectCSS(true);
       });
 
   };
@@ -105,13 +100,7 @@ angular.module('evenhire.recruiters', [])
     Recruiter.isInterested(false, $scope.currentJob.id, applicantId)
       .then(function(response) {
         $scope.closeDialog();
-        // $scope.apply(function() {
-        //   $scope.getApplicants($scope.currentJob.id, $scope.currentJob);
-        // });
-        // $state.go($state.current, {}, {reload: true});
-        // angular.element('#applicants').trigger('click');
-        // $scope.selectCSS(false);
-        
+
       });
   };
 
@@ -123,4 +112,3 @@ angular.module('evenhire.recruiters', [])
 
 }]);
 
-// $state.go($state.current, {}, {reload: true})
