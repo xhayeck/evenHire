@@ -21,8 +21,34 @@ module.exports = function(app) {
       });
   });
 
-  app.get('/resetPassword/:userKey', function(req, res) {
-    console.log('hash password: ', req.params.userKey);
-    res.send('succes');
+  app.post('/resetPassword', function(req, res) {
+    var decoded = authUtils.decodeToken(req.body.token);
+    var userType = authUtils.capitalize(decoded.userType);
+    Models[userType].findById(decoded.id)
+    .then(function(user) {
+      user.setPassword(req.body.newPassword, function(updated) {
+        updated.save()
+        .then(function() {
+          return res.send({
+            token: req.body.token,
+            type: true,
+            data: updated,
+            userType: decoded.userType
+          });
+        })
+        .catch(function(error) {
+          return res.send({
+            type: false,
+            data: 'Error in updating your password'
+          });
+        });
+      });
+    })
+    .catch(function(err) {
+      return res.send({
+        type: false,
+        data: 'No account found'
+      });
+    });
   })
 };
