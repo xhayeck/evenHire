@@ -64,6 +64,24 @@ div {
     background-color: #FFDCDC;
   }
 }
+
+// JOB POSTINGS IN REC HOME
+div.recHome {
+  div {
+    md-card {
+      md-card-title {
+        padding: 16px 16px 16px;
+        span.md-subhead {
+          padding: 0px;
+        }
+      }
+      md-card-content {
+        padding-bottom: 10px;
+      }
+    }
+  }
+}
+
 // Animations
 .ng-hide-add, .ng-hide-remove {
     -webkit-transition:all linear 0.3s;

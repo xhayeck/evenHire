@@ -1,11 +1,11 @@
-<div class="md-padding">
+<div class="md-padding recHome">
   <h2 class="md-headline">Welcome {{companyName}}!</h2>
   {{message}}
   <md-button class="md-raised" ng-click="newJobModal()">Click here to post a job</md-button>
   <div flex layout="row">
     <div flex="40">
     <h3 class="md-title">Job listings:</h3>
-      <md-card class="md-padding" ng-repeat="job in postedJobs.results">
+      <md-card ng-repeat="job in postedJobs.results">
         <md-card-title>
           <md-card-title-text>
             <span class="md-headline">{{job.title}} - {{postedJobs.applicantCount[$index]}} Applicants</span>
