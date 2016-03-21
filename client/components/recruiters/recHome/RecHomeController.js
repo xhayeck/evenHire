@@ -1,6 +1,6 @@
 angular.module('evenhire.recruiters', [])
 
-.controller('RecHomeController', ['$scope', '$state', 'Recruiter', 'Auth','$mdDialog','ngDialog', 'Home', function($scope, $state, Recruiter, Auth, $mdDialog, ngDialog, Home) {
+.controller('RecHomeController', ['$scope', '$state', 'Recruiter', 'Auth','$mdDialog','ngDialog', 'Home', '$interval', function($scope, $state, Recruiter, Auth, $mdDialog, ngDialog, Home, $interval) {
   $scope.newJob = {};
   // $scope.currentJobId = '';
   $scope.applicantsToView = [];
@@ -17,6 +17,8 @@ angular.module('evenhire.recruiters', [])
   $scope.careerLevels = Home.careerLevels;
   $scope.jobTypes = Home.jobTypes;
   $scope.industries = Home.industries;
+
+  var grabbingApplicants;
 
   $scope.newJobModal = function() {
     ngDialog.open({
@@ -41,7 +43,9 @@ angular.module('evenhire.recruiters', [])
   };
 
   $scope.getApplicants = function(jobId, jobObj) {
-    Recruiter.grabApplicants(jobId)
+    $interval.cancel(grabbingApplicants);
+    grabbingApplicants = $interval(function() {
+      Recruiter.grabApplicants(jobId)
       .then(function(data) {
         $scope.applicantsToView = data;
         $scope.currentJob = jobObj;
@@ -49,6 +53,7 @@ angular.module('evenhire.recruiters', [])
       }, function() {
         $scope.error = 'Unable to get applicants';
       });
+    }, 500);
   };
 
   $scope.getJobs = function() {
@@ -85,18 +90,13 @@ angular.module('evenhire.recruiters', [])
   $scope.isInterested = function(applicantId) {
     Recruiter.isInterested(true, $scope.currentJob.id, applicantId)
       .then(function(response) {
-        var jobId = $scope.currentJob.id;
-        var curJob = $scope.currentJob;
-        console.log(response);
-        $state.go($state.current, {}, {reload: true})
-          .then(function() {
-            $scope.getApplicants(jobId, curJob);
-          })
-          .then(function() {
-            $scope.closeDialog();
-          });
-        
-        
+        $scope.closeDialog();
+        // $scope.apply(function() {
+        //   $scope.getApplicants($scope.currentJob.id, $scope.currentJob);
+        // });
+        // $state.go($state.current, {}, {reload: true});
+        // angular.element('#applicants').trigger('click');
+        // $scope.selectCSS(true);
       });
 
   };
@@ -104,14 +104,23 @@ angular.module('evenhire.recruiters', [])
   $scope.isNotInterested = function(applicantId) {
     Recruiter.isInterested(false, $scope.currentJob.id, applicantId)
       .then(function(response) {
-        var jobId = $scope.currentJob.id;
-        var curJob = $scope.currentJob;
-        console.log(response);
-        $state.go($state.current, {}, {reload: true});
-        $scope.getApplicants(jobId, curJob);
-        console.log('currentJob ID: ', $scope.currentJob.id);
-        console.log('current job obj: ', $scope.currentJob);
         $scope.closeDialog();
+        // $scope.apply(function() {
+        //   $scope.getApplicants($scope.currentJob.id, $scope.currentJob);
+        // });
+        // $state.go($state.current, {}, {reload: true});
+        // angular.element('#applicants').trigger('click');
+        // $scope.selectCSS(false);
+        
       });
   };
+
+  $scope.$on("$destroy",function(){
+    if (angular.isDefined(grabbingApplicants)) {
+        $interval.cancel(grabbingApplicants);
+    }
+});
+
 }]);
+
+// $state.go($state.current, {}, {reload: true})
