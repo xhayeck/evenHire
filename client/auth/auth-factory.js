@@ -104,14 +104,14 @@ angular.module('evenhire.auth.factory', [])
       auth.forgotPassword = function(userData, userType) {
         return $http({
           method: 'POST',
-          url: 'api/' + userType + '/forgotPassword',
-          data: userData
+          url: 'api/auth/forgotPassword',
+          data: {
+            userData: userData,
+            userType: userType
+          }
         })
         .then(function(data) {
           console.log('response from server is, ', data);
-          if (data.data.type) {
-            auth.setUser(data.data.data, userType);
-          }
           return data.data;
         }, function(response) {
           console.log('response from data on error is, ', response)

@@ -11,6 +11,4 @@ module.exports = function(router) {
   router.get('/showApplicantsDB', Applicant.getAllApplicants);
   //To update applicants profile
   router.post('/userUpdate', Applicant.userUpdate);
-  //To update forgot Password
-  router.post('/forgotPassword', Applicant.forgotPassword);
 };
