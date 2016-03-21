@@ -85,14 +85,33 @@ angular.module('evenhire.recruiters', [])
   $scope.isInterested = function(applicantId) {
     Recruiter.isInterested(true, $scope.currentJob.id, applicantId)
       .then(function(response) {
+        var jobId = $scope.currentJob.id;
+        var curJob = $scope.currentJob;
         console.log(response);
+        $state.go($state.current, {}, {reload: true})
+          .then(function() {
+            $scope.getApplicants(jobId, curJob);
+          })
+          .then(function() {
+            $scope.closeDialog();
+          });
+        
+        
       });
+
   };
 
   $scope.isNotInterested = function(applicantId) {
     Recruiter.isInterested(false, $scope.currentJob.id, applicantId)
       .then(function(response) {
+        var jobId = $scope.currentJob.id;
+        var curJob = $scope.currentJob;
         console.log(response);
+        $state.go($state.current, {}, {reload: true});
+        $scope.getApplicants(jobId, curJob);
+        console.log('currentJob ID: ', $scope.currentJob.id);
+        console.log('current job obj: ', $scope.currentJob);
+        $scope.closeDialog();
       });
   };
 }]);
