@@ -76,16 +76,10 @@ module.exports = {
           //Error in verifying
           if (err) {
             console.log('error in recruiterController');
-            return res.send({
-              type: false,
-              data: 'Error occured: ' + err
-            });
+            return res.status(400).send('Error in verifying password');
           }
           if (!(isVerified)) {
-            return res.send({
-              type: false,
-              data: 'Wrong password'
-            });
+            return res.status(400).send('Password does not match');
           } else {
             var token = authUtils.issueToken(recruiter.id, 'recruiter');
             console.log("Signin successful");
@@ -99,10 +93,7 @@ module.exports = {
       })
       .catch(function(error) {
         console.log('This user does not exist')
-        return res.send({
-          type: false,
-          data: 'User does not exist'
-        });
+        return res.status(400).send('User does not exist');
       });
   },
 
@@ -152,14 +143,14 @@ module.exports = {
     if (!req.body.name || !req.body.username) {
       return res.send({
         type: false,
-        data: null
+        data: 'name and username required'
       });
     }
     var newUser = Models.Recruiter.build({
       name: req.body.name,
       username: req.body.username,
       password: req.body.password,
-      email: req.body.email,
+      email: req.body.email
     })
       .setPassword(req.body.password, function(updated) {
         updated.save()
