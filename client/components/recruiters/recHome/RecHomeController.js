@@ -43,6 +43,9 @@ angular.module('evenhire.recruiters', [])
       template: './components/recruiters/recHome/contactDialog.tmpl.html',
       controller: 'RecHomeController',
       className: 'ngdialog-theme-default',
+      preCloseCallback: function(value){
+        return $scope.getApplicants($scope.job.jobId, $scope.job.jobObj);
+      },
       preserveFocus: false,
       closeByDocument: true,
       scope: $scope
