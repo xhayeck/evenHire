@@ -1,6 +1,6 @@
 angular.module('evenhire.recruiters', [])
 
-.controller('RecHomeController', ['$scope', '$state', 'Recruiter', 'Auth','$mdDialog','ngDialog', 'Home', function($scope, $state, Recruiter, Auth, $mdDialog, ngDialog, Home) {
+.controller('RecHomeController', ['$scope', '$state', 'Recruiter', 'Auth','$mdDialog','ngDialog', 'Home', '$interval', function($scope, $state, Recruiter, Auth, $mdDialog, ngDialog, Home, $interval) {
   $scope.newJob = {};
   // $scope.currentJobId = '';
   $scope.applicantsToView = [];
@@ -17,6 +17,9 @@ angular.module('evenhire.recruiters', [])
   $scope.careerLevels = Home.careerLevels;
   $scope.jobTypes = Home.jobTypes;
   $scope.industries = Home.industries;
+
+  //Setting var so $interval is available to other functions
+  var grabbingApplicants;
 
   $scope.newJobModal = function() {
     ngDialog.open({
@@ -41,7 +44,9 @@ angular.module('evenhire.recruiters', [])
   };
 
   $scope.getApplicants = function(jobId, jobObj) {
-    Recruiter.grabApplicants(jobId)
+    $interval.cancel(grabbingApplicants);
+    grabbingApplicants = $interval(function() {
+      Recruiter.grabApplicants(jobId)
       .then(function(data) {
         $scope.applicantsToView = data;
         $scope.currentJob = jobObj;
@@ -49,6 +54,7 @@ angular.module('evenhire.recruiters', [])
       }, function() {
         $scope.error = 'Unable to get applicants';
       });
+    }, 500);
   };
 
   $scope.getJobs = function() {
@@ -85,14 +91,24 @@ angular.module('evenhire.recruiters', [])
   $scope.isInterested = function(applicantId) {
     Recruiter.isInterested(true, $scope.currentJob.id, applicantId)
       .then(function(response) {
-        console.log(response);
+        $scope.closeDialog();
       });
+
   };
 
   $scope.isNotInterested = function(applicantId) {
     Recruiter.isInterested(false, $scope.currentJob.id, applicantId)
       .then(function(response) {
-        console.log(response);
+        $scope.closeDialog();
+
       });
   };
+
+  $scope.$on("$destroy",function(){
+    if (angular.isDefined(grabbingApplicants)) {
+        $interval.cancel(grabbingApplicants);
+    }
+});
+
 }]);
+
