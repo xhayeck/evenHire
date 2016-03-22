@@ -27,6 +27,9 @@ body {
       }
     }
 }
+html.ngdialog-open {
+  overflow: visible;
+}
 
 div.md-select-menu-container.md-active.md-clickable {
   z-index: 99999;

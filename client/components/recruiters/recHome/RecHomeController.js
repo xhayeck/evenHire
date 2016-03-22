@@ -43,6 +43,7 @@ angular.module('evenhire.recruiters', [])
       template: './components/recruiters/recHome/contactDialog.tmpl.html',
       controller: 'RecHomeController',
       className: 'ngdialog-theme-default',
+      preserveFocus: false,
       closeByDocument: true,
       scope: $scope
     });
