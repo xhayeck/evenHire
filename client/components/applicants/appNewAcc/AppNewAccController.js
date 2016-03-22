@@ -1,12 +1,20 @@
 angular.module('evenhire.appNewAcc', [])
 
-  .controller('AppNewAccController', ['$scope', '$state','$http','Applicant','$window', 'Auth', 'Home', function ($scope, $state, $http, Applicant, $window, Auth, Home) {
+  .controller('AppNewAccController', ['$scope', '$state','$http','Applicant','$window', 'Auth', 'Home', 'ngDialog',  function ($scope, $state, $http, Applicant, $window, Auth, Home, ngDialog) {
 
     $scope.applicant = {};
     $scope.states = Home.states;
 
     $scope.createAccount = function() {
       //send form data to the server at api/applicant/signUp
+      if ($scope.applicant.resume.match($scope.applicant.firstName) || $scope.applicant.resume.match($scope.applicant.lastName)) {
+      return ngDialog.open({
+          template: './components/applicants/appNewAcc/appErrorWithResume.tmpl.html',
+          controller: 'AppNewAccController',
+          className: 'ngdialog-theme-default',
+          scope: $scope
+        });
+      }
       Auth.signUp($scope.applicant, 'applicant')
       .then(function(data) {
         if (!data.type) {

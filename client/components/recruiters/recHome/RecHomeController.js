@@ -53,8 +53,8 @@ angular.module('evenhire.recruiters', [])
   };
 
   $scope.getApplicants = function(jobId, jobObj) {
-    // $interval.cancel(grabbingApplicants);
-    // grabbingApplicants = $interval(function() {
+    $interval.cancel(grabbingApplicants);
+    grabbingApplicants = $interval(function() {
     $scope.job = {
       jobId: jobId,
       jobObj: jobObj
@@ -66,7 +66,7 @@ angular.module('evenhire.recruiters', [])
       }, function() {
         $scope.error = 'Unable to get applicants';
       });
-    // }, 50000);
+    }, 500);
   };
 
   $scope.getJobs = function() {
