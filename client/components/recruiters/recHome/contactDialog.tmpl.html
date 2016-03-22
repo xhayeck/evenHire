@@ -37,8 +37,10 @@
     </md-tabs>
   </md-content>
   <div layout="row" layout-align="end center">
+    <md-button ng-disabled="first" class="md-raised md-primary" type="submit" ng-click="previousApplicant()">Previous applicant</md-button>
     <md-button class="md-raised md-primary" type="submit" ng-click="isNotInterested(interestedApplicant.id)">Not Interested</md-button>
     <md-button class="md-raised md-primary" type="submit" ng-click="isInterested(interestedApplicant.id)">Interested</md-button>
+    <md-button ng-disabled="last" class="md-raised md-primary" type="submit" ng-click="nextApplicant()">Next applicant</md-button>
   </div>
 </div>
 

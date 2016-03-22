@@ -9,6 +9,9 @@ angular.module('evenhire.recruiters', [])
   $scope.companyName = currentUser.name;
   $scope.companyEmail = currentUser.email;
 
+  $scope.first = false;
+  $scope.last = false;
+
   // $scope.applicantToContact = {};
   $scope.contactMessage = 'We\'d like to schedule an interview. \n\n- ' + $scope.companyName;
 
@@ -33,6 +36,7 @@ angular.module('evenhire.recruiters', [])
   };
 
   $scope.contactApplicantModal = function(applicantIndex) {
+    $scope.applicantIndex = applicantIndex;
     $scope.emailOfApplicantToContact = $scope.applicantsToView[applicantIndex].email;
     $scope.interestedApplicant = $scope.applicantsToView[applicantIndex];
     ngDialog.open({
@@ -47,11 +51,14 @@ angular.module('evenhire.recruiters', [])
   $scope.getApplicants = function(jobId, jobObj) {
     // $interval.cancel(grabbingApplicants);
     // grabbingApplicants = $interval(function() {
+    $scope.job = {
+      jobId: jobId,
+      jobObj: jobObj
+    };
       Recruiter.grabApplicants(jobId)
       .then(function(data) {
         $scope.applicantsToView = data;
         $scope.currentJob = jobObj;
-        console.log(data);
       }, function() {
         $scope.error = 'Unable to get applicants';
       });
@@ -121,6 +128,40 @@ angular.module('evenhire.recruiters', [])
         $interval.cancel(grabbingApplicants);
     }
 });
+
+  $scope.previousApplicant = function(applicantIndex, jobId, job) {
+    Recruiter.grabApplicants($scope.job.jobId)
+    .then(function(applicants) {
+      if ($scope.applicantIndex > 0) {
+        if ($scope.applicantIndex === 1 ) {
+          $scope.first = true;
+        } else {
+          $scope.first = false;
+        }
+          $scope.last = false;
+        $scope.interestedApplicant = applicants[--$scope.applicantIndex];
+        console.log('====interestedApplicant=====', $scope.interestedApplicant)
+        console.log('applicantIndex', $scope.applicantIndex)
+      }
+    });
+  };
+
+  $scope.nextApplicant = function(interestedApplicant) {
+    Recruiter.grabApplicants($scope.job.jobId)
+      .then(function(applicants) {
+        if ($scope.applicantIndex < applicants.length - 1) {
+          if ($scope.applicantIndex === applicants.length - 2) {
+            $scope.last = true;
+          } else {
+            $scope.last = false;
+          }
+            $scope.first = false;
+          $scope.interestedApplicant = applicants[++$scope.applicantIndex];
+          console.log('====interestedApplicant=====', $scope.interestedApplicant)
+          console.log('applicantIndex', $scope.applicantIndex)
+        }
+    });
+  };
 
 }]);
 
