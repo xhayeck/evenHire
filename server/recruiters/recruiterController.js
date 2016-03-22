@@ -44,7 +44,7 @@ module.exports = {
   getApplicants: function(req, res) {
     Models.Job.findById(req.body.jobId)
       .then(function(job) {
-        job.getApplicants({joinTableAttributes: ['isInterested']})
+        job.getApplicants({joinTableAttributes: ['isInterested','contacted']})
           .then(function(applicants) {
             console.log('applicants');
              res.send(applicants);
@@ -133,10 +133,11 @@ module.exports = {
       text: req.body.message
     };
     console.log('email we want to send is: ', email);
-    mailgun.messages().send(email, function(error, body) {
-      console.log('resonse from mail gun is, ', body);
-      res.send(body);
-    });
+    // mailgun.messages().send(email, function(error, body) {
+    //   console.log('resonse from mail gun is, ', body);
+    //   res.send(body);
+    // });
+    res.send("recruiterController on server side sent email")
   },
 
   signup: function(req, res) {
@@ -205,7 +206,7 @@ module.exports = {
       })
       .catch(function(err) {
         console.log('Err: ', err);
-        return res.status().send(err);
+        return res.status(400).send(err);
       })
   }
 

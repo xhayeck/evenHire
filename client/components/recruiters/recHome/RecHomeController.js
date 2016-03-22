@@ -45,8 +45,8 @@ angular.module('evenhire.recruiters', [])
   };
 
   $scope.getApplicants = function(jobId, jobObj) {
-    $interval.cancel(grabbingApplicants);
-    grabbingApplicants = $interval(function() {
+    // $interval.cancel(grabbingApplicants);
+    // grabbingApplicants = $interval(function() {
       Recruiter.grabApplicants(jobId)
       .then(function(data) {
         $scope.applicantsToView = data;
@@ -55,7 +55,7 @@ angular.module('evenhire.recruiters', [])
       }, function() {
         $scope.error = 'Unable to get applicants';
       });
-    }, 500);
+    // }, 50000);
   };
 
   $scope.getJobs = function() {
@@ -78,22 +78,24 @@ angular.module('evenhire.recruiters', [])
       })
   };
 
-  $scope.sendEmail = function() {
+  $scope.sendEmail = function(applicantId) {
     var email = $scope.emailOfApplicantToContact;
     var jobTitle = $scope.currentJob.title;
+    console.log("email, jobTitle in sendEmail in RecHomeController", email, jobTitle)
     Recruiter.sendEmail(email, jobTitle, $scope.companyName, $scope.companyEmail, $scope.contactMessage)
       .then(function(response) {
         $scope.message = "Sent email";
-        $scope.contacted($scope.applicantId);
+        $scope.contacted(applicantId);
         console.log(response);
         $scope.closeDialog();
       });
   };
 
   $scope.contacted = function(applicantId) {
+    console.log("applicantId in contacted in RecHomeController", applicantId)
     Recruiter.contacted(true, $scope.currentJob.id, applicantId)
       .then(function(response) {
-        console.log(response);
+        console.log("response from Recruiter.contacted", response);
       });
   }
 
