@@ -22,51 +22,71 @@ describe('Routing', function() {
     });
   });
   describe('Applicant routes', function() {
-    it('GET /api/applicant/allJobs should return 200', function(done) {
+    it('GET /api/applicant/allJobs should return an array of jobs', function(done) {
       request(app)
         .get('/api/applicant/allJobs')
-        .expect(200, done);
+        .set('Accept', 'application/json')
+        .expect(200)
+        .end(function(err, res) {
+          expect(res.body).to.have.length.above(5);
+          expect(res.body[0]).to.have.property('title');
+          expect(res.body[0]).to.have.property('city');
+          expect(res.body[0]).to.have.property('recruiterId');
+          expect(res.body[0].recruiter).to.have.property('id');
+          done();
+        });
     });
-    it('GET /api/applicant/allJobs should return 200', function(done) {
+    it('should return jobs with a recruiter object', function(done) {
       request(app)
         .get('/api/applicant/allJobs')
-        .expect(200, done);
+        .set('Accept', 'application/json')
+        .expect(200)
+        .end(function(err, res) {
+          expect(res.body[0]).to.have.property('recruiterId');
+          expect(res.body[0].recruiter).to.be.an('object');
+          expect(res.body[0].recruiter).to.have.property('id');
+          expect(res.body[0].recruiter).to.have.property('email');
+          done();
+        });
     });
     describe('Applicant login', function() {
-      it('POST /api/applicant/login should return an object with type and data', function(done) {
+      it('POST /api/applicant/login should return an error with nonexistent user', function(done) {
+        var user = {
+          username: null,
+          password: null
+        };
         request(app)
           .post('/api/applicant/login')
+          .send(user)
+          .expect(400)
           .end(function(err, res) {
-            // expect(res.body).to.have.property('type');
-            // expect(res.body).to.have.property('data');
-            // expect(res.body.type).to.be.false;
-            // expect(res.error).to.be.false;
-            expect(false).to.be.false;
+            expect(res.error).to.exist;
+            expect(res.error.text).to.equal('User does not exist');
             done();
           });
       });
-      it('Should return a user object, token and true when logging in', function(done) {
+      it('Should return a user object, token and true when logging in with correct credentials', function(done) {
         var data = {
           username: 'test',
-          password: 'test'
+          password: 'password'
         };
         request(app)
           .post('/api/applicant/login')
           .send(data)
           .expect(200)
           .end(function(err, res) {
-            // expect(res.body.data).to.have.property('first_name');
-            // expect(res.body.data).to.have.property('id');
-            // expect(res.body.token).to.have.length.above(20);
-            // expect(res.body.token).to.be.a('string');
-            // expect(res.body).to.have.property('token');
-            // expect(res.body.type).to.be.true;
-            // expect(res.error).to.be.false;
-            expect(true).to.be.true;
+            expect(res.body).to.have.property('type');
+            expect(res.body.type).to.be.true;
+            expect(res.body).to.have.property('data');
+            expect(res.body.data).to.have.property('username');
+            expect(res.body.data.username).to.be.a('string');
+            expect(res.body).to.have.property('token');
+            expect(res.body.token).to.have.length.above(20);
+            expect(res.body.token).to.be.a('string');
             done();
           });
       });
-      it('Should return false when logging in with a wrong password', function(done) {
+      it('Should return an error when logging in with a wrong password', function(done) {
         var data = {
           username: 'test',
           password: 'notTest'
@@ -74,13 +94,9 @@ describe('Routing', function() {
         request(app)
           .post('/api/applicant/login')
           .send(data)
+          .expect(400)
           .end(function(err, res) {
-            // expect(res.body).to.have.property('type');
-            // expect(res.body.data).to.have.string('Wrong password');
-            // expect(res.body.type).to.be.false;
-            // expect(res.body).to.not.have.property('token');
-            // expect(res.error).to.be.false;
-            expect(false).to.be.false;
+            expect(res.error.text).to.equal('Password does not match');
             done();
           });
       });
@@ -117,18 +133,38 @@ describe('Routing', function() {
     });
   });
   describe('Recruiter routes', function() {
+    it('')
     it('GET /api/recruiter/showJobsAppsDB should return 200', function(done) {
       request(app)
         .get('/api/recruiter/showJobsAppsDB')
         .expect(200, done());
     });
-    it('POST /api/recruiter/login should return an object with data and type', function(done) {
+    it('POST /api/recruiter/login should return an error for a nonexistent user', function(done) {
+      var user = {
+        username: null,
+        password: null
+      };
       request(app)
         .post('/api/recruiter/login')
+        .send(user)
+        .expect(400)
         .end(function(err, res) {
-          expect(res.body).to.have.property('data');
-          expect(res.body).to.have.property('type');
-          expect(res.body.type).to.be.false;
+          expect(res.error).to.exist;
+          expect(res.error.text).to.equal('User does not exist');
+          done();
+        });
+    });
+    it('Should return an error when logging in with a wrong password', function(done) {
+      var data = {
+        username: 'test',
+        password: 'notTest'
+      };
+      request(app)
+        .post('/api/recruiter/login')
+        .send(data)
+        .expect(400)
+        .end(function(err, res) {
+          expect(res.error.text).to.equal('Password does not match');
           done();
         });
     });
@@ -146,8 +182,9 @@ describe('Routing', function() {
       request(app)
         .post('/api/recruiter/newJob')
         .set('x-access-token', testRecruiterToken)
+        .expect(400)
         .end(function(err, res) {
-          expect(res.body).to.exist;
+          // expect(res.error.text).to.equal('User does not exist');
           done();
         });
     });

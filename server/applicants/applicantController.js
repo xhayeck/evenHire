@@ -55,12 +55,6 @@ module.exports = {
   },
 
   signup: function(req, res) {
-    if (!req.body.username || !req.body.firstName) {
-      return res.send({
-        type: false,
-        data: null
-      });
-    }
     var newUser = Models.Applicant.build({
       first_name: req.body.firstName,
       last_name: req.body.lastName,
