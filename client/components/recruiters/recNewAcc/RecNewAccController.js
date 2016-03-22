@@ -26,6 +26,7 @@ angular.module('evenhire.recNewAcc', [])
 
 
   }])
+  //directive to check that the password fields have the same value
   .directive('valueMatches', ['$parse', function ($parse) {
     return {
       require: 'ngModel',

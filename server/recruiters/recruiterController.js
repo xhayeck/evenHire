@@ -188,6 +188,25 @@ module.exports = {
         console.log('Err: ', err);
         return res.status().send(err);
       })
+  },
+
+  contacted: function(req, res) {
+    var job = req.body.jobId;
+    var applicant = req.body.applicantIdNum;
+    var contacted = req.body.contacted;
+    Models.JobApplicant.findOne({where: {applicantId: applicant, jobId: job}})
+      .then(function(found) {
+        found.update({
+          contacted: contacted
+        })
+        .then(function(inserted) {
+          res.status(200).send(inserted);
+        });
+      })
+      .catch(function(err) {
+        console.log('Err: ', err);
+        return res.status().send(err);
+      })
   }
 
 };

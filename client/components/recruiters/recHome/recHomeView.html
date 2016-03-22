@@ -55,6 +55,9 @@
             </div> -->
           </md-card-content>
           <md-card-actions layout="row" layout-align="end center">
+            <span ng-show="{{applicant.jobs_applicants.contacted}}">
+              You've contacted this applicant.
+            </span>
             <md-button class="md-raised" ng-click="contactApplicantModal($index)">View more</md-button>
           </md-card-actions>
         </div>

@@ -39,6 +39,7 @@ angular.module('evenhire.recruiters', [])
       template: './components/recruiters/recHome/contactDialog.tmpl.html',
       controller: 'RecHomeController',
       className: 'ngdialog-theme-default',
+      closeByDocument: true,
       scope: $scope
     });
   };
@@ -83,14 +84,23 @@ angular.module('evenhire.recruiters', [])
     Recruiter.sendEmail(email, jobTitle, $scope.companyName, $scope.companyEmail, $scope.contactMessage)
       .then(function(response) {
         $scope.message = "Sent email";
+        $scope.contacted($scope.applicantId);
         console.log(response);
         $scope.closeDialog();
       });
   };
 
+  $scope.contacted = function(applicantId) {
+    Recruiter.contacted(true, $scope.currentJob.id, applicantId)
+      .then(function(response) {
+        console.log(response);
+      });
+  }
+
   $scope.isInterested = function(applicantId) {
     Recruiter.isInterested(true, $scope.currentJob.id, applicantId)
       .then(function(response) {
+        console.log(response);
         $scope.closeDialog();
       });
 
@@ -99,8 +109,8 @@ angular.module('evenhire.recruiters', [])
   $scope.isNotInterested = function(applicantId) {
     Recruiter.isInterested(false, $scope.currentJob.id, applicantId)
       .then(function(response) {
+        console.log(response);
         $scope.closeDialog();
-
       });
   };
 
