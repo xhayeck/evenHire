@@ -143,14 +143,14 @@ module.exports = {
     if (!req.body.name || !req.body.username) {
       return res.send({
         type: false,
-        data: null
+        data: 'name and username required'
       });
     }
     var newUser = Models.Recruiter.build({
       name: req.body.name,
       username: req.body.username,
       password: req.body.password,
-      email: req.body.email,
+      email: req.body.email
     })
       .setPassword(req.body.password, function(updated) {
         updated.save()

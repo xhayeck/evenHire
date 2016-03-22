@@ -59,18 +59,18 @@ module.exports = {
       first_name: req.body.firstName,
       last_name: req.body.lastName,
       username: req.body.username,
-      password: req.body.password,
+      password: req.body.password.new,
       anon_id: req.body.anon_id,
       email: req.body.email,
       work_exp: req.body.workExp,
       education: req.body.education,
       city: req.body.city,
+      state: req.body.state,
       resume: req.body.resume
     })
-      .setPassword(req.body.password, function(updated) {
+      .setPassword(req.body.password.new, function(updated) {
         updated.save()
           .then(function() {
-            console.log('updated.id: ', updated.id);
             var token = authUtils.issueToken(updated.id, 'applicant');
             return res.send({
               data: updated,
@@ -78,7 +78,7 @@ module.exports = {
               token: token
             });
           })
-          //if username alredy exist send back validation error
+          //if username already exists, send back validation error
           .catch(function(error) {
             return res.send({
               type: false,

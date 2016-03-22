@@ -48,6 +48,7 @@ module.exports = function(db) {
     anon_id: Sequelize.STRING,
     email: Sequelize.STRING,
     city: Sequelize.STRING,
+    state: Sequelize.STRING,
     work_exp: Sequelize.TEXT,
     education: Sequelize.TEXT,
     resume: Sequelize.TEXT
