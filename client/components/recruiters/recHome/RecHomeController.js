@@ -1,6 +1,6 @@
-angular.module('evenhire.recruiters', [])
+angular.module('evenhire.recruiters', ['duScroll'])
 
-.controller('RecHomeController', ['$scope', '$state', 'Recruiter', 'Auth','$mdDialog','ngDialog', 'Home', function($scope, $state, Recruiter, Auth, $mdDialog, ngDialog, Home) {
+.controller('RecHomeController', ['$scope', '$state', 'Recruiter', 'Auth','$mdDialog','ngDialog', 'Home', '$document', function($scope, $state, Recruiter, Auth, $mdDialog, ngDialog, Home, $document) {
   $scope.newJob = {};
   // $scope.currentJobId = '';
   $scope.applicantsToView = [];
@@ -21,8 +21,7 @@ angular.module('evenhire.recruiters', [])
   $scope.jobTypes = Home.jobTypes;
   $scope.industries = Home.industries;
 
-  //Setting var so $interval is available to other functions
-  var grabbingApplicants;
+  $scope.selectJobPrompt = true;
 
   $scope.closeDialog = function() {
     ngDialog.close();
@@ -51,9 +50,10 @@ angular.module('evenhire.recruiters', [])
       .then(function(response) {
         console.log("response from Recruiter.contacted", response);
       });
-  }
+  };
 
   $scope.getApplicants = function(jobId, jobObj) {
+    $scope.selectJobPrompt = false;
     $scope.job = {
       jobId: jobId,
       jobObj: jobObj
@@ -116,12 +116,6 @@ angular.module('evenhire.recruiters', [])
       });
   };
 
-  $scope.$on("$destroy",function(){
-    if (angular.isDefined(grabbingApplicants)) {
-        $interval.cancel(grabbingApplicants);
-    }
-});
-
   $scope.previousApplicant = function(applicantIndex, jobId, job) {
     Recruiter.grabApplicants($scope.job.jobId)
     .then(function(applicants) {
@@ -156,5 +150,8 @@ angular.module('evenhire.recruiters', [])
     });
   };
 
+  $scope.scrollToTop = function() {
+    $document.scrollTopAnimated(200, 750);
+  };
 }]);
 
