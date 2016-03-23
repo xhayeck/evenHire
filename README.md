@@ -22,8 +22,11 @@ We used a dotenv npm package to configure our development variables. Create a .e
 - AngularJS
 - NodeJS/Express
 - Postgres
+- Sequelize
 - Karma
-- Jasmine
+- Mocha
+- Chai
+- Sinon
 - Gulp
 - SASS
 
@@ -40,15 +43,22 @@ We used a dotenv npm package to configure our development variables. Create a .e
     - By Industry
     - By Keyword
 - Recruiter Features
-  - View Jobs Individual 
+  - Post new jobs
+  - View all jobs posted by recruiter
+  - View applicants to particular jobs
+    - Applicants are color coded
+      - Red: Recruiter is not interested in applicant
+      - Green: Recruiter is interested in applicant
+    - Contact button changes to say "emailed" after recruiter has emailed applicant
+
 
 ## Future Features
 - General Features
+  - 
 - Applicant Features
   - Let users know if they've already applied to a particular job
-
-
 - Recruiter Features
+ - Remove filled jobs from job listing
 
 ## Contributing
 Please refer to the [CONTRIBUTING.md](docs/CONTRIBUTING.md) file to see how to contribute to our project.
