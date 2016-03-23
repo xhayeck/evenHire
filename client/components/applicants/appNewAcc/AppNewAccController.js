@@ -1,6 +1,6 @@
 angular.module('evenhire.appNewAcc', [])
 
-  .controller('AppNewAccController', ['$scope', '$state','$http','Applicant','$window', 'Auth', 'Home', 'ngDialog',  function ($scope, $state, $http, Applicant, $window, Auth, Home, ngDialog) {
+  .controller('AppNewAccController', ['$scope', '$state','$http','Applicant','$window', 'Auth', 'Home',  function ($scope, $state, $http, Applicant, $window, Auth, Home) {
 
     $scope.applicant = {};
     $scope.states = Home.states;

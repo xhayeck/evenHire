@@ -1,6 +1,6 @@
 angular.module('evenhire.recruiters', [])
 
-.controller('RecHomeController', ['$scope', '$state', 'Recruiter', 'Auth','$mdDialog','ngDialog', 'Home', '$interval', function($scope, $state, Recruiter, Auth, $mdDialog, ngDialog, Home, $interval) {
+.controller('RecHomeController', ['$scope', '$state', 'Recruiter', 'Auth','$mdDialog','ngDialog', 'Home', function($scope, $state, Recruiter, Auth, $mdDialog, ngDialog, Home) {
   $scope.newJob = {};
   // $scope.currentJobId = '';
   $scope.applicantsToView = [];
@@ -53,8 +53,6 @@ angular.module('evenhire.recruiters', [])
   };
 
   $scope.getApplicants = function(jobId, jobObj) {
-    $interval.cancel(grabbingApplicants);
-    grabbingApplicants = $interval(function() {
     $scope.job = {
       jobId: jobId,
       jobObj: jobObj
@@ -66,7 +64,6 @@ angular.module('evenhire.recruiters', [])
       }, function() {
         $scope.error = 'Unable to get applicants';
       });
-    }, 500);
   };
 
   $scope.getJobs = function() {
