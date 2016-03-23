@@ -1,5 +1,8 @@
 $smallSubtext: rgb(140, 140, 140);
 $legendTitle: #3F51B5;
+$red: #FFDCDC;
+$green: rgba(0, 151, 0, 0.38);
+$dialogColor: #fff;
 
 body {
   font-family: 'Arial', 'sans-serif';
@@ -8,21 +11,24 @@ body {
 .prewrap {
   white-space: pre-wrap;
 }
+// HOME
+div#home {
+  color: #fff;
+  background: linear-gradient(rgba(20,20,20, .75), rgba(20,20,20, .75)), url('/dist/imgs/evenhire_bckgrnd.jpg');
+  background-size: cover;
+  height: 500px;
+}
 
 // NG DIALOG
 .ngdialog.ngdialog-theme-default .ngdialog-content {
     width: 1200px;
     div {
-      md-content {
-        md-tabs {
-          md-tab-content {
-            span.subtitle {
-              font-weight: 600;
-            }
-            div.headerId {
-              text-align: center;
-            }
-          }
+      md-tab-content {
+        span.subtitle {
+          font-weight: 600;
+        }
+        div.headerId {
+          text-align: center;
         }
       }
     }
@@ -33,6 +39,16 @@ html.ngdialog-open {
 
 div.md-select-menu-container.md-active.md-clickable {
   z-index: 99999;
+}
+
+//NG DIALOG REVIEW APPLICANTS
+div#appModal {
+  md-content.true {
+    background-color: $green;
+  }
+  md-content.false {
+    background-color: $red;
+  }
 }
 
 //JOB CARDS (IN VIEW ALL JOBS AND RECRUITER HOME)
@@ -61,10 +77,10 @@ div {
     }
   }
   md-card.true {
-    background-color: rgba(0, 151, 0, 0.38);
+    background-color: $green;
   }
   md-card.false {
-    background-color: #FFDCDC;
+    background-color: $red;
   }
 }
 

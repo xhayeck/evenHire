@@ -24,13 +24,6 @@ angular.module('evenhire.recruiters', [])
   //Setting var so $interval is available to other functions
   var grabbingApplicants;
 
-  $scope.newJobModal = function() {
-    ngDialog.open({
-      template: './components/recruiters/recHome/newJobDialog.tmpl.html',
-      controller: 'RecHomeController',
-      className: 'ngdialog-theme-default',
-    });
-  };
   $scope.closeDialog = function() {
     ngDialog.close();
   };
@@ -52,6 +45,14 @@ angular.module('evenhire.recruiters', [])
     });
   };
 
+  $scope.contacted = function(applicantId) {
+    console.log("applicantId in contacted in RecHomeController", applicantId)
+    Recruiter.contacted(true, $scope.currentJob.id, applicantId)
+      .then(function(response) {
+        console.log("response from Recruiter.contacted", response);
+      });
+  }
+
   $scope.getApplicants = function(jobId, jobObj) {
     $scope.job = {
       jobId: jobId,
@@ -65,7 +66,7 @@ angular.module('evenhire.recruiters', [])
         $scope.error = 'Unable to get applicants';
       });
   };
-
+  //Gets all posted jobs, invoked when state is loaded
   $scope.getJobs = function() {
     Recruiter.getPostedJobs()
       .then(function(data) {
@@ -77,6 +78,22 @@ angular.module('evenhire.recruiters', [])
       $scope.error = 'Unable to fetch jobs';
     });
   }();
+
+  $scope.isInterested = function(isInterested, applicantId) {
+    Recruiter.isInterested(isInterested, $scope.currentJob.id, applicantId)
+      .then(function(response) {
+        console.log(response);
+        $scope.closeDialog();
+      });
+  };
+
+  $scope.newJobModal = function() {
+    ngDialog.open({
+      template: './components/recruiters/recHome/newJobDialog.tmpl.html',
+      controller: 'RecHomeController',
+      className: 'ngdialog-theme-default',
+    });
+  };
 
   $scope.postJob = function() {
     Recruiter.postNewJob($scope.newJob)
@@ -94,31 +111,6 @@ angular.module('evenhire.recruiters', [])
       .then(function(response) {
         $scope.message = "Sent email";
         $scope.contacted(applicantId);
-        console.log(response);
-        $scope.closeDialog();
-      });
-  };
-
-  $scope.contacted = function(applicantId) {
-    console.log("applicantId in contacted in RecHomeController", applicantId)
-    Recruiter.contacted(true, $scope.currentJob.id, applicantId)
-      .then(function(response) {
-        console.log("response from Recruiter.contacted", response);
-      });
-  }
-
-  $scope.isInterested = function(applicantId) {
-    Recruiter.isInterested(true, $scope.currentJob.id, applicantId)
-      .then(function(response) {
-        console.log(response);
-        $scope.closeDialog();
-      });
-
-  };
-
-  $scope.isNotInterested = function(applicantId) {
-    Recruiter.isInterested(false, $scope.currentJob.id, applicantId)
-      .then(function(response) {
         console.log(response);
         $scope.closeDialog();
       });
