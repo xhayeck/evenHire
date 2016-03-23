@@ -40,4 +40,4 @@ angular.module('evenhire.appNewAcc', [])
           });
         }
     };
-  }]);
+ }]);
