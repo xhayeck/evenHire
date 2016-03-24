@@ -9,6 +9,7 @@ angular.module('evenhire.recruiters', ['duScroll'])
   $scope.companyName = currentUser.name;
   $scope.companyEmail = currentUser.email;
 
+  // If true, button is disabled
   $scope.first = false;
   $scope.last = false;
 
@@ -28,6 +29,13 @@ angular.module('evenhire.recruiters', ['duScroll'])
   };
 
   $scope.contactApplicantModal = function(applicantIndex) {
+    if (applicantIndex === 0) {
+      $scope.first = true;
+      console.log('first one', $scope.first);
+    } else if (applicantIndex === $scope.applicantsToView.length - 1) {
+      $scope.last = true;
+      console.log('last one', $scope.last);
+    }
     $scope.applicantIndex = applicantIndex;
     $scope.emailOfApplicantToContact = $scope.applicantsToView[applicantIndex].email;
     $scope.interestedApplicant = $scope.applicantsToView[applicantIndex];
@@ -129,6 +137,8 @@ angular.module('evenhire.recruiters', ['duScroll'])
         $scope.interestedApplicant = applicants[--$scope.applicantIndex];
         console.log('====interestedApplicant=====', $scope.interestedApplicant)
         console.log('applicantIndex', $scope.applicantIndex)
+      } else if ($scope.applicantIndex === 0) {
+        $scope.first = true;
       }
     });
   };

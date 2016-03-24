@@ -16,6 +16,11 @@ body {
   white-space: pre-wrap;
 }
 
+.noMargins {
+  margin: 0px;
+  padding: 0px;
+}
+
 // MAIN HEADER
 div#menuHome {
   cursor: pointer;
@@ -63,6 +68,14 @@ div#appModal {
   }
   md-content.false {
     background-color: $red;
+  }
+  button.hidden {
+    min-height: 0px;
+  }
+  button.navApps {
+    @extend .noMargins;
+    max-height: 150px;
+    min-width: 50px;
   }
 }
 
