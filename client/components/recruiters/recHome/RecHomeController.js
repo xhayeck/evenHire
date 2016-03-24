@@ -9,7 +9,9 @@ angular.module('evenhire.recruiters', ['duScroll'])
   $scope.companyName = currentUser.name;
   $scope.companyEmail = currentUser.email;
 
-  // If true, navigation buttons to navigate applicants is disabled
+
+
+  // If true, button is disabled
   $scope.first = false;
   $scope.last = false;
 
@@ -88,6 +90,8 @@ angular.module('evenhire.recruiters', ['duScroll'])
   $scope.isInterested = function(isInterested, applicantId) {
     Recruiter.isInterested(isInterested, $scope.currentJob.id, applicantId)
       .then(function(response) {
+        $scope.isInterested = response.isInterested;
+        console.log(response);
         $scope.closeDialog();
       });
   };

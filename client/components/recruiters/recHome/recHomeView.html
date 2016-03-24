@@ -35,10 +35,12 @@
         </md-card-actions>
       </md-card>
     </div>
-      <div flex="60" layout="column" layout-align="start">
-        <div class="animate" flex="20" ng-show="selectJobPrompt" layout="row" layout-align="center start">
-          <h4 class="grey">Select a job to view applicants</h4>
-        </div>
+      <div flex="60">
+      <h3 class="md-title">Select a job to view applicants</h3>
+       <md-card-actions layout="row" layout-align="end center">
+          <md-button ng-click="newFilter()">New applicants</md-button>
+          <md-button ng-click="interestedFilter()">Intersted applicants</md-button>
+        </md-card-actions>
         <md-card class="{{applicant.jobs_applicants.isInterested}}" ng-repeat="applicant in applicantsToView">
           <md-card-content id="applicantCard">
             <div layout="row" layout-align="space-between">
