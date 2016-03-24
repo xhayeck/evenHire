@@ -107,7 +107,7 @@ angular.module('evenhire.recruiters', ['duScroll'])
   };
 
   $scope.nextApplicant = function(interestedApplicant) {
-    Recruiter.grabApplicants($scope.job.jobId)
+    Recruiter.getApplicants($scope.job.jobId)
       .then(function(applicants) {
         if ($scope.applicantIndex < applicants.length - 1) {
           if ($scope.applicantIndex === applicants.length - 2) {
@@ -129,7 +129,8 @@ angular.module('evenhire.recruiters', ['duScroll'])
   };
 
   $scope.previousApplicant = function(applicantIndex, jobId, job) {
-    Recruiter.grabApplicants($scope.job.jobId)
+    console.log('hi');
+    Recruiter.getApplicants($scope.job.jobId)
     .then(function(applicants) {
       if ($scope.applicantIndex > 0) {
         if ($scope.applicantIndex === 1 ) {
@@ -146,7 +147,7 @@ angular.module('evenhire.recruiters', ['duScroll'])
   };
 
   $scope.scrollToTop = function() {
-    $document.scrollTopAnimated(200, 750);
+    $document.scrollTopAnimated(150, 750);
   };
 
   $scope.sendEmail = function(applicantId) {
@@ -155,7 +156,7 @@ angular.module('evenhire.recruiters', ['duScroll'])
     Recruiter.sendEmail(email, jobTitle, $scope.companyName, $scope.companyEmail, $scope.contactMessage)
       .then(function(response) {
         console.log(response);
-        $scope.message = "Email sent";
+        $scope.message = " - Email sent";
         $scope.contacted(applicantId);
         $scope.closeDialog();
       });
