@@ -21,15 +21,7 @@ angular.module('evenhire.allJobs', [])
     $scope.levelFilter = [];
     $scope.industryFilter = [];
 
-    $scope.applicationThankYou = function() {
-      ngDialog.open({
-        template: './components/applicants/allJobs/applicationThankYou.tmpl.html',
-        controller: 'AllJobsController',
-        className: 'ngdialog-theme-default',
-        closeByDocument: true,
-        scope: $scope
-      });
-    };
+    $scope.applied = {};
 
     $scope.clearAll = function() {
       $scope.cityFilter = [];
@@ -97,7 +89,7 @@ angular.module('evenhire.allJobs', [])
                 $scope.duplicateApplication();
               } else {
                 $scope.thankYouName = factoryResponse.first_name;
-                $scope.applicationThankYou();
+                $scope.applied[job_id] = true;
               }
             });
       }
