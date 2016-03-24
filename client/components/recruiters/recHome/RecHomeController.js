@@ -66,13 +66,14 @@ angular.module('evenhire.recruiters', ['duScroll'])
       jobId: jobId,
       jobObj: jobObj
     };
-      Recruiter.grabApplicants(jobId)
-      .then(function(data) {
-        $scope.applicantsToView = data;
-        $scope.currentJob = jobObj;
-      }, function() {
-        $scope.error = 'Unable to get applicants';
-      });
+    Recruiter.grabApplicants(jobId)
+    .then(function(data) {
+      $scope.applicantsToView = data;
+      $scope.currentJob = jobObj;
+    }, function() {
+      $scope.error = 'Unable to get applicants';
+    });
+    $scope.scrollToTop();
   };
   //Gets all posted jobs, invoked when state is loaded
   $scope.getJobs = function() {
