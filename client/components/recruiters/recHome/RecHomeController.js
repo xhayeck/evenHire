@@ -149,7 +149,7 @@ angular.module('evenhire.recruiters', ['duScroll'])
   $scope.scrollToTop = function() {
     var top = angular.element(document.getElementById('applicantFilters'));
     // $document.scrollTop();
-    $document.duScrollToElement(top, 0, 700);
+    $document.duScrollToElement(top, 0, 600);
   };
 
   $scope.sendEmail = function(applicantId) {

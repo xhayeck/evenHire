@@ -1,4 +1,4 @@
-<div class="md-padding recHome">
+<div class="md-padding" id="recHome">
   <div flex layout-align="space-between" layout="row">
     <div flex>
       <span class="md-headline">Welcome {{companyName}}!</span><span class="notify">{{message}}</span>
@@ -11,14 +11,14 @@
     <div layout="column" layout-align="end end">
       <span class="md-title">Your job listings:</span>
     </div>
-    <div flex layout="row" layout-align="end end">
+    <div ng-show="!selectJobPrompt" flex layout="row" layout-align="end end">
       <md-button ng-click="newFilter={isInterested: null}">New</md-button>
       <md-button ng-click="newFilter={isInterested: true}">Interested</md-button>
       <md-button ng-click="newFilter={isInterested: undefined}">Show All</md-button>
     </div>
   </div>
   <div id="recHomeBody" flex layout="row">
-    <div flex="40">
+    <div flex="40" id="jobSide">
       <md-card ng-repeat="job in postedJobs.results">
         <md-card-title>
           <md-card-title-text>
@@ -49,7 +49,7 @@
         </md-card-actions>
       </md-card>
     </div>
-    <div flex="60" layout="column" layout-align="start">
+    <div id="applicantSide" flex="60" layout="column" layout-align="start">
       <div class="animate" flex="20" ng-show="selectJobPrompt" layout="row" layout-align="center start">
         <span id="messageToFade" class="grey">Select a job to view applicants</span>
       </div>

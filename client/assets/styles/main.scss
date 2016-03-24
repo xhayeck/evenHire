@@ -137,16 +137,20 @@ div#recHomeBody {
     margin-top: 30%;
   }
 }
-div#jobsBody {
-  padding-top: 0px;
-}
 
 span.notify {
   color: $indigo;
 }
 
 // JOB POSTINGS
-div.recHome {
+div#recHome {
+  min-height: 1200px;
+  background-color: rgba(238, 238, 238, 0.61);
+}
+div#jobSide {
+  md-card {
+    margin-left: 2px;
+  }
   md-card-title {
     padding: 16px 16px 16px;
     span.md-subhead {
@@ -167,10 +171,21 @@ div#jobSubhead {
   span.smallSubtext {
     @extend .grey;
     cursor: pointer;
+    position: relative;
+    top: 8px;
+    padding-right: 3px;
   }
 }
 
 // APPLICANT LIST
+div#applicantSide {
+  md-card-content {
+    p {
+      margin-bottom: 0px;
+    }
+  }
+}
+
 md-card.true {
   background-color: $green;
 }
@@ -184,6 +199,11 @@ div#applicantFilters {
   button.md-button {
     margin-bottom: 0px;
   }
+}
+
+// NEW JOB POSTING
+div.radioButton {
+  color: #BDBDBD;
 }
 
 //===============================
