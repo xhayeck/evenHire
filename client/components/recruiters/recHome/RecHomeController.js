@@ -62,6 +62,7 @@ angular.module('evenhire.recruiters', ['duScroll'])
   };
 
   $scope.getApplicants = function(jobId, jobObj) {
+    $scope.newFilter = {isInterested: undefined}
     $scope.selectJobPrompt = false;
     $scope.job = {
       jobId: jobId,
