@@ -62,6 +62,7 @@ angular.module('evenhire.recruiters', ['duScroll'])
   };
 
   $scope.getApplicants = function(jobId, jobObj) {
+    $scope.scrollToTop();
     $scope.newFilter = {isInterested: undefined}
     $scope.selectJobPrompt = false;
     $scope.job = {
@@ -75,7 +76,6 @@ angular.module('evenhire.recruiters', ['duScroll'])
     }, function() {
       $scope.error = 'Unable to get applicants';
     });
-    $scope.scrollToTop();
   };
   //Gets all posted jobs, invoked when state is loaded
   $scope.getJobs = function() {
@@ -147,7 +147,9 @@ angular.module('evenhire.recruiters', ['duScroll'])
   };
 
   $scope.scrollToTop = function() {
-    $document.scrollTopAnimated(150, 750);
+    var top = angular.element(document.getElementById('applicantFilters'));
+    // $document.scrollTop();
+    $document.duScrollToElement(top, 0, 700);
   };
 
   $scope.sendEmail = function(applicantId) {
