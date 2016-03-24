@@ -2,18 +2,17 @@ angular.module('evenhire.recruiters', ['duScroll'])
 
 .controller('RecHomeController', ['$scope', '$state', 'Recruiter', 'Auth','$mdDialog','ngDialog', 'Home', '$document', function($scope, $state, Recruiter, Auth, $mdDialog, ngDialog, Home, $document) {
   $scope.newJob = {};
-  // $scope.currentJobId = '';
   $scope.applicantsToView = [];
+
   //Info about logged in recruiter
   var currentUser = Auth.getCurrentUser();
   $scope.companyName = currentUser.name;
   $scope.companyEmail = currentUser.email;
 
-  // If true, button is disabled
+  // If true, navigation buttons to navigate applicants is disabled
   $scope.first = false;
   $scope.last = false;
 
-  // $scope.applicantToContact = {};
   $scope.contactMessage = 'We\'d like to schedule an interview. \n\n- ' + $scope.companyName;
 
   //Options for drop down select when posting a job
@@ -31,10 +30,8 @@ angular.module('evenhire.recruiters', ['duScroll'])
   $scope.contactApplicantModal = function(applicantIndex) {
     if (applicantIndex === 0) {
       $scope.first = true;
-      console.log('first one', $scope.first);
     } else if (applicantIndex === $scope.applicantsToView.length - 1) {
       $scope.last = true;
-      console.log('last one', $scope.last);
     }
     $scope.applicantIndex = applicantIndex;
     $scope.emailOfApplicantToContact = $scope.applicantsToView[applicantIndex].email;
@@ -91,7 +88,6 @@ angular.module('evenhire.recruiters', ['duScroll'])
   $scope.isInterested = function(isInterested, applicantId) {
     Recruiter.isInterested(isInterested, $scope.currentJob.id, applicantId)
       .then(function(response) {
-        console.log(response);
         $scope.closeDialog();
       });
   };
@@ -101,46 +97,6 @@ angular.module('evenhire.recruiters', ['duScroll'])
       template: './components/recruiters/recHome/newJobDialog.tmpl.html',
       controller: 'RecHomeController',
       className: 'ngdialog-theme-default',
-    });
-  };
-
-  $scope.postJob = function() {
-    Recruiter.postNewJob($scope.newJob)
-      .then(function(newJob) {
-        $state.reload();
-        console.log('new job is', newJob);
-      })
-  };
-
-  $scope.sendEmail = function(applicantId) {
-    var email = $scope.emailOfApplicantToContact;
-    var jobTitle = $scope.currentJob.title;
-    console.log("email, jobTitle in sendEmail in RecHomeController", email, jobTitle)
-    Recruiter.sendEmail(email, jobTitle, $scope.companyName, $scope.companyEmail, $scope.contactMessage)
-      .then(function(response) {
-        $scope.message = "Sent email";
-        $scope.contacted(applicantId);
-        console.log(response);
-        $scope.closeDialog();
-      });
-  };
-
-  $scope.previousApplicant = function(applicantIndex, jobId, job) {
-    Recruiter.grabApplicants($scope.job.jobId)
-    .then(function(applicants) {
-      if ($scope.applicantIndex > 0) {
-        if ($scope.applicantIndex === 1 ) {
-          $scope.first = true;
-        } else {
-          $scope.first = false;
-        }
-          $scope.last = false;
-        $scope.interestedApplicant = applicants[--$scope.applicantIndex];
-        console.log('====interestedApplicant=====', $scope.interestedApplicant)
-        console.log('applicantIndex', $scope.applicantIndex)
-      } else if ($scope.applicantIndex === 0) {
-        $scope.first = true;
-      }
     });
   };
 
@@ -155,14 +111,48 @@ angular.module('evenhire.recruiters', ['duScroll'])
           }
             $scope.first = false;
           $scope.interestedApplicant = applicants[++$scope.applicantIndex];
-          console.log('====interestedApplicant=====', $scope.interestedApplicant)
-          console.log('applicantIndex', $scope.applicantIndex)
         }
+    });
+  };
+
+  $scope.postJob = function() {
+    Recruiter.postNewJob($scope.newJob)
+      .then(function(newJob) {
+        $state.reload();
+      })
+  };
+
+  $scope.previousApplicant = function(applicantIndex, jobId, job) {
+    Recruiter.grabApplicants($scope.job.jobId)
+    .then(function(applicants) {
+      if ($scope.applicantIndex > 0) {
+        if ($scope.applicantIndex === 1 ) {
+          $scope.first = true;
+        } else {
+          $scope.first = false;
+        }
+          $scope.last = false;
+        $scope.interestedApplicant = applicants[--$scope.applicantIndex];
+      } else if ($scope.applicantIndex === 0) {
+        $scope.first = true;
+      }
     });
   };
 
   $scope.scrollToTop = function() {
     $document.scrollTopAnimated(200, 750);
+  };
+
+  $scope.sendEmail = function(applicantId) {
+    var email = $scope.emailOfApplicantToContact;
+    var jobTitle = $scope.currentJob.title;
+    Recruiter.sendEmail(email, jobTitle, $scope.companyName, $scope.companyEmail, $scope.contactMessage)
+      .then(function(response) {
+        console.log(response);
+        $scope.message = "Email sent";
+        $scope.contacted(applicantId);
+        $scope.closeDialog();
+      });
   };
 }]);
 
