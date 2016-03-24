@@ -10,6 +10,8 @@ angular.module('evenhire.recruiters', ['duScroll'])
   $scope.companyEmail = currentUser.email;
 
 
+  $scope.applicantToContact = {};
+  $scope.newFilter = {};
 
   // If true, button is disabled
   $scope.first = false;
@@ -91,7 +93,6 @@ angular.module('evenhire.recruiters', ['duScroll'])
     Recruiter.isInterested(isInterested, $scope.currentJob.id, applicantId)
       .then(function(response) {
         $scope.isInterested = response.isInterested;
-        console.log(response);
         $scope.closeDialog();
       });
   };
