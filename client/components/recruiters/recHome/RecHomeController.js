@@ -62,20 +62,20 @@ angular.module('evenhire.recruiters', ['duScroll'])
   };
 
   $scope.getApplicants = function(jobId, jobObj) {
+    $scope.scrollToTop();
     $scope.newFilter = {isInterested: undefined}
     $scope.selectJobPrompt = false;
     $scope.job = {
       jobId: jobId,
       jobObj: jobObj
     };
-    Recruiter.grabApplicants(jobId)
+    Recruiter.getApplicants(jobId)
     .then(function(data) {
       $scope.applicantsToView = data;
       $scope.currentJob = jobObj;
     }, function() {
       $scope.error = 'Unable to get applicants';
     });
-    $scope.scrollToTop();
   };
   //Gets all posted jobs, invoked when state is loaded
   $scope.getJobs = function() {
@@ -107,7 +107,7 @@ angular.module('evenhire.recruiters', ['duScroll'])
   };
 
   $scope.nextApplicant = function(interestedApplicant) {
-    Recruiter.grabApplicants($scope.job.jobId)
+    Recruiter.getApplicants($scope.job.jobId)
       .then(function(applicants) {
         if ($scope.applicantIndex < applicants.length - 1) {
           if ($scope.applicantIndex === applicants.length - 2) {
@@ -129,7 +129,8 @@ angular.module('evenhire.recruiters', ['duScroll'])
   };
 
   $scope.previousApplicant = function(applicantIndex, jobId, job) {
-    Recruiter.grabApplicants($scope.job.jobId)
+    console.log('hi');
+    Recruiter.getApplicants($scope.job.jobId)
     .then(function(applicants) {
       if ($scope.applicantIndex > 0) {
         if ($scope.applicantIndex === 1 ) {
@@ -146,7 +147,9 @@ angular.module('evenhire.recruiters', ['duScroll'])
   };
 
   $scope.scrollToTop = function() {
-    $document.scrollTopAnimated(200, 750);
+    var top = angular.element(document.getElementById('applicantFilters'));
+    // $document.scrollTop();
+    $document.duScrollToElement(top, 0, 600);
   };
 
   $scope.sendEmail = function(applicantId) {
@@ -155,7 +158,7 @@ angular.module('evenhire.recruiters', ['duScroll'])
     Recruiter.sendEmail(email, jobTitle, $scope.companyName, $scope.companyEmail, $scope.contactMessage)
       .then(function(response) {
         console.log(response);
-        $scope.message = "Email sent";
+        $scope.message = " - Email sent";
         $scope.contacted(applicantId);
         $scope.closeDialog();
       });

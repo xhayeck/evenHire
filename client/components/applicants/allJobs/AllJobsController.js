@@ -97,11 +97,10 @@ angular.module('evenhire.allJobs', [])
 
     $scope.showAppInfo = function() {
       $scope.loggedInUser = Auth.getCurrentUser();
-      console.log('currentUser:', $scope.loggedInUser)
       ngDialog.open({
-        template: './components/applicants/allJobs/applicantHome.tmpl.html',
+        template: './components/applicants/allJobs/applicantProfile.tmpl.html',
         controller: 'AllJobsController',
-        className: 'ngdialog-theme-plain',
+        className: 'ngdialog-theme-default',
         closeByDocument: true,
         scope: $scope
       });
