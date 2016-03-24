@@ -68,7 +68,7 @@ angular.module('evenhire.recruiters', ['duScroll'])
       jobId: jobId,
       jobObj: jobObj
     };
-    Recruiter.grabApplicants(jobId)
+    Recruiter.getApplicants(jobId)
     .then(function(data) {
       $scope.applicantsToView = data;
       $scope.currentJob = jobObj;

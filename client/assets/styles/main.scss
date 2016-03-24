@@ -1,7 +1,7 @@
 $grey: rgb(140, 140, 140);
 $legendTitle: #3F51B5;
-$red: #FFDCDC;
-$green: rgba(0, 151, 0, 0.38);
+$red: #FEE7E7;
+$green: #e7fee7;
 $dialogColor: #fff;
 
 body {
@@ -22,12 +22,18 @@ body {
 }
 
 // MAIN HEADER
+img#logo {
+  height:35px;
+  margin-right: 4px;
+}
 div#menuHome {
+  height: 75%;
   cursor: pointer;
   h2 {
     font-size: 24px;
     font-weight: 900;
     letter-spacing: 1px;
+    color: white;
   }
 }
 
@@ -41,7 +47,8 @@ div#hero {
 
 // NG DIALOG
 .ngdialog.ngdialog-theme-default .ngdialog-content {
-    width: 1200px;
+    width: 85%;
+    min-width:75%;
     div {
       md-tab-content {
         span.subtitle {
@@ -83,6 +90,9 @@ div#appModal {
 
 md-card {
   margin: 14px 8px;
+  md-card-title {
+    padding-top: 7px;
+  }
   md-card-title-text {
     span.md-subhead {
       line-height: 19px;
