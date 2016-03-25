@@ -69,6 +69,13 @@ div#menuHome {
   }
 }
 
+md-toolbar {
+  span {
+    font-weight: 900;
+    letter-spacing: 0.5px;
+  }
+}
+
 //===============================
 // HOME
 //===============================
@@ -118,10 +125,11 @@ div#appModal {
   }
   button.hidden {
     min-height: 0px;
+    margin: 0px;
+    padding: 0px;
   }
   button.navApps {
     @extend .noMargins;
-    max-height: 400px;
     min-width: 50px;
   }
 }
@@ -129,6 +137,7 @@ div#appModal {
 //JOB CARDS (IN VIEW ALL JOBS AND RECRUITER HOME)
 
 md-card {
+  box-shadow: 0 2px 3px 0 rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12);
   overflow: hidden;
   border-radius: 8px;
   margin: 14px 8px;
@@ -251,6 +260,9 @@ div.radioButton {
 div#appHome {
   background-color: $grey-background;
   min-height:1200px;
+  a.md-button {
+    margin-left: 0px;
+  }
 }
 
 span.applied {
@@ -300,9 +312,9 @@ span.applied {
 
 // AUTH SIGN IN WITH USERNAME AND PASSWORDS
 div.authForm {
+  background-color: white;
   color: black;
   border-radius: 12px;
-  background-color: white;
   opacity: 0.9;
   md-input-container {
     min-width: 100%;
@@ -330,7 +342,7 @@ form.signupForm {
 // FORGOT PASSWORD
 div#ngdialog1.ngdialog.ngdialog-theme-default, div#ngdialog2.ngdialog.ngdialog-theme-default {
   div.ngdialog-content {
-  width: 70%;
+  width: 80%;
   min-width: 50%;
   }
 }
