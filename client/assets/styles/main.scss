@@ -186,7 +186,7 @@ div#jobSubhead {
     @extend .grey;
     cursor: pointer;
     position: relative;
-    top: 8px;
+    top: 17px;
     padding-right: 3px;
   }
 }
@@ -242,6 +242,8 @@ div#appHome {
       border-style: solid;
       border-width: 1px;
       height: 100%;
+      background-color: white;
+      border-radius: 7px;
 
       legend {
         color: $legendTitle;
@@ -293,7 +295,7 @@ form.signupForm {
 // FORGOT PASSWORD
 div#ngdialog1.ngdialog.ngdialog-theme-default, div#ngdialog2.ngdialog.ngdialog-theme-default {
   div.ngdialog-content {
-  width: 50%;
+  width: 60%;
   min-width: 50%;
   }
 }
