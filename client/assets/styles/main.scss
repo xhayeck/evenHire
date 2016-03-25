@@ -291,9 +291,10 @@ form.signupForm {
 }
 
 // FORGOT PASSWORD
-div#ngdialog1.ngdialog.ngdialog-theme-default {
+div#ngdialog1.ngdialog.ngdialog-theme-default, div#ngdialog2.ngdialog.ngdialog-theme-default {
   div.ngdialog-content {
   width: 50%;
   min-width: 50%;
   }
 }
+

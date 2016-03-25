@@ -75,23 +75,20 @@ angular.module('evenhire.allJobs', [])
     };
 
     $scope.submitApplication = function(job_id) {
-      if(!Auth.getCurrentUserType()){
-        console.log("You need to login");
-        $state.go('appLogin');
-      } else if (Auth.getCurrentUserType() === 'recruiter') {
+      if (Auth.getCurrentUserType() !== 'applicant') {
         $scope.onlyApplicantCanApply();
         $state.go('appLogin');
       } else {
          Applicant.apply({job_id: job_id})
-            .then(function(factoryResponse) {
-              console.log("factoryResponse in alljobsController", factoryResponse);
-              if(factoryResponse.toString() === 'false') {
-                $scope.duplicateApplication();
-              } else {
-                $scope.thankYouName = factoryResponse.first_name;
-                $scope.applied[job_id] = true;
-              }
-            });
+          .then(function(factoryResponse) {
+            console.log("factoryResponse in alljobsController", factoryResponse);
+            if(factoryResponse.toString() === 'false') {
+              $scope.duplicateApplication();
+            } else {
+              $scope.thankYouName = factoryResponse.first_name;
+              $scope.applied[job_id] = true;
+            }
+          });
       }
     };
 
