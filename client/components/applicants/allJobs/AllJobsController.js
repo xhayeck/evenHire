@@ -96,14 +96,18 @@ angular.module('evenhire.allJobs', [])
     };
 
     $scope.showAppInfo = function() {
-      $scope.loggedInUser = Auth.getCurrentUser();
-      ngDialog.open({
-        template: './components/applicants/allJobs/applicantProfile.tmpl.html',
-        controller: 'AllJobsController',
-        className: 'ngdialog-theme-default',
-        closeByDocument: true,
-        scope: $scope
-      });
+      if(Auth.getCurrentUserType() !== 'applicant') {
+        $state.go('appLogin');
+      } else {
+        $scope.loggedInUser = Auth.getCurrentUser();
+        ngDialog.open({
+          template: './components/applicants/allJobs/applicantProfile.tmpl.html',
+          controller: 'AllJobsController',
+          className: 'ngdialog-theme-default',
+          closeByDocument: true,
+          scope: $scope
+        });
+      }
     };
 
     $scope.toggle = function(item, list) {

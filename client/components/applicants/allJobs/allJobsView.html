@@ -94,7 +94,7 @@
             </div>
           </md-card-content>
           <md-card-actions layout="row" layout-align="end center">
-            <md-button flex="90" ng-click="showJobDetails=!showJobDetails">View more</md-button>
+            <md-button flex="90" ng-click="showJobDetails=!showJobDetails"><span ng-show="!showJobDetails">View more</span><span ng-show="showJobDetails">Show less</span></md-button>
             <md-button flex="10" class="md-primary md-raised" ng-click="submitApplication(job.id)">Apply</md-button>
             <span ng-show="applied[job.id]" style="color: blue">Thanks for applying {{thankYouName}}!</span>
           </md-card-actions>

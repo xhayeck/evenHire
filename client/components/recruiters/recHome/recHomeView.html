@@ -44,7 +44,7 @@
           </div>
         </md-card-content>
         <md-card-actions layout="row" layout-align="end center">
-          <md-button ng-click="showJobDetails=!showJobDetails">View more</md-button>
+          <md-button ng-click="showJobDetails=!showJobDetails"><span ng-show="!showJobDetails">View more</span><span ng-show="showJobDetails">Show less</span></md-button>
           <md-button ng-click="getApplicants(job.id, job)">Show applicants</md-button>
         </md-card-actions>
       </md-card>
