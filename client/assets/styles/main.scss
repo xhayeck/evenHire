@@ -45,6 +45,11 @@ span.warn {
   margin-right: 8px;
 }
 
+button.bold {
+  span {
+    font-weight: 800;
+  }
+}
 //==============================-
 //MAIN HEADER
 //===============================
@@ -295,7 +300,12 @@ span.applied {
 
 // AUTH SIGN IN WITH USERNAME AND PASSWORDS
 div.authForm {
+  color: black;
+  border-radius: 12px;
+  background-color: white;
+  opacity: 0.9;
   md-input-container {
+    min-width: 100%;
     margin: 0px;
   }
   span.subtext {
@@ -307,7 +317,7 @@ div.loginbckgd {
   color: #fff;
   background: linear-gradient(rgba(20,20,20, .55), rgba(20,20,20, .55)), url('/dist/imgs/networking-bckgrnd.jpg');
   background-size: cover;
-  height: 500px;
+  min-height: 800px;
 }
 
 // AUTH CREATE AN ACCOUNT AS APPLICANT
