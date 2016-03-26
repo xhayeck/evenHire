@@ -5,6 +5,8 @@ angular.module('evenhire.allJobs', [])
     Auth.fetchUserFromJwt(function(user) {
       $scope.companyName = user;
     });
+    $scope.currentUserType = Auth.getCurrentUserType();
+
     $scope.fetchedJobs = [];
     // Options for filling out forms
     $scope.cities = Home.cities;
@@ -12,7 +14,8 @@ angular.module('evenhire.allJobs', [])
     $scope.careerLevels = Home.careerLevels;
     $scope.jobTypes = Home.jobTypes;
     $scope.industries = Home.industries;
-    // Automatically hide the sidebar filter options
+
+    // Automatically hide the sidebar filter options (if false, filters are hidden)
     $scope.citiesDropdownShown = true;
     $scope.jobTypeDropdownShown = true;
     $scope.careerLevelDropdownShown = true;
@@ -58,7 +61,7 @@ angular.module('evenhire.allJobs', [])
         scope: $scope
       });
     };
-    $scope.currentUserType = Auth.getCurrentUserType();
+
     $scope.saveUpdate = function(loggedInUser, userType) {
       Auth.userUpdate(loggedInUser, userType)
       .then(function(data) {
