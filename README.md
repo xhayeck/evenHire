@@ -1,4 +1,4 @@
-![EvenHire](/client/assets/imgs/logo-icon-color-small.png)# EvenHire ![](https://travis-ci.org/tdax/evenHire.svg?branch=master)
+# EvenHire ![](https://travis-ci.org/tdax/evenHire.svg?branch=master)
 
 EvenHire is a responsive web application that removes the unconscious bias from the hiring process by hiding data that might reveal gender or ethnicity, allowing recruiters to diversify their workforce. EvenHire was concieved and by a team of four full-stack software engineers: [Alice Kao](https://github.com/alicekao), [Darko Gjorgoski](https://github.com/darko7), [Thomas Sorensen](https://github.com/tps-80), and [Xavier Hayeck](https://github.com/xhayeck)
 
@@ -8,7 +8,7 @@ EvenHire is a responsive web application that removes the unconscious bias from 
 ![Tech Stack](/client/assets/imgs/evenhire_techstack.jpeg)
 
 ## Architecture
-![Architecture](/client/assets/imgs/EvenHire-architecture)
+![Architecture](/client/assets/imgs/EvenHire-architecture.jpeg)
 
 ## Features
 - General Features
