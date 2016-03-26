@@ -20,9 +20,9 @@ describe('The Auth Controller', function(){
         });
     });
 
-    describe('should have a getUser function', function () {
+    describe('should have an update password function', function () {
         it('should be defined', function () {
-            expect(scope.getUser).to.not.be.undefined;
+            expect(scope.updatePassword).to.not.be.undefined;
         });
     });
 

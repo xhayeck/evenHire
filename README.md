@@ -35,9 +35,9 @@ EvenHire is a responsive web application that removes the unconscious bias from 
 
 ## Setup
 During development we have the server running on localhost port 8000, but before running locally, be sure to run:
-- 'npm install' to install our dependencies
-- 'npm install gulp -g' to make sure gulp is installed
-- 'gulp start' to build the dist/ folder, start the server with nodemon, and to watch files for changes
+- `npm install` to install our dependencies
+- `npm install gulp -g` to make sure gulp is installed
+- `gulp start` to build the dist/ folder, start the server with nodemon, and to watch files for changes
 
 We used the [dotenv](https://github.com/bkeepers/dotenv) npm package to configure our development variables. Create a .env file in the root directory with the following variables and their values:
 - DATABASE_URL
