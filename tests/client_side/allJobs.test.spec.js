@@ -3,7 +3,9 @@ describe('AllJobsController', function(){
   var httpBackend;
   var $state;
   var Applicant;
-  var $controller
+  var $controller;
+  var Auth;
+  var Home;
 
   //load module
   beforeEach(module('evenhire'));
@@ -13,6 +15,8 @@ describe('AllJobsController', function(){
     httpBackend = $injector.get('$httpBackend');
     $state = $injector.get('$state');
     Applicant = $injector.get('Applicant');
+    Home = $injector.get('Home');
+    Auth = $injector.get('Auth');
     $controller = $injector.get('$controller');
     $scope = $rootScope.$new();
 
@@ -20,7 +24,9 @@ describe('AllJobsController', function(){
       return $controller('AllJobsController', {
         $scope: $scope,
         $state: $state,
-        Applicant: Applicant
+        Applicant: Applicant,
+        Home: Home,
+        Auth: Auth
       });
     };
 
