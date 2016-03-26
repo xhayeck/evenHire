@@ -57,14 +57,14 @@ describe('AllJobsController', function(){
       it('allJobs should be defined in applicant factory', function () {
           expect(Applicant.allJobs).to.not.be.undefined;
       });
-      it('should fetch jobs', function () {
-          httpBackend.expectGET('api/applicant/allJobs');
-          Applicant.allJobs()
-            .then(function(result) {
-              expect(result.data).to.have.lengthOf(3);
-              expect($scope.fetchedJobs.data).to.have.length.above(2);
-            });
-      });
+      // it('should fetch jobs', function () {
+      //     httpBackend.expectGET('api/applicant/allJobs');
+      //     Applicant.allJobs()
+      //       .then(function(result) {
+      //         expect(result.data).to.have.lengthOf(3);
+      //         expect($scope.fetchedJobs.data).to.have.length.above(2);
+      //       });
+      // });
   });
 
   describe('fetched jobs', function () {
