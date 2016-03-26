@@ -2,6 +2,9 @@
 angular.module('evenhire.allJobs', [])
 
   .controller('AllJobsController', ['$scope', '$state', 'Applicant', 'ngDialog', 'Auth', 'Home', function($scope, $state, Applicant, ngDialog, Auth, Home) {
+    Auth.fetchUserFromJwt(function(user) {
+      $scope.companyName = user;
+    });
     $scope.fetchedJobs = [];
     // Options for filling out forms
     $scope.cities = Home.cities;
@@ -55,7 +58,6 @@ angular.module('evenhire.allJobs', [])
         scope: $scope
       });
     };
-
     $scope.currentUserType = Auth.getCurrentUserType();
     $scope.saveUpdate = function(loggedInUser, userType) {
       Auth.userUpdate(loggedInUser, userType)
