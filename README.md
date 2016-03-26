@@ -7,6 +7,9 @@ EvenHire is a responsive web application that removes the unconscious bias from 
 ## Tech Stack
 ![Tech Stack](/client/assets/imgs/evenhire_techstack.jpeg)
 
+## Architecture
+![Architecture](/client/assets/imgs/EvenHire-architecture)
+
 ## Features
 - General Features
   - User authentication for two user types: recruiters and applicants
