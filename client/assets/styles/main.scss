@@ -50,6 +50,11 @@ button.bold {
     font-weight: 800;
   }
 }
+
+.indigo {
+  color: $indigo;
+}
+
 //==============================-
 //MAIN HEADER
 //===============================
@@ -75,6 +80,14 @@ md-toolbar {
     letter-spacing: 0.5px;
   }
 }
+//===============================
+// Typography
+//===============================
+
+.material-icons.md-18 { font-size: 18px; };
+.material-icons.md-24 { font-size: 24px; };
+.material-icons.md-36 { font-size: 36px; };
+.material-icons.md-48 { font-size: 48px; };
 
 //===============================
 // HOME
@@ -82,11 +95,33 @@ md-toolbar {
 
 div#hero {
   color: #fff;
-  background: linear-gradient(rgba(20,20,20, .75), rgba(20,20,20, .75)), url('/dist/imgs/evenhire_bckgrnd.jpg');
+  background: linear-gradient(rgba(20,20,20, .80), rgba(20,20,20, .80)), url('/dist/imgs/evenhire_bckgrnd.jpg');
   background-size: cover;
-  height: 450px;
+  height: 600px;
+  i {
+    cursor: pointer;
+  }
+  h3 {
+    @extend i;
+  }
+  a.md-button {
+    span {
+      font-weight: 900;
+      padding: 3px 14px;
+    }
+  }
 }
 
+div#about {
+  margin-bottom: 75px;
+  div {
+    text-align: center;
+  }
+  span {
+    font-size: 18px;
+    font: rgba(0, 0, 0, 0.64);
+  }
+}
 
 //===============================
 // NG DIALOG
