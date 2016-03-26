@@ -1,12 +1,13 @@
-![EvenHire](/client/assets/imgs/EvenHire-logo-full-color-resized.png)
+![EvenHire](/client/assets/imgs/EvenHire-logo-full-color-small.png)
 # [EvenHire](http://evenhire.herokuapp.com/)
-[Travis](https://travis-ci.org/tdax/evenHire.svg?branch=master)
+![Travis](https://travis-ci.org/tdax/evenHire.svg?branch=master)
+
 EvenHire is a responsive web application that removes the unconscious bias from the hiring process by hiding data that might reveal gender or ethnicity, allowing recruiters to diversify their workforce. EvenHire was concieved and by a team of four full-stack software engineers: [Alice Kao](https://github.com/alicekao), [Darko Gjorgoski](https://github.com/darko7), [Thomas Sorensen](https://github.com/tps-80), and [Xavier Hayeck](https://github.com/xhayeck)
 
 ######[Visit the app](http://evenhire.herokuapp.com/#/)
 
 ## Tech Stack
-[Tech Stack](/client/assets/imgs/evenhire_techstack.jpeg)
+![Tech Stack](/client/assets/imgs/evenhire_techstack.jpeg)
 
 ## Features
 - General Features
@@ -69,10 +70,10 @@ All of our files and images used for styling are located in the `client/assets/`
 ## Team
 We are a team of 4 full-stack software engineers. If you have any questions, please feel free to contact us!
 
-Thomas Sorensen | [Github](https://github.com/tps-80)
+[Thomas Sorensen](https://www.linkedin.com/in/sorensenthomas) | [Github](https://github.com/tps-80)
 
-Xavier Hayeck | [Github](https://github.com/xhayeck)
+[Xavier Hayeck](https://www.linkedin.com/in/xhayeck) | [Github](https://github.com/xhayeck)
 
-Darko Gjorgoski | [Github](https://github.com/darko7)
+[Darko Gjorgoski](https://www.linkedin.com/in/darkogjorgoski) | [Github](https://github.com/darko7)
 
-Alice Kao | [Github](https://github.com/alicekao)
+[Alice Kao](https://www.linkedin.com/in/alicekaoak) | [Github](https://github.com/alicekao)
