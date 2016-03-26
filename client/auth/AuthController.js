@@ -9,7 +9,6 @@ angular.module('evenhire.auth', [])
     $scope.logOut = function() {
       Auth.signOut();
       $state.go('home');
-      console.log('signed out');
     };
 
     $scope.getUser = function() {

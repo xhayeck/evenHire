@@ -26,7 +26,6 @@ angular.module('evenhire.auth.factory', [])
               cb(data.data.user);
             }
           }, function(err) {
-            console.log('error in fetching jwt in auth-factory.js', err);
             return err;
           });
         }
@@ -78,7 +77,7 @@ angular.module('evenhire.auth.factory', [])
           }
           return data.data;
         }, function(response) {
-          console.log(response)
+          return response;
         });
       };
 
@@ -100,7 +99,7 @@ angular.module('evenhire.auth.factory', [])
           }
           return data.data;
         }, function(response) {
-          console.log(response)
+          return response;
         });
       };
 
@@ -114,10 +113,9 @@ angular.module('evenhire.auth.factory', [])
           }
         })
         .then(function(data) {
-          console.log('response from server is, ', data);
           return data.data;
         }, function(response) {
-          console.log('response from data on error is, ', response)
+          return response;
         });
       };
 
