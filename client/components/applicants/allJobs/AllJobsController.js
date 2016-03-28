@@ -29,6 +29,7 @@ angular.module('evenhire.allJobs', [])
 
     $scope.applied = {};
     $scope.alreadyApply = {};
+    $scope.resumeCheck = false;
 
     $scope.clearAll = function() {
       $scope.cityFilter = [];
@@ -63,10 +64,29 @@ angular.module('evenhire.allJobs', [])
     };
 
     $scope.saveUpdate = function(loggedInUser, userType) {
-      Auth.userUpdate(loggedInUser, userType)
-      .then(function(data) {
-        $scope.closeDialog();
-      });
+      if ($scope.loggedInUser.resume.match($scope.loggedInUser.first_name) || $scope.loggedInUser.resume.match($scope.loggedInUser.last_name)) {
+        $scope.resumeCheck = true;
+      } else {
+        Auth.userUpdate(loggedInUser, userType)
+        .then(function(data) {
+          $scope.closeDialog();
+        });
+      }
+    };
+
+    $scope.showAppInfo = function() {
+      if(Auth.getCurrentUserType() !== 'applicant') {
+        $state.go('appLogin');
+      } else {
+        $scope.loggedInUser = Auth.getCurrentUser();
+        ngDialog.open({
+          template: './components/applicants/allJobs/applicantProfile.tmpl.html',
+          controller: 'AllJobsController',
+          className: 'ngdialog-theme-default',
+          closeByDocument: true,
+          scope: $scope
+        });
+      }
     };
 
     $scope.submitApplication = function(job_id, index) {
@@ -84,21 +104,6 @@ angular.module('evenhire.allJobs', [])
               $scope.applied[job_id] = true;
             }
           });
-      }
-    };
-
-    $scope.showAppInfo = function() {
-      if(Auth.getCurrentUserType() !== 'applicant') {
-        $state.go('appLogin');
-      } else {
-        $scope.loggedInUser = Auth.getCurrentUser();
-        ngDialog.open({
-          template: './components/applicants/allJobs/applicantProfile.tmpl.html',
-          controller: 'AllJobsController',
-          className: 'ngdialog-theme-default',
-          closeByDocument: true,
-          scope: $scope
-        });
       }
     };
 
