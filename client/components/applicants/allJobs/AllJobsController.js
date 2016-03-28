@@ -64,7 +64,7 @@ angular.module('evenhire.allJobs', [])
     };
 
     $scope.saveUpdate = function(loggedInUser, userType) {
-      if($scope.loggedInUser.resume.toLowerCase().match($scope.loggedInUser.first_name.toLowerCase()) || $scope.loggedInUser.resume.toLowerCase().match($scope.loggedInUser.last_name.toLowerCase())) {
+      if ($scope.loggedInUser.resume.toLowerCase().match($scope.loggedInUser.first_name.toLowerCase()) || $scope.loggedInUser.resume.toLowerCase().match($scope.loggedInUser.last_name.toLowerCase())) {
         $scope.checkForName = true;
       } else {
         Auth.userUpdate(loggedInUser, userType)
